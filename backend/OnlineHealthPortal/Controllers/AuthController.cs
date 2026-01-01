@@ -22,16 +22,24 @@ namespace OnlineHealthPortal.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(User user)
+        public IActionResult Register(RegisterDTO dto)
         {
-            var existingUser = _context.Users.FirstOrDefault(u => u.FullName == user.FullName);
+            var existingUser = _context.Users.FirstOrDefault(u => u.FullName == dto.FullName);
             if (existingUser != null)
             {
                 return BadRequest("User Already Exist");
             }
 
-            var hashedPassword = PasswordHasher.HashCode(user.PasswordHash);
-            user.PasswordHash = hashedPassword;
+            var hashedPassword = PasswordHasher.HashCode(dto.PasswordHash);
+            dto.PasswordHash = hashedPassword;
+            var user = new User
+            {
+                FullName = dto.FullName,
+                Email = dto.Email,
+                PasswordHash = hashedPassword,
+                Role = dto.Role
+            };
+
 
             _context.Users.Add(user);
             _context.SaveChanges();

@@ -1,7 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\OnlineHealthPortal\\OnlineHealthPortal\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\OnlineHealthPortal\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|d:\\onlinehealthportal\\backend\\onlinehealthportal\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|solutionrelative:onlinehealthportal\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAAB4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T09:18:15.629Z",
+              "EditorCaption": ""
             }
           ]
         }

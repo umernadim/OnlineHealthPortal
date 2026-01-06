@@ -4,8 +4,7 @@ import doctorImg1 from "../assets/images/img1.png";
 import doctorImg4 from "../assets/images/img4.png";
 import doctorImg3 from "../assets/images/img3.png";
 import Testimonial from '../components/Testimonial';
-import CallToAction from './CallToAction';
-import Footer from '../components/Footer';
+import CallToAction from '../components/CallToAction';
 
 
 const Home = () => {
@@ -238,8 +237,6 @@ const Home = () => {
         <Testimonial></Testimonial>
         {/* Code for CTA Section  */}
         <CallToAction></CallToAction>
-        {/* Code for FOoter Section  */}
-        <Footer></Footer>
          </>
   )
 }

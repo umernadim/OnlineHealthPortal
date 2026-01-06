@@ -20,12 +20,11 @@ const MyNavbar = () => {
 
           <nav className={`nav-links ${isOpen ? 'open' : ''}`}>
             <div className="links">
-
               <a href="/">Home</a>
               <a href="/about">About</a>
               <a href="/doctors">Doctor</a>
               <a href="/#services-section">Services</a>
-              <a href="contact.html">Contact</a>
+              <a href="/contact">Contact</a>
             </div>
 
             <div className="nav-actions">

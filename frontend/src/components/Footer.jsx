@@ -3,7 +3,6 @@ import React from 'react'
 const Footer = () => {
     return (
         <>
-
             <footer className="footer">
                 <div className="footer-container">
                     <div className="footer-brand">
@@ -35,9 +34,9 @@ const Footer = () => {
                         <h4>Quick Links</h4>
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><a href="/about">About Us</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/doctors">Doctors</a></li>
+                            <li><a href="/contact">Contact us</a></li>
                         </ul>
                     </div>
 

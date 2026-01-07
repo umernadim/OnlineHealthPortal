@@ -21,14 +21,14 @@ const MyNavbar = () => {
           <nav className={`nav-links ${isOpen ? 'open' : ''}`}>
             <div className="links">
               <a href="/">Home</a>
-              <a href="/about">About</a>
-              <a href="/doctors">Doctor</a>
-              <a href="/#services-section">Services</a>
-              <a href="/contact">Contact</a>
+              <a href="about">About</a>
+              <a href="doctors">Doctor</a>
+              <a href="contact">Contact</a>
+              <a href="signup">signup</a>
             </div>
 
             <div className="nav-actions">
-              <a href="#" className="nav-btn outline">Login</a>
+              <a href="login" className="nav-btn outline">Login</a>
               <a href="#" className="nav-btn filled">Appointment</a>
             </div>
           </nav>

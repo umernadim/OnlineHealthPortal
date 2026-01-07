@@ -48,7 +48,7 @@ const Contact = () => {
             </section>
 
             {/* code for Contact Form  */}
-            {/* <section className="ct-form-section">
+            <section className="ct-form-section">
                 <div className="form-wrapper">
                     <span className="section-tag">CONTACT US</span>
                     <h2>Make an Appointment</h2>
@@ -75,7 +75,7 @@ const Contact = () => {
                         <button type="submit" className="submit-btn">SEND MESSAGE</button>
                     </form>
                 </div>
-            </section> */}
+            </section> 
         </>
     )
 }

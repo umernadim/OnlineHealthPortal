@@ -1,144 +1,43 @@
-# 🌐 Online Health Portal – Frontend Design Guide
+**Aapke Online Health Consultation Portal project ke liye total 18-20 essential pages create karne padenge, jo patient, doctor, aur admin roles ko cover karein.** Yeh pages features jaise appointment booking, video consultation, records, etc. ko support karenge. Har role ke liye separate dashboards aur shared pages banaye jayenge.
 
-## 🔹 Required Pages & Components
+## Common Pages
+Yeh pages sab users ke liye honge:
+- **Home/Landing Page**: Doctor search, quick book, features highlight.
+- **Login Page**: Email/password ya role-based login.
+- **Register/Signup Page**: Patient/doctor/admin ke liye alag forms.
+- **Forgot Password Page**: Password recovery.
+- **About Us Page**: Project info, mission (documentation ke liye).
+- **Contact/Support Page**: Queries ke liye form.
 
-### 1. **Landing / Home Page**
-- **Components:**
-  - Header (Logo + Navigation bar: Home, Doctors, Login, Signup)
-  - Hero section (Banner: “Consult Doctors Online” + CTA button)
-  - Quick links (Book Appointment, Upload Records, View Doctors)
-  - Testimonials / Reviews section
-  - Footer (Contact info, social links, privacy policy)
+## Patient Pages
+Patient ke features cover karne ke liye:
+- **Dashboard**: Appointments, records overview, notifications.
+- **Doctor List/Search**: Filter by specialty, ratings, availability.[3]
+- **Book Appointment**: Date/time select, video/chat option.
+- **My Appointments**: View, cancel, reschedule list.
+- **Health Records**: Upload/view history, prescriptions, reports.
+- **Video/Chat Consultation**: Real-time call interface (WebRTC use karein).
+- **Prescriptions**: View past ones, reminders.
+- **Chat/Messages**: Doctor se messaging.
+- **Profile**: Edit personal/insurance details.
+- **Invoice/Bill**: Payment simulate (no real gateway).[2]
 
----
+## Doctor Pages
+Doctor ke functionalities ke liye:
+- **Dashboard**: Upcoming appointments, patients list.
+- **Patient List**: Assigned patients ka data.
+- **Appointment Management**: Accept/reject, schedule.
+- **Consultation Interface**: Video/chat with screen share.
+- **Prescription Writer**: Online e-prescription generate.
+- **Patient Records View**: Secure access to history.
+- **Chat**: Patient messages handle.
+- **Profile Edit**: Experience, availability update.
+- **Follow-ups**: Schedule reminders.
 
-### 2. **Login / Signup Page**
-- **Components:**
-  - Role selection (Patient / Doctor / Admin)
-  - Login form (Email, Password)
-  - Signup form (Name, Email, Password, Role, Specialty for doctors)
-  - Forgot password option
-
----
-
-### 3. **Patient Dashboard**
-- **Components:**
-  - Sidebar (Appointments, Records, Prescriptions, Notifications)
-  - Upcoming appointments list
-  - Quick action buttons (Book Doctor, Upload Report, View Prescription)
-  - Notifications panel (Reminders, test results)
-
----
-
-### 4. **Doctor Dashboard**
-- **Components:**
-  - Sidebar (Patient list, Appointments, Prescriptions, Notifications)
-  - Patient profile view (Medical history, uploaded reports)
-  - Appointment schedule (Calendar view)
-  - Prescription writing form
-  - Follow-up scheduling option
-
----
-
-### 5. **Admin Dashboard**
-- **Components:**
-  - Manage doctors (Add, Edit, Approve profiles)
-  - Manage patients (View records, reset accounts)
-  - Appointment tracking (List + status)
-  - Reports & analytics (basic charts: active users, appointments per week)
-
----
-
-### 6. **Doctor Listing / Search Page**
-- **Components:**
-  - Search bar (by name, specialty, language)
-  - Filters (Specialty, Availability, Ratings)
-  - Doctor cards (Photo, Name, Specialty, Experience, Ratings, “Book Now” button)
-
----
-
-### 7. **Appointment Booking Page**
-- **Components:**
-  - Doctor profile summary
-  - Calendar & time slot selector
-  - Consultation mode (Video / Audio / Chat)
-  - Confirm appointment button
-  - Appointment summary card
-
----
-
-### 8. **Video Consultation Page**
-- **Components:**
-  - Video call window
-  - Chat sidebar (for notes/questions)
-  - Screen sharing option
-  - End call button
-  - Prescription upload option (doctor side)
-
----
-
-### 9. **Patient Health Records Page**
-- **Components:**
-  - Upload button (PDF, Images, Reports)
-  - Records list (Prescriptions, Lab reports, X-rays)
-  - Secure access (only patient + assigned doctor)
-  - Download option
-
----
-
-### 10. **Prescription Page**
-- **Components:**
-  - Doctor prescription view (Medicine name, dosage, instructions)
-  - Patient view (Download / Print option)
-  - Medicine reminder toggle
-  - Follow-up appointment button
-
----
-
-### 11. **Chat Page**
-- **Components:**
-  - Chat window (Patient ↔ Doctor)
-  - Message input box
-  - File attachment option (reports/images)
-  - Status indicator (online/offline doctor)
-
----
-
-### 12. **Notifications Page**
-- **Components:**
-  - Appointment reminders
-  - Medicine reminders
-  - Test result updates
-  - Push notification toggle (on/off)
-
----
-
-### 13. **Invoice / Payment Page (Optional)**
-- **Components:**
-  - Invoice summary (Doctor fee, consultation type, date)
-  - Insurance details form
-  - Download invoice button
-  - No real payment gateway (just mock bill)
-
----
-
-## 🔹 UI/UX Flow (Simplified)
-1. **Home → Login/Signup → Dashboard (role-based)**
-2. **Patient → Doctor listing → Appointment booking → Video consultation → Prescription → Records**
-3. **Doctor → Dashboard → Patient records → Prescription → Follow-up**
-4. **Admin → Dashboard → Manage doctors/patients → Analytics**
-
----
-
-## 🔹 Design Tips
-- Use **clean, minimal UI** (healthcare = trust + clarity).
-- Colors: **Blue + White + Green** (professional + healthcare vibe).
-- Icons: Use medical icons (stethoscope, pill, calendar).
-- Responsive design (mobile-first approach).
-- Keep **forms short & simple** (avoid overwhelming users).
-
-
-
-
-design reference link...
-https://preview.themeforest.net/item/toulang-chiropractic-physiotherapy-elementor-template-kit/full_screen_preview/51515460
+## Admin Pages
+Admin dashboard ke liye:
+- **Dashboard**: Overview stats (appointments, users).
+- **Manage Doctors**: Approve/add doctors, profiles.
+- **Manage Patients**: Records approve, users.
+- **Appointments Track**: All bookings monitor.
+- **Notifications**: System-wide send.

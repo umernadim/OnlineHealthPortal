@@ -24,7 +24,6 @@ const MyNavbar = () => {
               <a href="about">About</a>
               <a href="doctors">Doctor</a>
               <a href="contact">Contact</a>
-              <a href="signup">signup</a>
             </div>
 
             <div className="nav-actions">

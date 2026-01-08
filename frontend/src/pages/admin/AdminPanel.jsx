@@ -35,19 +35,19 @@ const AdminPanel = () => {
                     <div className="stats-grid">
                         <div className="stat-card">
                             <h4>Total Users</h4>
-                            <h2>1,245</h2>
+                            <h2>24</h2>
+                        </div>
+                        <div className="stat-card">
+                            <h4>Total Doctors</h4>
+                            <h2>18</h2>
+                        </div>
+                        <div className="stat-card">
+                            <h4>Total Patients</h4>
+                            <h2>29</h2>
                         </div>
                         <div className="stat-card">
                             <h4>Active Appointments</h4>
                             <h2>86</h2>
-                        </div>
-                        <div className="stat-card">
-                            <h4>Doctors</h4>
-                            <h2>18</h2>
-                        </div>
-                        <div className="stat-card">
-                            <h4>Revenue</h4>
-                            <h2>$12,450</h2>
                         </div>
                     </div>
 

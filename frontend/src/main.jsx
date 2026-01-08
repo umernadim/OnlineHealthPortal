@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import 'remixicon/fonts/remixicon.css'
 import './assets/styles/style.css'
 import './assets/styles/admin.css'
+import './assets/styles/doctors.css'
 import App from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
@@ -15,13 +16,21 @@ import Signup from './pages/Signup.jsx'
 import AdminPanel from './pages/admin/AdminPanel.jsx'
 import ManageDoctors from './pages/admin/ManageDoctors.jsx'
 import ManagePatients from './pages/admin/ManagePatients.jsx'
+import Appointments from './pages/admin/Appointments.jsx'
+import Notifications from './pages/admin/Notifications.jsx'
+import SystemSettings from './pages/admin/SystemSettings.jsx'
+import DoctorDashboard from './pages/doctors/DoctorDashboard.jsx'
+import PatientList from './pages/doctors/PatientList.jsx'
+import AppointmentManagement from './pages/doctors/AppointmentManagemenmt.jsx'
+import Consultation from './pages/doctors/Consultation.jsx'
+import Messages from './pages/doctors/Messages.jsx'
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
-    children:[
+    children: [
       {
         index: true,
         Component: Home
@@ -38,28 +47,62 @@ const router = createBrowserRouter([
         path: "/contact",
         Component: Contact
       },
-      {
-        path: "/login",
-        Component: Login
-      },
-      {
-        path: "/signup",
-        Component: Signup
-      },
-      {
-        path: "/adminPanel",
-        Component: AdminPanel
-      },
-      {
-        path: "/manageDoctors",
-        Component: ManageDoctors
-      },
-      {
-        path: "/managePatients",
-        Component: ManagePatients
-      },
+
     ]
   },
+  {
+    path: "/adminPanel",
+    Component: AdminPanel
+  },
+  {
+    path: "/manageDoctors",
+    Component: ManageDoctors
+  },
+  {
+    path: "/managePatients",
+    Component: ManagePatients
+  },
+  {
+    path: "/appointments",
+    Component: Appointments
+  },
+  {
+    path: "/notifications",
+    Component: Notifications
+  },
+  {
+    path: "/systemSettings",
+    Component: SystemSettings
+  },
+  {
+    path: "/login",
+    Component: Login
+  },
+  {
+    path: "/signup",
+    Component: Signup
+  },
+  {
+    path: "/doctorDashboard",
+    Component: DoctorDashboard
+  },
+  {
+    path: "/patientList",
+    Component: PatientList
+  },
+  {
+    path: "/DoctorsAppointments",
+    Component: AppointmentManagement
+  },
+  {
+    path: "/consultation",
+    Component: Consultation
+  },
+  {
+    path: "/messages",
+    Component: Messages
+  },
+
 ]);
 
 createRoot(document.getElementById('root')).render(

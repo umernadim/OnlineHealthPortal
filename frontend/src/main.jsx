@@ -24,6 +24,10 @@ import PatientList from './pages/doctors/PatientList.jsx'
 import AppointmentManagement from './pages/doctors/AppointmentManagemenmt.jsx'
 import Consultation from './pages/doctors/Consultation.jsx'
 import Messages from './pages/doctors/Messages.jsx'
+import PatientRecords from './pages/doctors/PatientRecords.jsx'
+import ProfileAvailability from './pages/doctors/ProfileAvailibility.jsx'
+import FollowUps from './pages/doctors/FollowUps.jsx'
+import PrescriptionWriter from './pages/doctors/PrescriptionWriter.jsx'
 
 
 const router = createBrowserRouter([
@@ -101,6 +105,22 @@ const router = createBrowserRouter([
   {
     path: "/messages",
     Component: Messages
+  },
+  {
+    path: "/patientRecords",
+    Component: PatientRecords
+  },
+  {
+    path: "/profileAvailibility",
+    Component: ProfileAvailability
+  },
+  {
+    path: "/followUps",
+    Component: FollowUps
+  },
+  {
+    path: "/prescriptionWriter",
+    Component: PrescriptionWriter
   },
 
 ]);

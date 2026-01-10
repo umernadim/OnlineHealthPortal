@@ -3,8 +3,8 @@ import React from 'react'
 const VerifyCode = () => {
     return (
         <>
-            <section id="L-S-section" className="login signup">
-                <div className="overlay"></div>
+            <section id="L-S-section">
+                <div className="overlay v-overlay"></div>
 
                 <div className="content">
 
@@ -21,7 +21,7 @@ const VerifyCode = () => {
                     <div className="card">
                         <h2>Verification Code</h2>
                         <div className="line"></div>
-                        <form className="signup-form">
+                        <form>
 
                             <div className="field full">
                                 <label>Verification Code *</label>
@@ -29,7 +29,7 @@ const VerifyCode = () => {
                                     type="text"
                                     placeholder="Enter code"
                                     required
-                                    maxlength="4"
+                                    maxLength="4"
                                     pattern="\d{4}"
                                     inputMode='numeric'
                                 />

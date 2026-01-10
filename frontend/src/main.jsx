@@ -4,6 +4,7 @@ import 'remixicon/fonts/remixicon.css'
 import './assets/styles/style.css'
 import './assets/styles/admin.css'
 import './assets/styles/doctors.css'
+import './assets/styles/patient.css'
 import App from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
@@ -30,6 +31,11 @@ import FollowUps from './pages/doctors/FollowUps.jsx'
 import PrescriptionWriter from './pages/doctors/PrescriptionWriter.jsx'
 import ForgotPassword from './pages/forgotPassword.jsx'
 import VerifyCode from './pages/VerifyCode.jsx'
+import NewPassword from './pages/NewPassword.jsx'
+import PatientDashboard from './pages/patients/patientDashboard.jsx'
+import BookAppointment from './pages/patients/BookAppointment.jsx'
+import HealthRecords from './pages/patients/HealthRecords.jsx'
+import PatientProfile from './pages/patients/PatientProfile.jsx'
 
 
 const router = createBrowserRouter([
@@ -97,6 +103,11 @@ const router = createBrowserRouter([
     Component: VerifyCode
   },
   {
+    path: "/newPassword",
+    Component: NewPassword
+  },
+  //routes for doctor dashboard
+  {
     path: "/doctorDashboard",
     Component: DoctorDashboard
   },
@@ -131,6 +142,23 @@ const router = createBrowserRouter([
   {
     path: "/prescriptionWriter",
     Component: PrescriptionWriter
+  },
+  //routes for patients pages
+  {
+    path: "/patientDashboard",
+    Component: PatientDashboard
+  },
+  {
+    path: "/bookAppointment",
+    Component: BookAppointment
+  },
+  {
+    path: "/healthRecords",
+    Component: HealthRecords
+  },
+  {
+    path: "/patientProfile",
+    Component: PatientProfile
   },
 
 ]);

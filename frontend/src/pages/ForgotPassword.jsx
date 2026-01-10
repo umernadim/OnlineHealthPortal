@@ -4,7 +4,7 @@ const ForgotPassword = () => {
   return (
             <>
             <section id="L-S-section" className="login signup">
-                <div className="overlay"></div>
+                <div className="overlay f-overlay"></div>
 
                 <div className="content">
 

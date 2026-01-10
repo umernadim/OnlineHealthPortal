@@ -28,6 +28,8 @@ import PatientRecords from './pages/doctors/PatientRecords.jsx'
 import ProfileAvailability from './pages/doctors/ProfileAvailibility.jsx'
 import FollowUps from './pages/doctors/FollowUps.jsx'
 import PrescriptionWriter from './pages/doctors/PrescriptionWriter.jsx'
+import ForgotPassword from './pages/forgotPassword.jsx'
+import VerifyCode from './pages/VerifyCode.jsx'
 
 
 const router = createBrowserRouter([
@@ -85,6 +87,14 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     Component: Signup
+  },
+  {
+    path: "/forgotPassword",
+    Component: ForgotPassword
+  },
+  {
+    path: "/verifyCode",
+    Component: VerifyCode
   },
   {
     path: "/doctorDashboard",

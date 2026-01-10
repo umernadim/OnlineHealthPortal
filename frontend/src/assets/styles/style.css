@@ -2279,15 +2279,20 @@ body {
 }
 
 
-/* Code for sign up section */
+/*********************************
+    Code for sign up Section 
+**********************************/
 #L-S-section {
     min-height: 100vh;
     width: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
 }
 
-#L-S-seciton .overlay {
+#L-S-section .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -2296,23 +2301,61 @@ body {
     background: url("https://i.pinimg.com/1200x/7f/d9/de/7fd9dea29e03f72daf5bbd173630e9c1.jpg") center/cover no-repeat;
 }
 
-#L-S-seciton .overlay::before {
+#L-S-section .overlay::before {
     content: "";
     position: absolute;
-    height: 100%;
     inset: 0;
-    z-index: 1;
-    background: rgba(40, 55, 35, 0.776);
+    background: #4b5d4bc2;
+}
+
+#L-S-section .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 60px;
+    max-width: 1100px;
+    width: 100%;
+    padding: 40px;
+}
+
+#L-S-section .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+#L-S-section .info h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--heading-color);
+    line-height: 1.3;
+}
+
+#L-S-section .info p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: var(--heading-color);
+}
+
+#L-S-section .info ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--heading-color);
 }
 
 #L-S-section .card {
-    width: 460px;
+    flex: 1;
+    max-width: 430px;
     background: white;
     padding: 35px 30px;
     border-radius: 25px;
     border: 1px solid #d6dcd6;
     text-align: center;
-    margin: auto;
 }
 
 #L-S-section .tag {
@@ -2388,20 +2431,21 @@ body {
     letter-spacing: 1px;
     cursor: pointer;
     transition: 0.3s ease;
+    margin-bottom: 20px;
 }
 
 #L-S-section button:hover {
     background: var(--btn-hover-color);
 }
 
-#L-S-section .login-text {
-    margin-top: 20px;
+#L-S-section .cta-text {
+    margin-bottom: 5px;
     font-size: 14px;
     color: #666;
     text-align: center;
 }
 
-#L-S-section .login-text a {
+#L-S-section .cta-text a {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 600;
@@ -2411,8 +2455,33 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     #L-S-section {
-        padding: 0 20px;
-        align-items: flex-start;
+        padding: 50px 20px;
+    }
+
+    #L-S-section .content {
+        flex-direction: column;
+        padding: 0;
+        gap: 30px;
+    }
+
+    #L-S-section .info {
+        backdrop-filter: blur(6px);
+    }
+
+    #L-S-section .info h1 {
+        font-size: 30px;
+        margin-bottom: 14px;
+        line-height: 1.2;
+    }
+
+    #L-S-section .info p {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    #L-S-section .info ul {
+        font-size: 15px;
+        line-height: 1.5;
     }
 
     #L-S-section .card {
@@ -2457,7 +2526,3 @@ body {
         font-size: 12px;
     }
 }
-
-
-
-

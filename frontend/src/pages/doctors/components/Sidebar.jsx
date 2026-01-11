@@ -4,7 +4,7 @@ const Sidebar = () => {
     return (
         <>
             {/* SIDEBAR */}
-            <aside className="sidebar">
+            <aside className="d-sidebar">
                 <h2 className="logo"><i class="ri-service-fill"></i> HealthCare</h2>
                 <ul className="sidebar-menu">
                     <li>

@@ -1,19 +1,25 @@
-import SideBar from "../../components/SideBar";
-
+import AdminHeader from "./components/AdminHeader";
+import SideBar from "./components/SideBar";
+import { useState } from "react";
 export default function SystemSettings() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="admin-layout">
+    <div className={`admin-layout ${sidebarOpen ? "sidebar-open" : ""}`}>
 
       {/* SIDEBAR */}
-      <SideBar></SideBar>
+      <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN CONTENT */}
       <main className="admin-content">
         <div className="setting-page">
-          <div className="page-header">
-            <h1>System Settings</h1>
-            <p>Manage roles, site configuration & audit logs</p>
-          </div>
+          
+          {/* HEADER */}
+                    <AdminHeader
+                        title="System Settings"
+                        subtitle="Manage roles, site configuration & audit logs"
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen}
+                    />
 
           {/* USER ROLES */}
           <div className="settings-card table-card">

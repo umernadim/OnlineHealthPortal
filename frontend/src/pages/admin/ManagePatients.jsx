@@ -1,20 +1,28 @@
-import SideBar from "../../components/SideBar";
+import AdminHeader from "./components/AdminHeader";
+import SideBar from "./components/SideBar";
+import {useState} from 'react';
 
 export default function ManagePatients() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     return (
-        <div className="admin-layout">
+        <div className={`admin-layout ${sidebarOpen ? "sidebar-open" : ""}`}>
 
             {/* SIDEBAR */}
-            <SideBar></SideBar>
+            <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
             {/* MAIN CONTENT */}
             <main className="admin-content">
                 <div className="manage-patients">
                     {/* HEADER */}
-                    <div className="page-header">
-                        <h1>Manage Patients</h1>
-                        <button className="primary-btn">+ Add Patient</button>
-                    </div>
+
+                    {/* HEADER */}
+                    <AdminHeader
+                        title="Manage Patients"
+                        subtitle="Overview of Patients"
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen}
+                    />
+
                     <div className="header-bottom">
                         {/* BULK ACTIONS */}
                         <div className="bulk-actions">
@@ -55,7 +63,7 @@ export default function ManagePatients() {
                                     <td>#P1023</td>
                                     <td>New York</td>
                                     <td className="status approved">Active</td>
-                                    <td>
+                                    <td className="action-btns">
                                         <button className="action-btn">View</button>
                                         <button className="action-btn">Edit</button>
                                         <button className="danger-btn">Suspend</button>
@@ -70,7 +78,7 @@ export default function ManagePatients() {
                                     <td>#P1041</td>
                                     <td>Chicago</td>
                                     <td className="status pending">Pending</td>
-                                    <td>
+                                    <td className="action-btns">
                                         <button className="action-btn">Approve</button>
                                         <button className="danger-btn">Reject</button>
                                     </td>

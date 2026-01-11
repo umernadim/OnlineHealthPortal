@@ -24,7 +24,7 @@ body {
 }
 
 /*********************************
-  Code For Admin Dashboard
+  ADMIN LAYOUT
 **********************************/
 .admin-layout {
   display: flex;
@@ -32,53 +32,100 @@ body {
   width: 100%;
 }
 
-/* SIDEBAR */
-.admin-layout .sidebar {
+/*********************************
+  SIDEBAR (DESKTOP DEFAULT)
+**********************************/
+.sidebar {
   width: 250px;
   background: var(--text-color);
   color: #fff;
-  padding: 40px 28px;
+  padding: 30px 20px;
+  transition: 0.3s ease;
 }
 
-.admin-layout .logo {
+.admin-layout .sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.admin-layout .sidebar .logo {
   font-size: 22px;
-  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.admin-layout .sidebar-menu {
+/*********************************
+  SIDEBAR MENU
+**********************************/
+
+.sidebar-menu {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.admin-layout .sidebar-menu a {
-  text-decoration: none;
-  color: white;
-}
-
-.admin-layout .sidebar-menu i {
-  font-size: 20px;
-  margin-right: 6px;
-}
-
-.admin-layout .sidebar-menu li {
-  padding: 14px 20px;
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
   border-radius: 30px;
   margin-bottom: 10px;
   cursor: pointer;
   transition: 0.3s;
+  font-size: 15px;
+}
+
+.sidebar-menu li a {
+  text-decoration: none;
+  color: white;
+}
+
+.admin-layout .sidebar-menu li i {
+  font-size: 20px;
+  margin-right: 6px;
 }
 
 .admin-layout .sidebar-menu li:hover,
-.admin-layout .sidebar-menu .active {
+.admin-layout .sidebar-menu li.active {
   background: #465a487b;
 }
 
-/* Code for Main Content */
+/*********************************
+  MAIN CONTENT
+**********************************/
 .admin-content {
   flex: 1;
   padding: 30px;
 }
 
-/* DASHBOARD */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* MENU BUTTON */
+.menu-btn {
+  font-size: 26px;
+  cursor: pointer;
+  display: none;
+  color: var(--heading-color);
+  transition: 0.3s ease;
+}
+
+/*********************************
+  DASHBOARD CONTENT
+**********************************/
+.dashboard-header .header-left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .dashboard-header h1 {
   font-size: 30px;
   color: var(--heading-color);
@@ -89,7 +136,6 @@ body {
   margin: 5px 0 30px;
 }
 
-/* STATS */
 .dashboard .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -136,8 +182,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border: 1px solid #5c6f5c37;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
 .dashboard .quick-actions button {
@@ -150,9 +194,89 @@ body {
   transition: 0.3s;
 }
 
-.quick-actions button:hover {
+.dashboard .quick-actions button:hover {
   background: var(--btn-hover-color);
 }
+
+/*********************************
+  Responsive Design
+**********************************/
+@media screen and (max-width: 768px) {
+
+  /* SHOW MENU ICON */
+  .menu-btn {
+    display: block;
+  }
+
+  /* SIDEBAR SLIDE */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    z-index: 1001;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .admin-content {
+    padding: 20px 14px;
+    overflow-x: hidden;
+  }
+
+  .dashboard-header {
+    padding-top: 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .dashboard-header p {
+    margin: 2px 0 28px;
+    font-size: 13px;
+  }
+
+  /* STATS */
+  .dashboard .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .dashboard .stat-card {
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+
+  .dashboard .stat-card h4 {
+    font-size: 13px;
+  }
+
+  .dashboard .stat-card h2 {
+    font-size: 20px;
+    margin-top: 6px;
+  }
+
+  /* LOWER GRID */
+  .dashboard .dashboard-lower {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .dashboard .chart-card,
+  .dashboard .quick-actions {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .dashboard .quick-actions button {
+    padding: 10px;
+  }
+}
+
 
 
 
@@ -232,7 +356,7 @@ body {
 }
 
 .table-card td {
-  padding: 18px 0;
+  padding: 10px 0;
   color: var(--text-color);
 }
 
@@ -288,6 +412,82 @@ body {
   border: 1px solid #d8dfd8;
 }
 
+@media screen and (max-width: 768px) {
+  .manage-doctors .filters {
+    flex-direction: column;
+  }
+
+  .table-card .action-btns {
+    display: flex;
+  }
+
+  .manage-doctors .danger-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+
+  .table-card {
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 40px;
+    overflow-x: auto;
+  }
+
+  .table-card table {
+    width: 100%;
+  }
+
+  .table-card th {
+    text-align: left;
+    font-size: 13px;
+  }
+
+  .table-card td,
+  .table-card th {
+    width: 110px;
+  }
+
+  .table-card tr,
+  .table-card th {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+
+  .table-card .info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .table-card .info img {
+    display: none;
+  }
+
+  /* FORM */
+  .manage-doctors .form-card {
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .manage-doctors .form-card h2 {
+    margin-bottom: 12px;
+    font-size: 20px;
+  }
+
+  .manage-doctors .form-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .manage-doctors .form-grid input,
+  .manage-doctors .form-grid select {
+    padding: 14px 20px;
+    width: 100%;
+  }
+}
 
 
 /*********************************
@@ -360,6 +560,29 @@ body {
   border: 1px solid #d8dfd8;
 }
 
+@media screen and (max-width:768px) {
+  .manage-patients .header-bottom {
+    flex-direction: column-reverse;
+    gap: 15px;
+  }
+
+  .manage-patients .search-bar input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 30px;
+  }
+
+  .manage-patients .bulk-actions {
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .manage-patients .bulk-actions select {
+    width: 300px;
+  }
+
+}
+
 
 /*************************************
   Code For  Appointments Dashboard
@@ -383,26 +606,6 @@ body {
   border: 1px solid #d8dfd8;
 }
 
-.appointments-page .view-toggle {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.appointments-page .view-toggle button {
-  padding: 10px 22px;
-  border-radius: 30px;
-  border: 1px solid #556b57;
-  background: transparent;
-  color: #556b57;
-  cursor: pointer;
-}
-
-.appointments-page .view-toggle .active {
-  background: #556b57;
-  color: white;
-}
-
 .appointments-page .appointments-list {
   display: flex;
   flex-direction: column;
@@ -416,10 +619,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .appointments-page .appointment-card h4 {
-  color: #2c2c2c;
+  color: var(--heading-color);
 }
 
 .appointments-page .appointment-card span {
@@ -452,6 +656,7 @@ body {
 /* ACTIONS */
 .appointments-page .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -473,6 +678,23 @@ body {
   cursor: pointer;
 }
 
+@media screen and (max-width: 768px) {
+  .appointments-page .appointment-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .appointments-page .appointment-card {
+    padding: 25px;
+    border-radius: 25px;
+    gap: 10px;
+  }
+
+  .appointments-page .actions {
+    gap: 10px;
+  }
+}
 
 
 /*********************************
@@ -543,7 +765,41 @@ body {
   font-weight: 600;
 }
 
+@media screen and (max-width: 768px) {
+  .notify-page .page-header h1 {
+    margin-bottom: 30px;
+    font-size: 30px;
+  }
 
+  .notify-page .composer-card {
+    padding: 30px 20px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+  }
+
+  .notify-page .composer-card h3 {
+    margin-bottom: 20px;
+  }
+
+  .notify-page .composer-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .notify-page .composer-grid select,
+  .notify-page .composer-grid input,
+  .notify-page .composer-grid textarea {
+    padding: 12px 16px;
+  }
+
+  .notify-page .composer-grid textarea {
+    grid-column: span 1;
+  }
+
+  .notify-page .table-card h3 {
+    margin-bottom: 20px;
+  }
+}
 
 
 /***********************************
@@ -601,6 +857,27 @@ body {
   font-size: 14px;
 }
 
+
+@media screen and (max-width: 768px) {
+.setting-page .settings-card {
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.setting-page .settings-card h3 {
+  margin-bottom: 20px;
+}
+
+.setting-page .config-grid {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.setting-page .config-grid select {
+  padding: 12px 18px;
+}
+ 
+}
+
 /*********************************
   Code For Primary Button
 **********************************/
@@ -616,4 +893,3 @@ body {
 .primary-btn:hover {
   background: var(--btn-hover-color);
 }
-

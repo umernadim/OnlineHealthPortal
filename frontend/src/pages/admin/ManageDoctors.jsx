@@ -1,17 +1,24 @@
-import SideBar from "../../components/SideBar";
+import { useState } from "react";
+import SideBar from "./components/SideBar";
+import AdminHeader from "./components/AdminHeader";
 
 export default function ManageDoctors() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     return (
         <>
-            <div className="admin-layout">
-                <SideBar></SideBar>
+            <div className={`admin-layout ${sidebarOpen ? "sidebar-open" : ""}`}>
+               <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                 <main className="admin-content">
                 <div className="manage-doctors">
 
-                    <div className="page-header">
-                        <h1>Manage Doctors</h1>
-                        <button className="primary-btn">+ Add Doctor</button>
-                    </div>
+                    {/* HEADER */}
+                    {/* HEADER */}
+                    <AdminHeader
+                        title="Manage Doctors"
+                        subtitle="Overview of Doctors performance"
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen}
+                    />
 
                     <div className="filters">
                         <select>
@@ -27,6 +34,7 @@ export default function ManageDoctors() {
                             <option>Pending</option>
                             <option>Deactivated</option>
                         </select>
+                        <button className="primary-btn">+ Add Doctor</button>
                     </div>
 
                     <div className="table-card">
@@ -50,7 +58,7 @@ export default function ManageDoctors() {
                                     <td>Physiotherapy</td>
                                     <td>12 Years</td>
                                     <td className="status approved">Approved</td>
-                                    <td>
+                                    <td className="action-btns">
                                         <button className="action-btn">View</button>
                                         <button className="action-btn">Edit</button>
                                         <button className="danger-btn">Deactivate</button>
@@ -65,7 +73,7 @@ export default function ManageDoctors() {
                                     <td>Sports Rehab</td>
                                     <td>8 Years</td>
                                     <td className="status pending">Pending</td>
-                                    <td>
+                                    <td className="action-btns">
                                         <button className="action-btn">Approve</button>
                                         <button className="danger-btn">Reject</button>
                                     </td>

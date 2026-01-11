@@ -16,6 +16,9 @@ const SidebarPat = () => {
                        <i className="ri-chat-3-fill"></i> <a href="">Messages</a></li>
                     
                     <li>
+                       <i className="ri-chat-3-fill"></i> <a href="">Invoice</a></li>
+                    
+                    <li>
                        <i className="ri-account-circle-fill"></i><a href="">Profile</a></li>
                     <li>
                        <i className="ri-logout-box-r-fill"></i><a href="">Logout</a></li>

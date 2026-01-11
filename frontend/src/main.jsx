@@ -4,7 +4,7 @@ import 'remixicon/fonts/remixicon.css'
 import './assets/styles/style.css'
 import './assets/styles/admin.css'
 import './assets/styles/doctors.css'
-import './assets/styles/patient.css'
+//import './assets/styles/patient.css'
 import App from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
@@ -36,6 +36,9 @@ import PatientDashboard from './pages/patients/patientDashboard.jsx'
 import BookAppointment from './pages/patients/BookAppointment.jsx'
 import HealthRecords from './pages/patients/HealthRecords.jsx'
 import PatientProfile from './pages/patients/PatientProfile.jsx'
+import MyAppointments from './pages/patients/MyAppointments.jsx'
+import Prescriptions from './pages/patients/Prescriptions.jsx'
+import Invoice from './pages/patients/Invoice.jsx'
 
 
 const router = createBrowserRouter([
@@ -159,6 +162,18 @@ const router = createBrowserRouter([
   {
     path: "/patientProfile",
     Component: PatientProfile
+  },
+  {
+    path: "/myAppointments",
+    Component: MyAppointments
+  },
+  {
+    path: "/prescriptions",
+    Component: Prescriptions
+  },
+  {
+    path: "/invoice",
+    Component: Invoice
   },
 
 ]);

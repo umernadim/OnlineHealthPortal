@@ -330,46 +330,331 @@ Code For Health Records Dashboard
 /**********************************
     Code For Patient Profile
 ***********************************/
-/* PROFILE CARD */
-.profile-card {
-  max-width: 600px;
-}
-
-/* TOP */
-.profile-top {
+/* INFO ROW */
+.info-row {
   display: flex;
-  gap: 25px;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  background: #f3f6f1;
+  padding: 16px 20px;
+  border-radius: 20px;
+  margin-bottom: 12px;
 }
 
-.profile-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
+.info-row span {
+  color: #666;
+}
+
+/* PREFERENCES */
+.preference-group {
+  margin-bottom: 20px;
+}
+
+.preference-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* PILLS */
+.option-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: #e6ebe6;
+  color: #444;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pill.active {
   background: #556b57;
   color: white;
-  font-size: 36px;
+}
+
+/* BUTTONS */
+.btn-outline.small {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .patient-content {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+
+/**********************************
+  Code For MyAppointments page
+***********************************/
+/* APPOINTMENT ROW */
+.appointment-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+  justify-content: space-between;
+  gap: 20px;
+  background: #f3f6f1;
+  padding: 20px 24px;
+  border-radius: 25px;
+  margin-bottom: 18px;
 }
 
-/* INFO */
-.profile-info h3 {
-  margin-bottom: 8px;
+.appointment-row.past {
+  opacity: 0.85;
 }
 
-.profile-info p {
+.appointment-row p {
   color: #555;
-  margin-bottom: 6px;
+  margin: 6px 0;
+}
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.badge.confirmed {
+  background: #dfe7df;
+  color: #2f7a3e;
+}
+
+.badge.pending {
+  background: #fff1c1;
+  color: #9a7b00;
+}
+
+.badge.completed {
+  background: #e0f2e6;
+  color: #2f7a3e;
+}
+
+.badge.cancelled {
+  background: #f8d7da;
+  color: #842029;
+}
+
+/* COUNTDOWN */
+.countdown {
+  font-size: 13px;
+  color: #777;
 }
 
 /* ACTIONS */
-.profile-actions {
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* BUTTONS */
+.primary-btn.small {
+  padding: 8px 18px;
+  font-size: 13px;
+}
+
+.btn-outline {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 2px solid #556b57;
+  background: transparent;
+  color: #556b57;
+  cursor: pointer;
+}
+
+.btn-danger {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  background: #b94a48;
+  color: white;
+  cursor: pointer;
+}
+
+/* EXPORT */
+.export-card {
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .patient-content {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .appointment-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    width: 100%;
+  }
+}
+
+/**********************************
+  Code For Prescription Page
+***********************************/
+/* PRESCRIPTION ROW */
+.prescription-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f3f6f1;
+  padding: 20px 24px;
+  border-radius: 25px;
+  margin-bottom: 16px;
+}
+
+.prescription-row p {
+  color: #555;
+  margin: 6px 0;
+}
+
+.prescription-row.past {
+  opacity: 0.85;
+}
+
+/* REMINDER */
+.reminder-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eef4ee;
+  padding: 18px 22px;
+  border-radius: 22px;
+  margin-bottom: 18px;
+}
+
+.reminder-options select {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 18px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+/* BADGES */
+.badge.active {
+  background: #e0f2e6;
+  color: #2f7a3e;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* PHARMACY */
+.pharmacy-card {
+  text-align: center;
+}
+
+.pharmacy-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.pharmacy-links a {
+  color: #556b57;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .patient-content {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .prescription-row,
+  .reminder-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
+
+
+
+/*******************************
+  Code For Invoice Page
+********************************/
+/* INVOICE CARD */
+.invoice-card {
+  max-width: 550px;
+  margin: auto;
+}
+
+/* HEADER */
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+/* DETAILS */
+.invoice-details .info-row {
+  margin-bottom: 14px;
+}
+
+.info-row.amount {
+  background: #eef4ee;
+  padding: 18px 22px;
+  border-radius: 20px;
+}
+
+/* BADGE */
+.badge.paid {
+  background: #e0f2e6;
+  color: #2f7a3e;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ACTIONS */
+.invoice-actions {
   display: flex;
   gap: 15px;
+  margin-top: 30px;
   flex-wrap: wrap;
 }
 
@@ -385,15 +670,14 @@ Code For Health Records Dashboard
 }
 
 @media (max-width: 600px) {
-  .profile-top {
+  .invoice-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
   }
 
-  .profile-avatar {
-    width: 75px;
-    height: 75px;
-    font-size: 28px;
+  .invoice-actions {
+    flex-direction: column;
+    width: 100%;
   }
 }
-

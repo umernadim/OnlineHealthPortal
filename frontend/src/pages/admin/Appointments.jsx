@@ -1,18 +1,23 @@
-import SideBar from "../../components/SideBar";
+import { useState } from "react";
+import AdminHeader from "./components/AdminHeader";
+import SideBar from "./components/SideBar";
 
 export default function Appointments() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     return (
-        <div className="admin-layout">
+        <div className={`admin-layout ${sidebarOpen ? "sidebar-open" : ""}`}>
 
             {/* SIDEBAR */}
-            <SideBar></SideBar>
+            <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             {/* MAIN */}
             <main className="admin-content">
                 <div className="appointments-page">
                     {/* HEADER */}
-                    <div className="page-header">
-                        <h1>Appointments Tracker</h1>
-                    </div>
+                    <AdminHeader
+                        title="Appointments Tracker"
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen}
+                    />
 
                     {/* FILTERS */}
                     <div className="appointment-filters">
@@ -28,12 +33,6 @@ export default function Appointments() {
                             <option>Completed</option>
                             <option>Cancelled</option>
                         </select>
-                    </div>
-
-                    {/* VIEW TOGGLE */}
-                    <div className="view-toggle">
-                        <button className="active">List View</button>
-                        <button>Calendar View</button>
                     </div>
 
                     {/* APPOINTMENTS LIST */}

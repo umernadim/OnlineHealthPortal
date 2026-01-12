@@ -1,11 +1,16 @@
+import { useState } from "react";
+import DoctorHeader from "./components/DoctorHeader";
 import Sidebar from "./components/Sidebar";
 
 export default function PatientRecords() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="doctor-layout">
 
       {/* SIDEBAR */}
-    <Sidebar></Sidebar>
+      <Sidebar
+        sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
+      />
 
       {/* MAIN */}
       <main className="doctor-content">
@@ -15,6 +20,12 @@ export default function PatientRecords() {
           <h1>Patient Records</h1>
           <p>Read-only medical history & reports</p>
         </div>
+        <DoctorHeader
+          title="Patient records"
+          subtitle="read-only medical history & reports"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* TOP GRID */}
         <div className="records-grid">

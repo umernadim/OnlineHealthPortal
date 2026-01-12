@@ -1,27 +1,25 @@
+import DoctorHeader from "./components/DoctorHeader";
+import Sidebar from "./components/Sidebar";
+import { useState } from "react";
+
 export default function FollowUps() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="doctor-layout">
 
       {/* SIDEBAR */}
-      <aside className="sidebar">
-        <h2 className="logo">PhysioDoctor</h2>
-        <ul className="sidebar-menu">
-          <li>Dashboard</li>
-          <li>Patients</li>
-          <li>Appointments</li>
-          <li className="active">Follow-ups</li>
-          <li>Messages</li>
-        </ul>
-      </aside>
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN */}
       <main className="doctor-content">
 
         {/* HEADER */}
-        <div className="page-header">
-          <h1>Follow-ups & Reminders</h1>
-          <p>Track patient follow-ups & send reminders</p>
-        </div>
+        <DoctorHeader
+          title="Follow-ups & Reminders"
+          subtitle="Track patient follow-ups & send reminders"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* FOLLOW-UP LIST */}
         <div className="record-card">

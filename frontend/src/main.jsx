@@ -65,6 +65,7 @@ const router = createBrowserRouter([
 
     ]
   },
+  //routes for admin panel
   {
     path: "/adminPanel",
     Component: AdminPanel
@@ -89,6 +90,7 @@ const router = createBrowserRouter([
     path: "/systemSettings",
     Component: SystemSettings
   },
+  //routes for login/signup pages
   {
     path: "/login",
     Component: Login
@@ -119,7 +121,7 @@ const router = createBrowserRouter([
     Component: PatientList
   },
   {
-    path: "/DoctorsAppointments",
+    path: "/doctorsAppointments",
     Component: AppointmentManagement
   },
   {

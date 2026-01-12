@@ -1,10 +1,13 @@
+import DoctorHeader from "./components/DoctorHeader";
 import Sidebar from "./components/Sidebar";
+import { useState } from "react";
 
 export default function ProfileAvailability() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="doctor-layout">
 
- <Sidebar></Sidebar>
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN CONTENT */}
       <main className="doctor-content">
@@ -14,6 +17,13 @@ export default function ProfileAvailability() {
           <h1>Profile & Availability</h1>
           <p>Manage your professional details & schedule</p>
         </div>
+
+        <DoctorHeader
+          title="Profile & Availibility"
+          subtitle="Manage your professional details & schedule"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* PROFILE + AVAILABILITY GRID */}
         <div className="profile-grid">

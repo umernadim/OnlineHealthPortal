@@ -102,12 +102,6 @@ body {
   padding: 30px;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
 /* MENU BUTTON */
 .menu-btn {
   font-size: 26px;
@@ -120,18 +114,18 @@ body {
 /*********************************
   DASHBOARD CONTENT
 **********************************/
-.dashboard-header .header-left {
+.admin-layout .dashboard-header .header-left {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-.dashboard-header h1 {
+.admin-layout .dashboard-header h1 {
   font-size: 30px;
   color: var(--heading-color);
 }
 
-.dashboard-header p {
+.admin-layout .dashboard-header p {
   color: var(--text-color);
   margin: 5px 0 30px;
 }
@@ -222,7 +216,7 @@ body {
   }
 
   .admin-content {
-    padding: 20px 14px;
+    padding: 20px 15px;
     overflow-x: hidden;
   }
 

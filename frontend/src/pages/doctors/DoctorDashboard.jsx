@@ -1,19 +1,24 @@
+import DoctorHeader from "./components/DoctorHeader";
 import Sidebar from "./components/Sidebar";
-
+import { useState } from "react";
 export default function DoctorDashboard() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     return (
         <div className="doctor-layout">
 
             {/* SIDEBAR */}
-            <Sidebar></Sidebar>
+
+            <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             {/* MAIN */}
+
             <main className="doctor-content">
 
                 {/* HEADER */}
-                <div className="page-header">
-                    <h1>Good Morning, Dr. Alex 👋</h1>
-                    <p>Here’s your schedule overview for today</p>
-                </div>
+                <DoctorHeader
+                    title="Hey, Dr. Alex"
+                    subtitle="Here’s your schedule overview for today"
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen} />
 
                 {/* QUICK STATS */}
                 <div className="stats-grid">

@@ -1,20 +1,26 @@
+import DoctorHeader from "./components/DoctorHeader";
 import Sidebar from "./components/Sidebar";
+import { useState } from "react";
 
 export default function PatientList() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     return (
         <div className="doctor-layout">
 
             {/* SIDEBAR */}
-            <Sidebar></Sidebar>
+            <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
 
             {/* MAIN */}
             <main className="doctor-content">
 
                 {/* HEADER */}
-                <div className="page-header">
-                    <h1>My Patients</h1>
-                    <p>Manage and track your assigned patients</p>
-                </div>
+                <DoctorHeader
+                    title="My Patients"
+                    subtitle="Manage and track your assigned patients"
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
+                />
 
                 {/* FILTER BAR */}
                 <div className="filter-bar">

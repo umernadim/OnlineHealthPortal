@@ -1,11 +1,16 @@
+import DoctorHeader from "./components/DoctorHeader";
 import Sidebar from "./components/Sidebar";
+import { useState } from "react";
 
 export default function PrescriptionWriter() {
+   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="doctor-layout">
 
       {/* SIDEBAR */}
-   <Sidebar></Sidebar>
+      <Sidebar
+      sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} 
+      />
 
       {/* MAIN */}
       <main className="doctor-content">
@@ -15,6 +20,13 @@ export default function PrescriptionWriter() {
           <h1>Prescription Writer</h1>
           <p>Create & send digital prescriptions</p>
         </div>
+
+        <DoctorHeader
+          title="Prescription Writer"
+          subtitle="Create & send digital prescription"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* PRESCRIPTION CARD */}
         <div className="record-card prescription-card">

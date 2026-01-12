@@ -1,20 +1,25 @@
+import DoctorHeader from "./components/DoctorHeader";
 import Sidebar from "./components/Sidebar";
+import { useState } from "react";
 
 export default function AppointmentManagement() {
+   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="doctor-layout">
 
       {/* SIDEBAR */}
-      <Sidebar></Sidebar>
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN */}
       <main className="doctor-content">
 
         {/* HEADER */}
-        <div className="page-header">
-          <h1>Appointment Management</h1>
-          <p>Manage bookings, availability & requests</p>
-        </div>
+        <DoctorHeader
+          title="Appointment Management"
+          subtitle="Manage bookings, availability & requests"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* ACTION BAR */}
         <div className="action-bar">

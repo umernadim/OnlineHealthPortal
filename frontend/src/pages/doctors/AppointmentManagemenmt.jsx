@@ -34,7 +34,6 @@ export default function AppointmentManagement() {
           <table>
             <thead>
               <tr>
-                <th></th>
                 <th>Patient</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -44,7 +43,6 @@ export default function AppointmentManagement() {
 
             <tbody>
               <tr>
-                <td><input type="checkbox" /></td>
                 <td>John Doe</td>
                 <td>16 Aug 2026</td>
                 <td>10:00 AM</td>
@@ -52,7 +50,6 @@ export default function AppointmentManagement() {
               </tr>
 
               <tr>
-                <td><input type="checkbox" /></td>
                 <td>Emily Clark</td>
                 <td>16 Aug 2026</td>
                 <td>11:30 AM</td>

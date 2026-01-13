@@ -13,11 +13,6 @@ export default function ProfileAvailability() {
       <main className="doctor-content">
 
         {/* HEADER */}
-        <div className="page-header">
-          <h1>Profile & Availability</h1>
-          <p>Manage your professional details & schedule</p>
-        </div>
-
         <DoctorHeader
           title="Profile & Availibility"
           subtitle="Manage your professional details & schedule"

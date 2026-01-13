@@ -4,7 +4,7 @@ import 'remixicon/fonts/remixicon.css'
 import './assets/styles/style.css'
 import './assets/styles/admin.css'
 import './assets/styles/doctors.css'
-//import './assets/styles/patient.css'
+import './assets/styles/patient.css'
 import App from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
@@ -39,7 +39,8 @@ import PatientProfile from './pages/patients/PatientProfile.jsx'
 import MyAppointments from './pages/patients/MyAppointments.jsx'
 import Prescriptions from './pages/patients/Prescriptions.jsx'
 import Invoice from './pages/patients/Invoice.jsx'
-
+import { AuthProvider } from './context/AuthContext.jsx'
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -68,8 +69,13 @@ const router = createBrowserRouter([
   //routes for admin panel
   {
     path: "/adminPanel",
-    Component: AdminPanel
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <AdminPanel />
+      </ProtectedRoute>
+    ),
   },
+
   {
     path: "/manageDoctors",
     Component: ManageDoctors
@@ -114,7 +120,11 @@ const router = createBrowserRouter([
   //routes for doctor dashboard
   {
     path: "/doctorDashboard",
-    Component: DoctorDashboard
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <DoctorDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/patientList",
@@ -151,7 +161,11 @@ const router = createBrowserRouter([
   //routes for patients pages
   {
     path: "/patientDashboard",
-    Component: PatientDashboard
+    element: (
+      <ProtectedRoute allowedRoles={["Patient"]}>
+        <PatientDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/bookAppointment",
@@ -182,6 +196,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

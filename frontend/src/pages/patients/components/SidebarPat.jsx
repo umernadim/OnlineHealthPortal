@@ -1,31 +1,63 @@
 import React from 'react'
+import { useNavigate } from 'react-router';
+import { useAuth } from '../../../context/AuthContext';
 
 const SidebarPat = () => {
-  return (
-    <>
-              <aside className="sidebar">
+
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    };
+    return (
+        <>
+            <aside className="sidebar">
                 <h2 className="logo"><i class="ri-service-fill"></i> HealthCare</h2>
                 <ul className="sidebar-menu">
                     <li>
-                        <i className="ri-dashboard-fill"></i> <a href="adminPanel"></a>Dashboard</li>
+                        <a href="patientDashboard">
+
+                            <i className="ri-dashboard-fill"></i>Dashboard
+                        </a>
+                    </li>
+
                     <li>
-                        <i className="ri-calendar-schedule-fill"></i><a href=""></a>Appointments</li>
+                        <a href="myAppointments">
+                            <i className="ri-calendar-schedule-fill">Appointments</i>
+                        </a>
+                    </li>
                     <li>
-                        <i className="ri-calendar-schedule-fill"></i><a href="manageDoctors"></a>My Records</li>
+                        <a href="healthRecords">
+                            <i className="ri-calendar-schedule-fill"></i>My Records
+                        </a>
+                    </li>
                     <li>
-                       <i className="ri-chat-3-fill"></i> <a href="">Messages</a></li>
-                    
+                        <a href="messages">
+                            <i className="ri-chat-3-fill">Messages</i>
+                        </a>
+                    </li>
+
                     <li>
-                       <i className="ri-chat-3-fill"></i> <a href="">Invoice</a></li>
-                    
+                        <a href="invoice">
+                            <i className="ri-chat-3-fill"></i>Invoice
+                        </a>
+                    </li>
+
                     <li>
-                       <i className="ri-account-circle-fill"></i><a href="">Profile</a></li>
+                        <a href="patientProfile">
+                            <i className="ri-account-circle-fill"></i>Profile
+                        </a>
+                    </li>
                     <li>
-                       <i className="ri-logout-box-r-fill"></i><a href="">Logout</a></li>
+                    <button onClick={handleLogout} className='logout-btn'>
+                        <i className="ri-logout-box-r-fill"></i><span>Logout</span>
+                    </button>
+                    </li>
                 </ul>
             </aside>
-    </>
-  )
+        </>
+    )
 }
 
 export default SidebarPat

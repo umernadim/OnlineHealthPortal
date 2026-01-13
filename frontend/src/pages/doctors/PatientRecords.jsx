@@ -16,10 +16,6 @@ export default function PatientRecords() {
       <main className="doctor-content">
 
         {/* HEADER */}
-        <div className="page-header">
-          <h1>Patient Records</h1>
-          <p>Read-only medical history & reports</p>
-        </div>
         <DoctorHeader
           title="Patient records"
           subtitle="read-only medical history & reports"

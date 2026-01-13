@@ -7,6 +7,20 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
+
+
+
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<NotificationService>();
 
@@ -14,7 +28,10 @@ builder.Services.AddScoped<NotificationService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
+
+
 
 builder.Services.AddDbContext<HealthPortalContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
@@ -39,6 +56,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthentication();
 
 var app = builder.Build();
+app.UseCors("AllowReact");
 
 
 // Configure the HTTP request pipeline.

@@ -1,6 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router';
+import { useAuth } from '../../../context/AuthContext';
 
 const SideBar = ({ sidebarOpen }) => {
+
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+
   return (
     <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
 
@@ -48,6 +59,11 @@ const SideBar = ({ sidebarOpen }) => {
           <i className="ri-settings-5-fill"></i>
           <span>Settings</span>
           </a>
+        </li>
+        <li>
+          <button onClick={handleLogout} className='logout-btn'>
+            <i className='ri-logout-box-r-fill'></i> <span>Logout</span>
+          </button>
         </li>
       </ul>
 

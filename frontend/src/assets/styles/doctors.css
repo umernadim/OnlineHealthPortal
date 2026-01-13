@@ -389,7 +389,7 @@ body {
 
   .doctor-layout .table-card {
     padding: 10px 20px;
-    border-radius: 25px;
+    border-radius: 15px;
     overflow-x: auto;
   }
 
@@ -409,145 +409,100 @@ body {
 /**************************************
     Code For Appointments Management
 ***************************************/
-/* LAYOUT */
-.doctor-layout {
-  display: flex;
-  min-height: 100vh;
-  background: #f3f6f1;
-}
-
-/* MAIN */
 .doctor-content {
   flex: 1;
   padding: 40px;
 }
 
-/* HEADER */
-.page-header h1 {
-  margin-bottom: 5px;
-}
-
-.page-header p {
-  color: #777;
-  margin-bottom: 30px;
-}
-
-/* ACTION BAR */
-.action-bar {
+.doctor-content .action-bar {
   display: flex;
   gap: 15px;
   margin-bottom: 25px;
   flex-wrap: wrap;
 }
 
-/* BUTTONS */
-.primary-btn {
-  padding: 12px 24px;
-  background: #556b57;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-.primary-btn:hover {
-  background: #465a48;
-}
-
-.secondary-btn {
-  padding: 12px 24px;
-  background: transparent;
-  border: 1px solid #556b57;
-  color: #556b57;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-.secondary-btn:hover {
-  background: #556b57;
-  color: white;
-}
-
-/* TABLE */
-.table-card {
-  background: white;
-  padding: 30px;
-  border-radius: 25px;
-  margin-bottom: 40px;
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 700px;
-}
-
-th {
-  font-size: 13px;
-  color: #777;
-  text-align: left;
-}
-
-td {
-  padding: 18px 0;
-}
-
-/* STATUS */
-.status.pending {
+.doctor-content .status.pending {
   color: #ff9800;
   font-weight: 600;
 }
 
-/* GRID */
-.appointment-grid {
+.doctor-content .appointment-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* CARD */
-.dashboard-card {
+.doctor-content .dashboard-card {
   background: white;
   padding: 30px;
   border-radius: 25px;
 }
 
-.availability-grid {
+.doctor-content .availability-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-bottom: 20px;
 }
 
-.availability-grid input {
+.doctor-content .availability-grid input {
   padding: 12px 18px;
   border-radius: 25px;
   border: 1px solid #d8dfd8;
 }
 
-/* SLOTS */
-.slot-list {
+.doctor-content .slot-list {
   list-style: none;
 }
 
-.slot-list li {
+.doctor-content .slot-list li {
   padding: 12px 0;
   border-bottom: 1px solid #eee;
-  color: #556b57;
+  color: var(--text-color);
   font-weight: 500;
 }
 
 /* RESPONSIVE */
-@media (max-width: 1024px) {
+@media screen and (max-width: 768px) {
 
-  .doctor-content {
-    padding: 25px;
-  }
+.doctor-content .page-header h1 {
+  font-size: 20px;
+}
 
-  .appointment-grid {
-    grid-template-columns: 1fr;
-  }
+.doctor-content .action-bar {
+  gap: 10px;
+}
+
+.doctor-content .primary-btn {
+  padding: 12px 24px;
+}
+
+.doctor-content .secondary-btn {
+  padding: 10px 20px;
+}
+
+.doctor-content .appointment-grid {
+  grid-template-columns: 1fr;
+}
+
+.doctor-content .dashboard-card {
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.doctor-content .availability-grid {
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.doctor-content .availability-grid input {
+  padding: 12px 18px;
+  border-radius: 25px;
+}
+.doctor-layout .slot-list li{
+  font-size: 14px;
+}
+
 }
 
 
@@ -559,7 +514,6 @@ td {
 .consultation-layout {
   display: flex;
   height: 100vh;
-  background: #f3f6f1;
 }
 
 /* VIDEO SECTION */
@@ -889,93 +843,67 @@ td {
 /******************************
   Code For Patient Records Page
 *******************************/
-
-/* LAYOUT */
-.doctor-layout {
-  display: flex;
-  min-height: 100vh;
-  background: #f3f6f1;
-}
-
-/* MAIN */
-.doctor-content {
-  flex: 1;
-  padding: 40px;
-}
-
-/* HEADER */
-.page-header h1 {
-  margin-bottom: 5px;
-}
-
-.page-header p {
-  color: #777;
-  margin-bottom: 30px;
-}
-
-/* GRID */
-.records-grid {
+.doctor-content .records-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
-  margin-bottom: 30px;
 }
 
-/* CARD */
-.record-card {
+.doctor-content .record-card {
   background: white;
   padding: 30px;
   border-radius: 25px;
   margin-bottom: 30px;
 }
 
-.record-card h3 {
+.doctor-content .record-card h3 {
   margin-bottom: 15px;
 }
+.doctor-content .record-card p {
+ color: var(--text-color);
+}
 
-.record-card ul {
+.doctor-content .record-card ul {
   list-style: none;
 }
 
-.record-card ul li {
+.doctor-content .record-card ul li {
   padding: 8px 0;
-  color: #555;
+  color: var(--text-color);
 }
 
-/* REPORTS */
-.report-list {
+.doctor-content .report-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.report-item {
+.doctor-content .report-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f3f6f1;
+  background: var(--bg-color);
   padding: 12px 18px;
   border-radius: 20px;
 }
 
-.report-item button {
+.doctor-content .report-item button {
   padding: 6px 16px;
   border-radius: 20px;
   border: none;
-  background: #556b57;
+  background: var(--btn-color);
   color: white;
   cursor: pointer;
 }
 
-/* IMAGES */
-.image-grid {
+.doctor-content .image-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
 }
 
-.image-box {
-  background: #dfe7df;
+.doctor-content .image-box {
+  background: var(--bg-color);
   height: 140px;
   border-radius: 20px;
   display: flex;
@@ -985,12 +913,11 @@ td {
   font-weight: 600;
 }
 
-/* TIMELINE */
-.timeline {
+.doctor-content .timeline {
   list-style: none;
 }
 
-.timeline li {
+.doctor-content .timeline li {
   display: flex;
   gap: 20px;
   padding: 12px 0;
@@ -998,9 +925,57 @@ td {
   padding-left: 20px;
 }
 
-.timeline span {
+.doctor-content .timeline span {
   font-weight: 600;
   min-width: 120px;
+}
+
+@media screen and (max-width: 768px) {
+  .doctor-content .records-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.doctor-content .record-card {
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.doctor-content .record-card h3 {
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.doctor-content .record-card p {
+  font-size: 13px;
+}
+
+.doctor-content .record-card ul li {
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.doctor-content .report-item {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.doctor-content .report-item button {
+  border-radius: 8px;
+}
+
+.doctor-content .image-grid {
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.doctor-content .image-box {
+  height: 240px;
+  border-radius: 10px;
+}
 }
 
 
@@ -1325,4 +1300,36 @@ td {
     flex-direction: column;
     gap: 8px;
   }
+}
+
+
+
+/**********************
+Code for buttons
+***********************/
+.primary-btn {
+  padding: 12px 24px;
+  background: var(--btn-color);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: var(--btn-color);
+}
+
+.secondary-btn {
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid #556b57;
+  color: var(--text-color);
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  background: var(--btn-color);
+  color: white;
 }

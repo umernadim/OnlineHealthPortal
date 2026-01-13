@@ -16,11 +16,6 @@ export default function PrescriptionWriter() {
       <main className="doctor-content">
 
         {/* HEADER */}
-        <div className="page-header">
-          <h1>Prescription Writer</h1>
-          <p>Create & send digital prescriptions</p>
-        </div>
-
         <DoctorHeader
           title="Prescription Writer"
           subtitle="Create & send digital prescription"

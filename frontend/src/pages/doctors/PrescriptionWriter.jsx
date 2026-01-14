@@ -45,9 +45,6 @@ export default function PrescriptionWriter() {
                 type="text"
                 placeholder="Panadol 500mg"
               />
-              <small className="hint">
-                Autocomplete from medicine database
-              </small>
             </div>
 
             <div className="form-group">
@@ -65,14 +62,6 @@ export default function PrescriptionWriter() {
                 placeholder="5 days"
               />
             </div>
-
-            <div className="form-group">
-              <label>Dosage Calculator</label>
-              <button className="btn-outline">
-                Open Calculator
-              </button>
-            </div>
-
           </div>
 
           {/* INSTRUCTIONS */}

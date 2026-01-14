@@ -107,15 +107,6 @@ export default function ProfileAvailability() {
 
         </div>
 
-        {/* CALENDAR */}
-        <div className="record-card">
-          <h3>Availability Calendar</h3>
-
-          <div className="calendar-placeholder">
-            Weekly / Monthly Calendar View
-          </div>
-        </div>
-
       </main>
     </div>
   );

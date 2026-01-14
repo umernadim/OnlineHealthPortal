@@ -983,26 +983,24 @@ body {
     Code For Doctor'sProfile
 *******************************/
 /* GRID */
-.profile-grid {
+.doctor-content .profile-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 25px;
-  margin-bottom: 30px;
+  gap: 20px;
 }
 
-/* PROFILE CARD */
-.profile-top {
+.doctor-content .profile-top {
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-.profile-avatar {
+.doctor-content .profile-avatar {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: #556b57;
+  background: var(--btn-color);
   color: white;
   display: flex;
   align-items: center;
@@ -1011,88 +1009,79 @@ body {
   font-weight: bold;
 }
 
-.profile-details li {
-  padding: 8px 0;
+.doctor-content .profile-details li {
+  padding: 5px 0;
 }
 
-/* AVAILABILITY */
-.availability-row {
+.doctor-content .availability-row {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
+  padding: 8px 0;
+  color: var(--text-color);
 }
 
-.available {
+.doctor-content .available {
   color: #2f7a3e;
   font-weight: 600;
 }
 
-.unavailable {
+.doctor-content .unavailable {
   color: #b94a48;
   font-weight: 600;
 }
 
-/* FEES */
-.fee-box {
+.doctor-content .fee-box {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f3f6f1;
+  background: var(--bg-color);
   padding: 14px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   margin-bottom: 20px;
+  color: var(--text-color);
 }
 
 .fee-box input {
   width: 100px;
   border: none;
   background: transparent;
+  color: var(--text-color);
   font-size: 16px;
   outline: none;
 }
 
-/* UPLOAD */
 .upload-box {
   background: #f3f6f1;
   padding: 20px;
   border-radius: 20px;
   margin-bottom: 15px;
   text-align: center;
-}
-
-/* BUTTONS */
-.primary-btn {
-  padding: 12px 25px;
-  background: #556b57;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-.primary-btn.outline {
-  background: transparent;
-  border: 2px solid #556b57;
-  color: #556b57;
-}
-
-/* CALENDAR */
-.calendar-placeholder {
-  height: 220px;
-  background: #dfe7df;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #556b57;
-  font-weight: 600;
+  color: var(--text-color);
 }
 
 /* RESPONSIVE */
-@media (max-width: 1024px) {
-  .profile-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 768px) {
+.doctor-content .profile-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+  width: 100%;
+}
+
+.doctor-content .availability-row {
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.fee-box input {
+  width: 100px;
+  font-size: 16px;
+}
+
+.upload-box {
+  padding: 10px;
+  border-radius: 10px;
+}
+
 }
 
 
@@ -1101,37 +1090,34 @@ body {
     Code For Follow ups Page
 *******************************/
 /* FOLLOW-UP ROW */
-.followup-row {
+.doctor-content .followup-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f3f6f1;
-  padding: 16px 20px;
-  border-radius: 20px;
-  margin-bottom: 15px;
+  flex-wrap: wrap;
+  padding: 6px 10px;
 }
 
-.followup-row p {
-  color: #666;
+.doctor-content .followup-row p {
+  color: var(--text-color);
   margin-top: 4px;
 }
 
-/* ACTIONS */
-.actions {
+.doctor-content .actions {
   display: flex;
   gap: 10px;
 }
 
-.btn-outline {
+.doctor-content .btn-outline {
   padding: 8px 16px;
   border-radius: 20px;
   border: 2px solid #556b57;
   background: transparent;
-  color: #556b57;
+  color: var(--text-color);
   cursor: pointer;
 }
 
-.btn-success {
+.doctor-content .btn-success {
   padding: 8px 16px;
   border-radius: 20px;
   border: none;
@@ -1140,66 +1126,79 @@ body {
   cursor: pointer;
 }
 
-/* BULK */
-.bulk-grid {
+.doctor-content .bulk-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-.bulk-card {
-  background: #f3f6f1;
+.doctor-content .bulk-card {
+  background: var(--bg-color);
   padding: 25px;
   border-radius: 25px;
 }
 
-.bulk-card h4 {
+.doctor-content .bulk-card h4 {
   margin-bottom: 8px;
 }
 
-.bulk-card p {
-  color: #666;
+.doctor-content .bulk-card p {
+  color: var(--text-color);
   margin-bottom: 15px;
 }
 
-/* AUTO TAGS */
-.auto-tags {
+.doctor-content .auto-tags {
   display: flex;
   gap: 12px;
   margin-bottom: 10px;
 }
 
-.auto-tags span {
-  background: #dfe7df;
+.doctor-content .auto-tags span {
+  background: var(--bg-color);
   padding: 8px 18px;
   border-radius: 20px;
   font-weight: 600;
-  color: #556b57;
+  color: var(--text-color);
 }
 
-.muted {
+.doctor-content .muted {
   color: #777;
 }
 
-/* STATUS */
-.status-list {
+.doctor-content .status-list {
   list-style: none;
 }
 
-.status-list li {
+.doctor-content .status-list li {
   padding: 8px 0;
-  color: #444;
+  color: var(--text-color);
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  .bulk-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 768px) {
+  .doctor-content .followup-row {
+  padding: 15px 10px;
+  border-bottom: 1px solid #cccccc68;
+}
 
-  .actions {
-    flex-direction: column;
-  }
+.doctor-content .followup-row p {
+  color: var(--text-color);
+  margin-top: 4px;
+}
+
+.doctor-content .actions {
+  margin-top: 10px;
+}
+
+.doctor-content .bulk-grid {
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.doctor-content .bulk-card {
+  padding: 20px;
+  border-radius: 10px;
+}
 }
 
 
@@ -1208,44 +1207,42 @@ body {
     Code For Prescription Writer
 ***********************************/
 /* PRESCRIPTION */
-.prescription-card {
+.doctor-content .prescription-card {
   max-width: 900px;
 }
 
-/* HEADER */
-.prescription-header {
+.doctor-content .prescription-header {
   display: flex;
   justify-content: space-between;
-  background: #f3f6f1;
+  background: var(--bg-color);
   padding: 15px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   margin-bottom: 25px;
   font-weight: 600;
 }
 
-/* FORM */
-.form-grid {
+.doctor-content .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
-.form-group {
+.doctor-content .form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-group.full {
+.doctor-content .form-group.full {
   margin-top: 20px;
 }
 
-.form-group label {
+.doctor-content .form-group label {
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-.form-group input,
-.form-group textarea {
+.doctor-content .form-group input,
+.doctor-content .form-group textarea {
   padding: 12px 18px;
   border-radius: 20px;
   border: 1px solid #dcdcdc;
@@ -1257,12 +1254,6 @@ body {
   resize: none;
 }
 
-.hint {
-  font-size: 12px;
-  color: #777;
-  margin-top: 5px;
-}
-
 /* ACTIONS */
 .prescription-actions {
   display: flex;
@@ -1271,35 +1262,28 @@ body {
   flex-wrap: wrap;
 }
 
-.primary-btn {
-  padding: 12px 26px;
-  border-radius: 30px;
-  border: none;
-  background: #556b57;
-  color: white;
-  cursor: pointer;
-}
-
-.primary-btn.outline {
-  background: transparent;
-  border: 2px solid #556b57;
-  color: #556b57;
-}
-
-.primary-btn.success {
-  background: #2f7a3e;
-}
-
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 768px) {
+ .doctor-content .prescription-card {
+  max-width: 100%;
+  padding: 25px 15px;
+}
 
-  .prescription-header {
-    flex-direction: column;
-    gap: 8px;
-  }
+.doctor-content .prescription-header {
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.doctor-content .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.doctor-content .form-group label {
+  font-weight: 500;
+}
 }
 
 

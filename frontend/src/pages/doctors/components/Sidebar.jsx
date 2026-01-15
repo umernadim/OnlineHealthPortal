@@ -1,14 +1,17 @@
 import React from 'react'
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../../../context/AuthContext';
 
 const Sidebar = ({ sidebarOpen }) => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
-    const handleLogout = () => {
-        logout();
-        navigate("/");
-    };
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (!confirmLogout) return;
+
+    logout();
+    navigate("/login");
+  };
     return (
         <>
             {/* SIDEBAR */}
@@ -16,25 +19,25 @@ const Sidebar = ({ sidebarOpen }) => {
                 <h2 className="logo"><i className="ri-service-fill"></i> HealthCare</h2>
                 <ul className="sidebar-menu">
                     <li>
-                        <a href="doctorDashboard">
-                            <i className="ri-dashboard-fill"></i>Home</a></li>
+                        <Link to="doctorDashboard">
+                            <i className="ri-dashboard-fill"></i>Home</Link></li>
                     <li>
-                        <a href="patientList">
-                            <i className="ri-user-fill"></i>Patients</a></li>
+                        <Link to="patientList">
+                            <i className="ri-user-fill"></i>Patients</Link></li>
                     <li>
-                        <a href="doctorsAppointments">
-                            <i className="ri-calendar-schedule-fill"></i>Appointments</a></li>
-                    <li><a href="messages">
+                        <Link to="doctorsAppointments">
+                            <i className="ri-calendar-schedule-fill"></i>Appointments</Link></li>
+                    <li><Link to="messages">
                         <i className="ri-chat-3-fill"></i>
                         Messages
-                    </a>
+                    </Link>
                     </li>
 
                     <li>
-                        <a href="">
+                        <Link to="">
                             <i className="ri-account-circle-fill"></i>
                             Profile
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <button onClick={handleLogout} className='logout-btn'>

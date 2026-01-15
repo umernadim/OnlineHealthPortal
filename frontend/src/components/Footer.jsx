@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Footer = () => {
     return (
@@ -19,34 +20,34 @@ const Footer = () => {
                         </p>
 
                         <div className="socials">
-                            <a href="https://www.facebook.com/"
-                            ><i className="ri-facebook-fill"></i></a>
-                            <a href="https://www.instagram.com/"
-                            ><i className="ri-instagram-fill"></i></a>
-                            <a href="https://www.twitter.com/"
-                            ><i className="ri-twitter-fill"></i></a>
-                            <a href="https://www.youtube.com/"
-                            ><i className="ri-youtube-fill"></i></a>
+                            <Link to="https://www.facebook.com/"
+                            ><i className="ri-facebook-fill"></i></Link>
+                            <Link to="https://www.instagram.com/"
+                            ><i className="ri-instagram-fill"></i></Link>
+                            <Link to="https://www.twitter.com/"
+                            ><i className="ri-twitter-fill"></i></Link>
+                            <Link to="https://www.youtube.com/"
+                            ><i className="ri-youtube-fill"></i></Link>
                         </div>
                     </div>
 
                     <div className="footer-links">
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/doctors">Doctors</a></li>
-                            <li><a href="/contact">Contact us</a></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/about">About</Link></li>
+                            <li><Link to="/doctors">Doctors</Link></li>
+                            <li><Link to="/contact">Contact us</Link></li>
                         </ul>
                     </div>
 
                     <div className="footer-links">
                         <h4>Support</h4>
                         <ul>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Disclaimer</a></li>
-                            <li><a href="/about#faq-section">Faq</a></li>
+                            <li><Link to="#">Privacy Policy</Link></li>
+                            <li><Link to="#">Terms & Conditions</Link></li>
+                            <li><Link to="#">Disclaimer</Link></li>
+                            <li><Link to="/about#faq-section">Faq</Link></li>
                         </ul>
                     </div>
 

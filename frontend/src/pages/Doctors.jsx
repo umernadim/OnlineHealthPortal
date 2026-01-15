@@ -36,8 +36,8 @@ const Doctors = () => {
                             of experience.
                         </p>
                         <div className="btn-container">
-                            <a href="#" className="btn btn-fill">View Profile</a>
-                            <a href="#" className="btn outline">Book Appointment</a>
+                            <a to="#" className="btn btn-fill">View Profile</a>
+                            <a to="#" className="btn outline">Book Appointment</a>
                         </div>
                     </div>
 
@@ -52,8 +52,8 @@ const Doctors = () => {
                         <span>Chiropractor</span>
                         <p>Expert in spinal alignment and posture correction treatments.</p>
                         <div className="btn-container">
-                            <a href="#" className="btn btn-fill">View Profile</a>
-                            <a href="#" className="btn outline">Book Appointment</a>
+                            <a to="#" className="btn btn-fill">View Profile</a>
+                            <a to="#" className="btn outline">Book Appointment</a>
                         </div>
                     </div>
 
@@ -70,8 +70,8 @@ const Doctors = () => {
                             Focused on recovery, mobility improvement, and injury prevention.
                         </p>
                         <div className="btn-container">
-                            <a href="#" className="btn btn-fill">View Profile</a>
-                            <a href="#" className="btn outline">Book Appointment</a>
+                            <a to="#" className="btn btn-fill">View Profile</a>
+                            <a to="#" className="btn outline">Book Appointment</a>
                         </div>
                     </div>
                 </div>

@@ -26,13 +26,13 @@ const Contact = () => {
                         </div>
 
                         <div className="social-icons">
-                            <a href="https://www.facebook.com/"
+                            <a to="https://www.facebook.com/"
                             ><i className="ri-facebook-fill"></i></a>
-                            <a href="https://www.instagram.com/"
+                            <a to="https://www.instagram.com/"
                             ><i className="ri-instagram-line"></i></a>
-                            <a href="https://www.twitter.com/"
+                            <a to="https://www.twitter.com/"
                             ><i className="ri-twitter-line"></i></a>
-                            <a href="https://www.youtube.com/"
+                            <a to="https://www.youtube.com/"
                             ><i className="ri-youtube-line"></i></a>
                         </div>
                     </div>

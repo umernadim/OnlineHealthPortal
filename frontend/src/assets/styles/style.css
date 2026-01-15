@@ -1795,6 +1795,7 @@ body {
     border-radius: 20px;
     padding: 30px 20px;
     text-align: center;
+    flex-direction: column;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease;
 }
@@ -2525,4 +2526,116 @@ body {
     #L-S-section .login-text {
         font-size: 12px;
     }
+}
+
+
+
+
+/**************************************
+ Code For Appointment Seciton 
+***************************************/
+.appointment-section {
+  padding: 30px 0;
+}
+
+.appointment-wrapper {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
+.section-tag {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #6c7c6d;
+  font-weight: 600;
+}
+
+.appointment-wrapper h2 {
+  font-size: 42px;
+  margin: 15px 0;
+  color: var(--heading-color);
+}
+
+.section-line {
+  width: 70px;
+  height: 3px;
+  background: #7a907b;
+  margin: 0 auto 40px;
+}
+
+/* FORM */
+.appointment-form {
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  border: 1px solid #d6dcd6;
+  text-align: left;
+}
+
+.appointment-form .row {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+.appointment-form .field {
+  flex: 1;
+}
+
+.appointment-form .field.full {
+  margin-bottom: 25px;
+}
+
+.appointment-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--heading-color);
+  letter-spacing: 1px;
+}
+
+.appointment-form label span {
+  color: red;
+}
+
+.appointment-form input,
+.appointment-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 6px;
+  border: 1px solid #c9cec9;
+  background: #f9faf9;
+  font-size: 14px;
+  outline: none;
+}
+
+.appointment-form textarea {
+  height: 140px;
+  resize: none;
+}
+
+.appointment-form input::placeholder,
+.appointment-form textarea::placeholder {
+  color: #8c8c8c;
+}
+
+/* BUTTON */
+.appointment-form button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--btn-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.appointment-form button:hover {
+  background: var(--btn-hover-color);
 }

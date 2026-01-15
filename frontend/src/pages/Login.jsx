@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login } = useAuth();
@@ -15,27 +15,27 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const user = await login(form);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await login(form);
 
-    const role =
-      user.role ||
-      user.Role ||
-      user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+      const role =
+        user.role ||
+        user.Role ||
+        user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    const normalizedRole = role?.toLowerCase();
+      const normalizedRole = role?.toLowerCase();
 
-    if (normalizedRole === "admin") navigate("/adminPanel");
-    else if (normalizedRole === "doctor") navigate("/doctorDashboard");
-    else if (normalizedRole === "patient") navigate("/patientDashboard");
-    else navigate("/");
+      if (normalizedRole === "admin") navigate("/adminPanel");
+      else if (normalizedRole === "doctor") navigate("/doctorDashboard");
+      else if (normalizedRole === "patient") navigate("/patientDashboard");
+      else navigate("/");
 
-  } catch (err) {
-    alert(err.response?.data || "Login failed");
-  }
-};
+    } catch (err) {
+      alert(err.response?.data || "Login failed");
+    }
+  };
 
 
   return (
@@ -74,13 +74,13 @@ const handleSubmit = async (e) => {
 
               <button type="submit">Login ACCOUNT</button>
 
-              <p className="cta-text">
-                Don't have an account ? <a href="signup">Signup</a>
-              </p>
-              <p className="cta-text">
-                <a href="forgotPassword">Forgot password</a>
-              </p>
             </form>
+            <p className="cta-text">
+              Don't have an account ? <Link to="/signup">Signup</Link>
+            </p>
+            <p className="cta-text">
+              <Link to="/forgotPassword">Forgot password</Link>
+            </p>
           </div>
         </div>
       </section>

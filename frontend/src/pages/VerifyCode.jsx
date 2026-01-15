@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAuth } from '../context/AuthContext';
+import { useLocation, useNavigate } from 'react-router';
 
 const VerifyCode = () => {
+  const { verifyCode } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const emailFromRoute = location.state?.email || "";
+  const [data, setData] = useState({ email: emailFromRoute, code: "" });
+
+  const submit = async (e) => {
+    e.preventDefault();
+    await verifyCode(data);
+    navigate("/newPassword", { state: { email: data.email } });
+  };
     return (
         <>
             <section id="L-S-section">
@@ -21,7 +34,7 @@ const VerifyCode = () => {
                     <div className="card">
                         <h2>Verification Code</h2>
                         <div className="line"></div>
-                        <form>
+                        <form onSubmit={submit}>
 
                             <div className="field full">
                                 <label>Verification Code *</label>
@@ -29,16 +42,17 @@ const VerifyCode = () => {
                                     type="text"
                                     placeholder="Enter code"
                                     required
-                                    maxLength="4"
-                                    pattern="\d{4}"
+                                    maxLength="6"
+                                    pattern="\d{6}"
                                     inputMode='numeric'
+                                    onChange={e => setData({...data,code:e.target.value})}
                                 />
                             </div>
 
                             <button type="submit">Verify Code</button>
 
                             <p className="cta-text">
-                                <a href="">Resend</a>
+                                <a to="">Resend</a>
                             </p>
 
                         </form>

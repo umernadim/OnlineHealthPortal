@@ -92,9 +92,9 @@ export default function Prescriptions() {
           <p>Find pharmacies near your location</p>
 
           <div className="pharmacy-links">
-            <a href="#">D-Watson Pharmacy</a>
-            <a href="#">Servaid Pharmacy</a>
-            <a href="#">Shaheen Chemist</a>
+            <a to="#">D-Watson Pharmacy</a>
+            <a to="#">Servaid Pharmacy</a>
+            <a to="#">Shaheen Chemist</a>
           </div>
         </div>
 

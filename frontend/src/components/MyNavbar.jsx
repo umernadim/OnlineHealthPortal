@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router';
 
 const MyNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,15 +21,15 @@ const MyNavbar = () => {
 
           <nav className={`nav-links ${isOpen ? 'open' : ''}`}>
             <div className="links">
-              <a href="/">Home</a>
-              <a href="about">About</a>
-              <a href="doctors">Doctor</a>
-              <a href="contact">Contact</a>
+              <Link to="/">Home</Link>
+              <Link to="about">About</Link>
+              <Link to="doctors">Doctor</Link>
+              <Link to="contact">Contact</Link>
             </div>
 
             <div className="nav-actions">
-              <a href="login" className="nav-btn outline">Login</a>
-              <a href="#" className="nav-btn filled">Appointment</a>
+              <Link to="login" className="nav-btn outline">Login</Link>
+              <Link to="#" className="nav-btn filled">Appointment</Link>
             </div>
           </nav>
         </div>

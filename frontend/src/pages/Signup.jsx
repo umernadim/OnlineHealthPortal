@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router";
 
 const Signup = () => {
   const { register } = useAuth();
@@ -14,8 +15,7 @@ const Signup = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       await register(form);
       alert("Registered successfully");
@@ -72,7 +72,7 @@ const Signup = () => {
               <button type="submit">CREATE ACCOUNT</button>
 
               <p className="cta-text">
-                Already have an account? <a href="login">Login</a>
+                Already have an account? <Link to="/login">Login</Link>
               </p>
             </form>
           </div>

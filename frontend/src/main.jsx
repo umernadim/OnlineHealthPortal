@@ -41,6 +41,7 @@ import Prescriptions from './pages/patients/Prescriptions.jsx'
 import Invoice from './pages/patients/Invoice.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Appointment from './Appointment.jsx'
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         Component: Contact
+      },
+      {
+        path: "/appointment",
+        Component: Appointment
       },
 
     ]

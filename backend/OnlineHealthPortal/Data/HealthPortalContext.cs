@@ -24,12 +24,13 @@ public partial class HealthPortalContext : DbContext
 
     public virtual DbSet<Notification> Notifications { get; set; }
 
+    public virtual DbSet<PasswordResetCode> PasswordResetCodes { get; set; }
+
     public virtual DbSet<Patient> Patients { get; set; }
 
     public virtual DbSet<Prescription> Prescriptions { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -108,6 +109,19 @@ public partial class HealthPortalContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Notificat__UserI__5070F446");
+        });
+
+        modelBuilder.Entity<PasswordResetCode>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07A024595D");
+
+            entity.Property(e => e.Code)
+                .HasMaxLength(6)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Expiry).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<Patient>(entity =>

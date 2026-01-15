@@ -41,11 +41,24 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  const forgotPassword = async (email) => {
+    const res = await axios.post(`${API_URL}/forgot-password`, { email });
+    return res.data;
+  };
+
+  const verifyCode = (data) =>
+    axios.post(`${API_URL}/verify-code`, data);
+
+  const resetPassword = (data) =>
+    axios.post(`${API_URL}/reset-password`, data);
+
+
   return (
-    <AuthContext.Provider value={{ user, register, login, logout }}>
+    <AuthContext.Provider value={{ user, register, login, logout, forgotPassword, verifyCode, resetPassword }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => useContext(AuthContext);
+

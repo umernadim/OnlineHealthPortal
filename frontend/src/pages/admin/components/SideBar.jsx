@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../../../context/AuthContext';
 
 const SideBar = ({ sidebarOpen }) => {
@@ -7,8 +7,11 @@ const SideBar = ({ sidebarOpen }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const handleLogout = () => {
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (!confirmLogout) return;
+
     logout();
-    navigate("/");
+    navigate("/login");
   };
 
 
@@ -25,40 +28,40 @@ const SideBar = ({ sidebarOpen }) => {
       {/* MENU */}
       <ul className="sidebar-menu">
         <li className="active">
-          <a href="adminPanel">
+          <Link to="adminPanel">
             <i className="ri-dashboard-fill"></i>
             <span>Dashboard</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="manageDoctors">
+          <Link to="manageDoctors">
             <i className="ri-stethoscope-line"></i>
             <span>Doctors</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="managePatients">
+          <Link to="managePatients">
             <i className="ri-user-fill"></i>
             <span>Patients</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="appointments">
+          <Link to="appointments">
             <i className="ri-calendar-event-fill"></i>
             <span>Appointments</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="notifications">
+          <Link to="notifications">
           <i className="ri-notification-2-fill"></i>
           <span>Notifications</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="systemSettings">
+          <Link to="systemSettings">
           <i className="ri-settings-5-fill"></i>
           <span>Settings</span>
-          </a>
+          </Link>
         </li>
         <li>
           <button onClick={handleLogout} className='logout-btn'>

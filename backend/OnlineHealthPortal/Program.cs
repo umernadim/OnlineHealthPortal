@@ -19,10 +19,10 @@ builder.Services.AddCors(options =>
 });
 
 
-
-
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<EmailService>();
+
 
 // Add services to the container.
 

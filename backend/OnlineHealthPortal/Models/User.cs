@@ -17,6 +17,12 @@ public partial class User
 
     public DateTime? CreatedAt { get; set; }
 
+    public string? Phone { get; set; }
+
+    public bool IsActive { get; set; }
+
+    public string? ProfilePhoto { get; set; }
+
     public virtual Doctor? Doctor { get; set; }
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();

@@ -86,18 +86,6 @@ export default function Prescriptions() {
           </div>
         </div>
 
-        {/* PHARMACY */}
-        <div className="record-card pharmacy-card">
-          <h3>Nearby Pharmacies</h3>
-          <p>Find pharmacies near your location</p>
-
-          <div className="pharmacy-links">
-            <a to="#">D-Watson Pharmacy</a>
-            <a to="#">Servaid Pharmacy</a>
-            <a to="#">Shaheen Chemist</a>
-          </div>
-        </div>
-
       </main>
     </div>
   );

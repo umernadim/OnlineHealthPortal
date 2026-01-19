@@ -15,14 +15,26 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (form) => {
     const res = await axios.post(`${API_URL}/login`, form);
-    const token = res.data.token || res.data.Token;
+
+    const token = res.data.Token || res.data.token;
+    const role = res.data.Role || res.data.role;  // ← Backend se direct role
+
+    if (!token) throw new Error("Token not received");
+
     localStorage.setItem("token", token);
+    localStorage.setItem("role", role);  // ← Direct save
 
     const decoded = jwtDecode(token);
-    setUser(decoded);
+    setUser({ ...decoded, role });
 
-    return decoded;
+    return {
+      token,
+      role,
+      userId: res.data.UserId
+    };
   };
+
+
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -52,9 +64,21 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = (data) =>
     axios.post(`${API_URL}/reset-password`, data);
 
+  const resendCode = (email) =>
+    axios.post(`${API_URL}/resend-code`, { email });
+
 
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, forgotPassword, verifyCode, resetPassword }}>
+    <AuthContext.Provider value={{
+      user,
+      register,
+      login,
+      logout,
+      forgotPassword,
+      verifyCode,
+      resetPassword,
+      resendCode
+    }}>
       {children}
     </AuthContext.Provider>
   );

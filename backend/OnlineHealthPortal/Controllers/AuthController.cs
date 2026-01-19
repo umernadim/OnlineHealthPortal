@@ -25,44 +25,58 @@ namespace OnlineHealthPortal.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterDTO dto)
+        public async Task<IActionResult> Register(RegisterDTO dto)
         {
-            var existingUser = _context.Users.FirstOrDefault(u => u.FullName == dto.FullName);
-            if (existingUser != null)
-            {
-                return BadRequest("User Already Exist");
-            }
+            if (_context.Users.Any(u => u.Email == dto.Email))
+                return BadRequest("Email already registered");
 
-            var hashedPassword = PasswordHasher.HashCode(dto.PasswordHash);
-            dto.PasswordHash = hashedPassword;
             var user = new User
             {
                 FullName = dto.FullName,
                 Email = dto.Email,
-                PasswordHash = hashedPassword,
-                Role = dto.Role
+                Phone = dto.Phone,           // ✅ Save phone
+                PasswordHash = PasswordHasher.HashCode(dto.PasswordHash),
+                Role = "Patient",            // ✅ Fixed
+                CreatedAt = DateTime.Now,
+                IsActive = true
             };
 
             _context.Users.Add(user);
-            _context.SaveChanges();
-            return Ok("User registered successfully.");
+            await _context.SaveChangesAsync();
+
+            var patient = new Patient
+            {
+                UserId = user.Id,
+                Phone = dto.Phone  
+            };
+            _context.Patients.Add(patient);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Patient registered successfully" });
         }
+
 
         [HttpPost("login")]
         public IActionResult Login(LoginDTO dto)
         {
             var isUser = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
             if (isUser == null)
-            {
                 return Unauthorized("User Not Found");
-            }
-            if(isUser.PasswordHash != PasswordHasher.HashCode(dto.PasswordHash))
-            {
+
+            if (isUser.PasswordHash != PasswordHasher.HashCode(dto.PasswordHash))
                 return Unauthorized("Invalid Password");
-            }
+
             var token = _tokenService.GenerateToken(isUser);
-            return Ok(new { Token = token });
+
+            return Ok(new
+            {
+                Token = token,
+                Role = isUser.Role,  
+                UserId = isUser.Id,
+                Email = isUser.Email
+            });
         }
+
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO dto)
         {
@@ -124,8 +138,30 @@ namespace OnlineHealthPortal.Controllers
             return Ok("Password updated successfully");
         }
 
+        [HttpPost("resend-code")]
+        public IActionResult ResendCode(ForgotPasswordDTO dto)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
+            if (user == null) return BadRequest("Email not found");
 
+            // delete old codes
+            var oldCodes = _context.PasswordResetCodes.Where(x => x.Email == dto.Email);
+            _context.PasswordResetCodes.RemoveRange(oldCodes);
 
+            var newCode = new Random().Next(100000, 999999).ToString();
 
+            _context.PasswordResetCodes.Add(new PasswordResetCode
+            {
+                Email = dto.Email,
+                Code = newCode,
+                Expiry = DateTime.Now.AddMinutes(10)
+            });
+
+            _context.SaveChanges();
+
+            _emailService.SendAsync(dto.Email, "Your New Reset Code", $"Your new code is: {newCode}");
+
+            return Ok("New code sent");
+        }
     }
 }

@@ -44,11 +44,13 @@ export default function HealthRecords() {
         </div>
 
         {/* ALLERGIES */}
-        <div className="record-card">
+        <div className="record-card alergy-card">
           <h3>Allergies</h3>
+          <div className="allergies">
 
-          <div className="allergy-tag">
-            Penicillin
+            <div className="allergy-tag">
+              Penicillin
+            </div>
           </div>
         </div>
 

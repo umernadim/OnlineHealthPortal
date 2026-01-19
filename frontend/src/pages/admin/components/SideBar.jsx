@@ -28,37 +28,37 @@ const SideBar = ({ sidebarOpen }) => {
       {/* MENU */}
       <ul className="sidebar-menu">
         <li className="active">
-          <Link to="adminPanel">
+          <Link to="/adminPanel">
             <i className="ri-dashboard-fill"></i>
             <span>Dashboard</span>
           </Link>
         </li>
         <li>
-          <Link to="manageDoctors">
+          <Link to="/manageDoctors">
             <i className="ri-stethoscope-line"></i>
             <span>Doctors</span>
           </Link>
         </li>
         <li>
-          <Link to="managePatients">
+          <Link to="/managePatients">
             <i className="ri-user-fill"></i>
             <span>Patients</span>
           </Link>
         </li>
         <li>
-          <Link to="appointments">
+          <Link to="/appointments">
             <i className="ri-calendar-event-fill"></i>
             <span>Appointments</span>
           </Link>
         </li>
         <li>
-          <Link to="notifications">
+          <Link to="/notifications">
           <i className="ri-notification-2-fill"></i>
           <span>Notifications</span>
           </Link>
         </li>
         <li>
-          <Link to="systemSettings">
+          <Link to="/systemSettings">
           <i className="ri-settings-5-fill"></i>
           <span>Settings</span>
           </Link>

@@ -1,131 +1,204 @@
 import DoctorHeader from "./components/DoctorHeader";
 import Sidebar from "./components/Sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../../service/axios";
+import { useAuth } from "../../context/AuthContext";
+
 export default function DoctorDashboard() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    return (
-        <div className="doctor-layout">
 
-            {/* SIDEBAR */}
+  const { user } = useAuth();
+  const [appointments, setAppointments] = useState([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-            <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-            {/* MAIN */}
+  // ===============================
+  // LOAD DOCTOR APPOINTMENTS
+  // ===============================
+  useEffect(() => {
+    loadAppointments();
+  }, []);
 
-            <main className="doctor-content">
+  const loadAppointments = async () => {
+    try {
+      const res = await api.get("/Appointment/doctor");
+      setAppointments(res.data);
+    } catch (error) {
+      console.error("Error loading appointments:", error);
+    }
+  };
 
-                {/* HEADER */}
-                <DoctorHeader
-                    title="Hey, Dr. Alex"
-                    subtitle="Here’s your schedule overview for today"
-                    sidebarOpen={sidebarOpen}
-                    setSidebarOpen={setSidebarOpen} />
+  // ===============================
+  // UPDATE STATUS
+  // ===============================
+  const updateStatus = async (id, status) => {
+    try {
+      await api.put(`/Appointment/${id}/status`, status, {
+        headers: { "Content-Type": "application/json" }
+      });
+      loadAppointments();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-                {/* QUICK STATS */}
-                <div className="stats-grid">
-                    <div className="stat-card">
-                        <h3>Patients Today</h3>
-                        <span>12</span>
-                    </div>
+  // ===============================
+  // DERIVED DATA
+  // ===============================
+  const todayAppointments = appointments.filter(
+    a => new Date(a.appointmentDate).toDateString() === new Date().toDateString()
+  );
 
-                    <div className="stat-card">
-                        <h3>Upcoming Appointments</h3>
-                        <span>5</span>
-                    </div>
+  const pendingAppointments = appointments.filter(
+    a => a.status === "Pending"
+  );
 
-                    <div className="stat-card">
-                        <h3>Earnings Today</h3>
-                        <span>$420</span>
-                    </div>
+  return (
+    <div className="doctor-layout">
 
-                    <div className="stat-card">
-                        <h3>Unread Messages</h3>
-                        <span>3</span>
-                    </div>
-                </div>
+      {/* SIDEBAR */}
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-                {/* SCHEDULE + ACTIONS */}
-                <div className="dashboard-grid">
+      {/* MAIN */}
+      <main className="doctor-content">
 
-                    {/* TODAY SCHEDULE */}
-                    <div className="dashboard-card">
-                        <h3>Today's Schedule</h3>
+        {/* HEADER */}
+        <DoctorHeader
+          title={`Hey, Dr. ${user?.name || user?.FullName || "Doctor"}`}
+          subtitle="Here’s your schedule overview for today"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
-                        <ul className="schedule-list">
-                            <li>
-                                <span>09:00 AM</span>
-                                <p>John Doe</p>
-                                <small className="status confirmed">Confirmed</small>
-                            </li>
+        {/* QUICK STATS */}
+        <div className="stats-grid">
+          <div className="stat-card">
+            <h3>Patients Today</h3>
+            <span>{todayAppointments.length}</span>
+          </div>
 
-                            <li>
-                                <span>10:30 AM</span>
-                                <p>Emily Clark</p>
-                                <small className="status pending">Pending</small>
-                            </li>
+          <div className="stat-card">
+            <h3>Pending Requests</h3>
+            <span>{pendingAppointments.length}</span>
+          </div>
 
-                            <li>
-                                <span>01:00 PM</span>
-                                <p>Michael Smith</p>
-                                <small className="status completed">Completed</small>
-                            </li>
-                        </ul>
-                    </div>
+          <div className="stat-card">
+            <h3>Total Appointments</h3>
+            <span>{appointments.length}</span>
+          </div>
 
-                    {/* UPCOMING + ACTIONS */}
-                    <div className="dashboard-card">
-                        <h3>Pending Actions</h3>
-
-                        <div className="action-item">
-                            <p>2 Appointment Requests</p>
-                            <button>Review</button>
-                        </div>
-
-                        <div className="action-item">
-                            <p>3 Unread Messages</p>
-                            <button>Open</button>
-                        </div>
-
-                        <div className="action-item">
-                            <p>1 Reschedule Request</p>
-                            <button>Respond</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                {/* UPCOMING APPOINTMENTS */}
-                <div className="dashboard-card">
-                    <h3>Upcoming Appointments (Next 48 Hours)</h3>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Patient</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Sarah Khan</td>
-                                <td>Tomorrow</td>
-                                <td>11:00 AM</td>
-                                <td className="status confirmed">Confirmed</td>
-                            </tr>
-
-                            <tr>
-                                <td>David Lee</td>
-                                <td>Tomorrow</td>
-                                <td>03:30 PM</td>
-                                <td className="status pending">Pending</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </main>
+          <div className="stat-card">
+            <h3>Earnings</h3>
+            <span>$0</span>
+          </div>
         </div>
-    );
+
+        {/* DASHBOARD GRID */}
+        <div className="dashboard-grid">
+
+          {/* TODAY SCHEDULE */}
+          <div className="dashboard-card">
+            <h3>Today's Schedule</h3>
+
+            {todayAppointments.length === 0 && (
+              <p>No appointments today</p>
+            )}
+
+            <ul className="schedule-list">
+              {todayAppointments.map(a => (
+                <li key={a.id}>
+                  <span>
+                    {new Date(a.appointmentDate).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    })}
+                  </span>
+
+                  <p>{a.patientName}</p>
+
+                  <small className={`status ${a.status.toLowerCase()}`}>
+                    {a.status}
+                  </small>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* PENDING ACTIONS */}
+          <div className="dashboard-card">
+            <h3>Pending Actions</h3>
+
+            {pendingAppointments.length === 0 && (
+              <p>No pending requests</p>
+            )}
+
+            {pendingAppointments.map(a => (
+              <div className="action-item" key={a.id}>
+                <p>
+                  {a.patientName} —{" "}
+                  {new Date(a.appointmentDate).toLocaleDateString()}{" "}
+                  {new Date(a.appointmentDate).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                  })}
+                </p>
+
+                <div className="action-buttons">
+                  <button
+                    onClick={() => updateStatus(a.id, "Confirmed")}
+                    className="primary-btn"
+                  >
+                    Accept
+                  </button>
+
+                  <button
+                    onClick={() => updateStatus(a.id, "Rejected")}
+                    className="secondary-btn"
+                  >
+                    Reject
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        {/* UPCOMING APPOINTMENTS */}
+        <div className="dashboard-card">
+          <h3>All Appointments</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Type</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {appointments.map(a => (
+                <tr key={a.id}>
+                  <td>{a.patientName}</td>
+                  <td>{new Date(a.appointmentDate).toLocaleDateString()}</td>
+                  <td>
+                    {new Date(a.appointmentDate).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    })}
+                  </td>
+                  <td>{a.type}</td>
+                  <td className={`status ${a.status.toLowerCase()}`}>
+                    {a.status}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+      </main>
+    </div>
+  );
 }

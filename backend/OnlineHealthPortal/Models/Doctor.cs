@@ -17,6 +17,12 @@ public partial class Doctor
 
     public decimal? Rating { get; set; }
 
+    public decimal ConsultationFee { get; set; }
+
+    public string? Availability { get; set; }
+
+    public bool IsApproved { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual User? User { get; set; }

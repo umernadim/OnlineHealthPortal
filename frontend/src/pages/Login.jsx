@@ -15,28 +15,33 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const user = await login(form);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const user = await login(form);
+    
+    const role = localStorage.getItem("role")?.toLowerCase();
+    console.log("🔍 Role from localStorage:", role);
 
-      const role =
-        user.role ||
-        user.Role ||
-        user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    const urlParams = new URLSearchParams(window.location.search);
+    const returnUrl = urlParams.get('returnUrl');
 
-      const normalizedRole = role?.toLowerCase();
-
-      if (normalizedRole === "admin") navigate("/adminPanel");
-      else if (normalizedRole === "doctor") navigate("/doctorDashboard");
-      else if (normalizedRole === "patient") navigate("/patientDashboard");
-      else navigate("/");
-
-    } catch (err) {
-      alert(err.response?.data || "Login failed");
+    if (returnUrl) {
+      window.location.href = decodeURIComponent(returnUrl);
+    } else if (role === "admin") {
+      navigate("/adminPanel");
+    } else if (role === "doctor") {
+      navigate("/doctorDashboard");
+    } else if (role === "patient") {
+      navigate("/patientDashboard");
+    } else {
+      console.log("❌ Unknown role:", role);
+      navigate("/");
     }
-  };
-
+  } catch (err) {
+    alert(err.response?.data || "Login failed");
+  }
+};
 
   return (
     <>

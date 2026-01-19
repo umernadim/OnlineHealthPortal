@@ -19,6 +19,10 @@ public partial class Appointment
 
     public DateTime? CreatedAt { get; set; }
 
+    public string? MeetingLink { get; set; }
+
+    public int? DurationMinutes { get; set; }
+
     public virtual Doctor? Doctor { get; set; }
 
     public virtual Patient? Patient { get; set; }

@@ -1,6 +1,52 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../service/axios";
 
 const Doctors = () => {
+    const [doctors, setDoctors] = useState([]);
+    const [filteredDoctors, setFilteredDoctors] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        loadDoctors();
+    }, []);
+
+    // ✅ NULL-SAFE SEARCH FILTER
+    useEffect(() => {
+        if (!searchTerm.trim()) {
+            setFilteredDoctors(doctors);
+        } else {
+            const filtered = doctors.filter(doctor => {
+                const name = (doctor.fullName || "").toLowerCase();
+                const specialty = (doctor.speciality || "").toLowerCase();
+                const term = searchTerm.toLowerCase().trim();
+
+                return name.includes(term) || specialty.includes(term);
+            });
+            setFilteredDoctors(filtered);
+        }
+    }, [searchTerm, doctors]);
+
+    const loadDoctors = async () => {
+        try {
+            const res = await api.get("/Doctor");
+
+            const doctorsArray = res.data.doctors || res.data || [];
+            setDoctors(doctorsArray);
+            setFilteredDoctors(doctorsArray);
+
+        } catch (error) {
+            console.error("❌ Error:", error);
+            setDoctors([]);
+            setFilteredDoctors([]);
+        }
+    };
+
+    const clearSearch = () => {
+        setSearchTerm("");
+    };
+
     return (
         <>
             <section id="doctors-page">
@@ -9,76 +55,103 @@ const Doctors = () => {
                     <h2>Meet Our Expert Doctors</h2>
                     <div className="line"></div>
                     <p>
-                        Our experienced physiotherapists and specialists are dedicated to
-                        helping you move better, feel stronger, and live pain-free.
+                        Our experienced doctors are dedicated to helping you stay healthy and live better.
                     </p>
+
+                    {/* ✅ SEARCH BAR */}
                     <div className="search-wrapper">
                         <input
                             type="text"
+                            className="search-input"
                             placeholder="Search doctor by name or speciality..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <button type="submit"><i className="ri-search-line"></i></button>
+                        {searchTerm && (
+                            <button
+                                type="button"
+                                className="clear-btn"
+                                onClick={clearSearch}
+                            >
+                                ✕
+                            </button>
+                        )}
+                        <i className="ri-search-line search-icon"></i>
                     </div>
+
+                    {/* ✅ SEARCH RESULTS */}
+                    {searchTerm && (
+                        <p className="search-results">
+                            Found {filteredDoctors.length} of {doctors.length} doctors
+                        </p>
+                    )}
                 </div>
 
                 <div className="doctors-grid">
-                    <div className="doctor-card">
-                        <div className="doctor-image">
-                            <img
-                                src="https://i.pinimg.com/736x/f1/63/8a/f1638a3b734fa2c73a05cc1893f5796e.jpg"
-                                alt="Doctor"
-                            />
-                        </div>
-                        <h3>Dr. Yael Amari</h3>
-                        <span>APA Physiotherapist</span>
-                        <p>
-                            Specialized in musculoskeletal rehabilitation with over 10 years
-                            of experience.
-                        </p>
-                        <div className="btn-container">
-                            <a to="#" className="btn btn-fill">View Profile</a>
-                            <a to="#" className="btn outline">Book Appointment</a>
-                        </div>
-                    </div>
+                    {filteredDoctors.length > 0 ? (
+                        filteredDoctors.map(doctor => (
+                            <div className="doctor-card" key={doctor.id}>
+                                <div className="doctor-image">
+                                    <img
+                                        src={doctor.photo || "https://i.pinimg.com/736x/f1/63/8a/f1638a3b734fa2c73a05cc1893f5796e.jpg"}
+                                        alt={doctor.fullName || "Doctor"}
+                                        onError={(e) => {
+                                            e.target.src = "https://i.pinimg.com/736x/f1/63/8a/f1638a3b734fa2c73a05cc1893f5796e.jpg";
+                                        }}
+                                    />
+                                </div>
 
-                    <div className="doctor-card">
-                        <div className="doctor-image">
-                            <img
-                                src="https://i.pinimg.com/736x/40/9f/b1/409fb1eecf38d68d9a8aace27b2497ba.jpg"
-                                alt="Doctor"
-                            />
-                        </div>
-                        <h3>Dr. Kyrie Petrakis</h3>
-                        <span>Chiropractor</span>
-                        <p>Expert in spinal alignment and posture correction treatments.</p>
-                        <div className="btn-container">
-                            <a to="#" className="btn btn-fill">View Profile</a>
-                            <a to="#" className="btn outline">Book Appointment</a>
-                        </div>
-                    </div>
+                                <h3>Dr. {doctor.fullName || "Specialist"}</h3>
 
-                    <div className="doctor-card">
-                        <div className="doctor-image">
-                            <img
-                                src="https://i.pinimg.com/736x/c6/81/5e/c6815efc00543194bb52e808a4c6ea7b.jpg"
-                                alt="Doctor"
-                            />
+                                <p className="specialty">
+                                    {doctor.speciality || "General Physician"} •
+                                    {doctor.experienceYears || 0} years exp
+                                </p>
+
+                                <div className="rating">
+                                    ★ {(doctor.rating || 0).toFixed(1)}
+                                </div>
+
+                                <div className="btn-container">
+                                    <button
+                                        className="btn btn-fill"
+                                        onClick={() => navigate(`/doctor/${doctor.id}`)}
+                                    >
+                                        View Profile
+                                    </button>
+                                    <button
+                                        className="btn outline"
+                                        onClick={() => navigate(`/bookAppointment/${doctor.id}`)}
+                                    >
+                                        Book Now
+                                        <span className="fee">
+                                            PKR {doctor.consultationFee || 1000}
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="no-results">
+                            <i className="ri-search-eye-line"></i>
+                            <h3>No doctors found</h3>
+                            <p>
+                                {searchTerm
+                                    ? `No doctors match "${searchTerm}". Try different keywords.`
+                                    : "Loading doctors..."
+                                }
+                            </p>
+                            {searchTerm && (
+                                <button className="btn btn-fill" onClick={clearSearch}>
+                                    Clear Search
+                                </button>
+                            )}
                         </div>
-                        <h3>Dr. Olivia Wilson</h3>
-                        <span>Physical Therapist</span>
-                        <p>
-                            Focused on recovery, mobility improvement, and injury prevention.
-                        </p>
-                        <div className="btn-container">
-                            <a to="#" className="btn btn-fill">View Profile</a>
-                            <a to="#" className="btn outline">Book Appointment</a>
-                        </div>
-                    </div>
+                    )}
                 </div>
             </section>
-
         </>
-    )
-}
+    );
+};
 
-export default Doctors
+export default Doctors;

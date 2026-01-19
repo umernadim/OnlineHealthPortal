@@ -12,7 +12,7 @@ export default function PatientDashboard() {
 
         {/* HEADER */}
         <div className="page-header">
-          <h1>Welcome Back 👋</h1>
+          <h1>Welcome Back</h1>
           <p>Your health overview & upcoming care</p>
         </div>
 

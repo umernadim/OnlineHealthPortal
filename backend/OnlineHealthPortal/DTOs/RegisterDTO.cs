@@ -9,5 +9,7 @@
         public string PasswordHash { get; set; } = null!;
 
         public string Role { get; set; } = null!;
+
+        public string? Phone { get; set; }
     }
 }

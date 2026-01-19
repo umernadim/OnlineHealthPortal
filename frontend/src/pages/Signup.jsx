@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const { register } = useAuth();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     fullName: "",
     email: "",
+    phone: "",           // ✅ NEW: Phone field
     passwordHash: "",
-    role: "Patient",
+    role: "Patient",     // ✅ Fixed Patient only
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       await register(form);
-      alert("Registered successfully");
+      alert("Registered successfully! Please login.");
+      navigate("/login");
     } catch (err) {
       alert(err.response?.data || "Registration failed");
     }
@@ -50,24 +54,51 @@ const Signup = () => {
               <div className="row">
                 <div className="field">
                   <label>NAME *</label>
-                  <input type="text" placeholder="Enter name" name="fullName" required onChange={handleChange} />
+                  <input 
+                    type="text" 
+                    placeholder="Enter name" 
+                    name="fullName" 
+                    required 
+                    onChange={handleChange} 
+                  />
                 </div>
               </div>
 
               <div className="field full">
+                <label>PHONE NUMBER *</label>
+                <input 
+                  type="tel" 
+                  placeholder="+92 321 1234567" 
+                  name="phone" 
+                  required 
+                  onChange={handleChange} 
+                />
+              </div>
+
+              <div className="field full">
                 <label>EMAIL ADDRESS *</label>
-                <input type="email" placeholder="Email address" name="email" required onChange={handleChange} />
+                <input 
+                  type="email" 
+                  placeholder="Email address" 
+                  name="email" 
+                  required 
+                  onChange={handleChange} 
+                />
               </div>
 
               <div className="field full">
                 <label>PASSWORD *</label>
-                <input type="password" placeholder="Password" name="passwordHash" required onChange={handleChange} />
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  name="passwordHash" 
+                  required 
+                  onChange={handleChange} 
+                />
               </div>
 
-              <select name="role" onChange={handleChange}>
-              <option value="Patient">Patient</option>
-              <option value="Doctor">Doctor</option>
-            </select>
+              {/* Role hidden field Patient only */}
+              <input type="hidden" name="role" value="Patient" />
 
               <button type="submit">CREATE ACCOUNT</button>
 
@@ -79,9 +110,7 @@ const Signup = () => {
         </div>
       </section>
     </>
-
   );
-
 };
 
 export default Signup;

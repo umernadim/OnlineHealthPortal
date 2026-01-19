@@ -24,7 +24,6 @@ export default function MyAppointments() {
               <strong>10 Jan • 11:00 AM</strong>
               <p>Dr. Ahmed Khan</p>
               <span className="badge confirmed">Confirmed</span>
-              <p className="countdown">⏳ Starts in 23h 15m</p>
             </div>
 
             <div className="actions">
@@ -63,15 +62,6 @@ export default function MyAppointments() {
               <button className="btn-outline">View Prescription</button>
             </div>
           </div>
-        </div>
-
-        {/* EXPORT */}
-        <div className="record-card export-card">
-          <h3>Calendar</h3>
-          <p>Add your appointments to Google / Apple Calendar</p>
-          <button className="primary-btn outline">
-            Export to Calendar
-          </button>
         </div>
 
       </main>

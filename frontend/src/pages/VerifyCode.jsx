@@ -3,17 +3,23 @@ import { useAuth } from '../context/AuthContext';
 import { useLocation, useNavigate } from 'react-router';
 
 const VerifyCode = () => {
-  const { verifyCode } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const emailFromRoute = location.state?.email || "";
-  const [data, setData] = useState({ email: emailFromRoute, code: "" });
+    const { verifyCode, resendCode } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const email = location.state?.email || "";
 
-  const submit = async (e) => {
-    e.preventDefault();
-    await verifyCode(data);
-    navigate("/newPassword", { state: { email: data.email } });
-  };
+    const [code, setCode] = useState("");
+
+    const submit = async (e) => {
+        e.preventDefault();
+        await verifyCode({ email, code });
+        navigate("/newPassword", { state: { email } });
+    };
+
+    const resend = async () => {
+        await resendCode(email);
+        alert("New code sent to your email");
+    };
     return (
         <>
             <section id="L-S-section">
@@ -25,7 +31,7 @@ const VerifyCode = () => {
                         <h1>Verify Your Account</h1>
                         <p>It is as simple as:</p>
                         <ul>
-                            <li>Please check your email/phone <br /> for a 4-digit verification code</li>
+                            <li>Please check your email/phone <br /> for a 6-digit verification code</li>
                             <li>Enter the code below to continue.</li>
                             <li>This step ensures your account security.</li>
                         </ul>
@@ -45,17 +51,20 @@ const VerifyCode = () => {
                                     maxLength="6"
                                     pattern="\d{6}"
                                     inputMode='numeric'
-                                    onChange={e => setData({...data,code:e.target.value})}
+                                    onChange={e => setCode(e.target.value)}
                                 />
                             </div>
 
                             <button type="submit">Verify Code</button>
 
-                            <p className="cta-text">
-                                <a to="">Resend</a>
-                            </p>
-
                         </form>
+                        <p className="cta-text">
+                            Didn’t receive code?{" "}
+                            <button type="button" onClick={resend} className="link-btn">
+                                Resend
+                            </button>
+                        </p>
+
                     </div>
                 </div>
             </section>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../../../context/AuthContext';
 
 const SidebarPat = () => {
@@ -15,42 +15,52 @@ const SidebarPat = () => {
     };
     return (
         <>
-            <aside className="sidebar">
-                <h2 className="logo"><i class="ri-service-fill"></i> HealthCare</h2>
+            <aside className="d-sidebar">
+                <h2 className="logo"><i className="ri-service-fill"></i> HealthCare</h2>
                 <ul className="sidebar-menu">
                     <li>
-                        <a to="patientDashboard">
-
+                        <Link to="/patientDashboard">
                             <i className="ri-dashboard-fill"></i>Dashboard
-                        </a>
+                        </Link>
                     </li>
 
                     <li>
-                        <a to="myAppointments">
-                            <i className="ri-calendar-schedule-fill">Appointments</i>
-                        </a>
+                        <Link to="/myAppointments">
+                            <i className="ri-calendar-schedule-fill"></i>Appointments
+                        </Link>
                     </li>
+
                     <li>
-                        <a to="healthRecords">
+                        <Link to="/healthRecords">
                             <i className="ri-calendar-schedule-fill"></i>My Records
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a to="messages">
-                            <i className="ri-chat-3-fill">Messages</i>
-                        </a>
+                        <Link to="/doctors">
+                            <i className="ri-calendar-schedule-fill"></i>Doctors
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/messages">
+                            <i className="ri-chat-3-fill"></i>Message
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/prescriptions">
+                            <i className="ri-chat-3-fill"></i>Prescriptions
+                        </Link>
                     </li>
 
                     <li>
-                        <a to="invoice">
+                        <Link to="/invoice">
                             <i className="ri-chat-3-fill"></i>Invoice
-                        </a>
+                        </Link>
                     </li>
 
                     <li>
-                        <a to="patientProfile">
+                        <Link to="/patientProfile">
                             <i className="ri-account-circle-fill"></i>Profile
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <button onClick={handleLogout} className='logout-btn'>

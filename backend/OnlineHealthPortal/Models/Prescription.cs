@@ -15,5 +15,7 @@ public partial class Prescription
 
     public DateTime? CreatedAt { get; set; }
 
+    public string? DosageInstructions { get; set; }
+
     public virtual Appointment? Appointment { get; set; }
 }

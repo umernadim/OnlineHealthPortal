@@ -22,6 +22,8 @@ public partial class HealthPortalContext : DbContext
 
     public virtual DbSet<HealthRecord> HealthRecords { get; set; }
 
+    public virtual DbSet<Message> Messages { get; set; }
+
     public virtual DbSet<Notification> Notifications { get; set; }
 
     public virtual DbSet<PasswordResetCode> PasswordResetCodes { get; set; }
@@ -31,6 +33,7 @@ public partial class HealthPortalContext : DbContext
     public virtual DbSet<Prescription> Prescriptions { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -41,6 +44,10 @@ public partial class HealthPortalContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.DurationMinutes).HasDefaultValue(30);
+            entity.Property(e => e.MeetingLink)
+                .HasMaxLength(500)
+                .IsFixedLength();
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .IsUnicode(false);
@@ -63,6 +70,9 @@ public partial class HealthPortalContext : DbContext
 
             entity.HasIndex(e => e.UserId, "UQ__Doctors__1788CC4DA0109BD0").IsUnique();
 
+            entity.Property(e => e.ConsultationFee)
+                .HasDefaultValue(300m)
+                .HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Language)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -93,6 +103,16 @@ public partial class HealthPortalContext : DbContext
             entity.HasOne(d => d.Patient).WithMany(p => p.HealthRecords)
                 .HasForeignKey(d => d.PatientId)
                 .HasConstraintName("FK__HealthRec__Patie__4AB81AF0");
+        });
+
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Messages__3214EC075747965A");
+
+            entity.Property(e => e.FilePath)
+                .HasMaxLength(500)
+                .IsFixedLength();
+            entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
         });
 
         modelBuilder.Entity<Notification>(entity =>
@@ -174,9 +194,18 @@ public partial class HealthPortalContext : DbContext
             entity.Property(e => e.FullName)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("isActive");
             entity.Property(e => e.PasswordHash)
                 .HasMaxLength(250)
                 .IsUnicode(false);
+            entity.Property(e => e.Phone)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.ProfilePhoto)
+                .HasMaxLength(500)
+                .IsFixedLength();
             entity.Property(e => e.Role)
                 .HasMaxLength(20)
                 .IsUnicode(false);

@@ -19,22 +19,22 @@ const Sidebar = ({ sidebarOpen }) => {
                 <h2 className="logo"><i className="ri-service-fill"></i> HealthCare</h2>
                 <ul className="sidebar-menu">
                     <li>
-                        <Link to="doctorDashboard">
+                        <Link to="/doctorDashboard">
                             <i className="ri-dashboard-fill"></i>Home</Link></li>
                     <li>
-                        <Link to="patientList">
+                        <Link to="/patientList">
                             <i className="ri-user-fill"></i>Patients</Link></li>
                     <li>
-                        <Link to="doctorsAppointments">
+                        <Link to="/doctorsAppointments">
                             <i className="ri-calendar-schedule-fill"></i>Appointments</Link></li>
-                    <li><Link to="messages">
+                    <li><Link to="/messages">
                         <i className="ri-chat-3-fill"></i>
                         Messages
                     </Link>
                     </li>
 
                     <li>
-                        <Link to="">
+                        <Link to="/profileAvailibility">
                             <i className="ri-account-circle-fill"></i>
                             Profile
                         </Link>

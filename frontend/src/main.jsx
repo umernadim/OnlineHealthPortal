@@ -48,30 +48,15 @@ const router = createBrowserRouter([
     path: "/",
     Component: App,
     children: [
-      {
-        index: true,
-        Component: Home
-      },
-      {
-        path: "/about",
-        Component: About
-      },
-      {
-        path: "/doctors",
-        Component: Doctors
-      },
-      {
-        path: "/contact",
-        Component: Contact
-      },
-      {
-        path: "/appointment",
-        Component: Appointment
-      },
-
-    ]
+      { index: true, Component: Home },
+      { path: "/about", Component: About },
+      { path: "/doctors", Component: Doctors },
+      { path: "/contact", Component: Contact },
+      { path: "/appointment", Component: Appointment },
+    ],
   },
-  //routes for admin panel
+
+  // routes for admin panel
   {
     path: "/adminPanel",
     element: (
@@ -80,49 +65,55 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-
   {
     path: "/manageDoctors",
-    Component: ManageDoctors
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <ManageDoctors />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/managePatients",
-    Component: ManagePatients
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <ManagePatients />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/appointments",
-    Component: Appointments
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "Doctor", "Patient"]}>
+        <Appointments />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/notifications",
-    Component: Notifications
+    element: (
+      <ProtectedRoute allowedRoles={["Admin", "Doctor", "Patient"]}>
+        <Notifications />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/systemSettings",
-    Component: SystemSettings
+    element: (
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <SystemSettings />
+      </ProtectedRoute>
+    ),
   },
-  //routes for login/signup pages
-  {
-    path: "/login",
-    Component: Login
-  },
-  {
-    path: "/signup",
-    Component: Signup
-  },
-  {
-    path: "/forgotPassword",
-    Component: ForgotPassword
-  },
-  {
-    path: "/verifyCode",
-    Component: VerifyCode
-  },
-  {
-    path: "/newPassword",
-    Component: NewPassword
-  },
-  //routes for doctor dashboard
+
+  // routes for login/signup pages (public)
+  { path: "/login", Component: Login },
+  { path: "/signup", Component: Signup },
+  { path: "/forgotPassword", Component: ForgotPassword },
+  { path: "/verifyCode", Component: VerifyCode },
+  { path: "/newPassword", Component: NewPassword },
+
+  // routes for doctor dashboard
   {
     path: "/doctorDashboard",
     element: (
@@ -133,37 +124,70 @@ const router = createBrowserRouter([
   },
   {
     path: "/patientList",
-    Component: PatientList
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <PatientList />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/doctorsAppointments",
-    Component: AppointmentManagement
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <AppointmentManagement />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/consultation",
-    Component: Consultation
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <Consultation />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/messages",
-    Component: Messages
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <Messages />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/patientRecords",
-    Component: PatientRecords
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <PatientRecords />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/profileAvailibility",
-    Component: ProfileAvailability
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <ProfileAvailability />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/followUps",
-    Component: FollowUps
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <FollowUps />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/prescriptionWriter",
-    Component: PrescriptionWriter
+    element: (
+      <ProtectedRoute allowedRoles={["Doctor"]}>
+        <PrescriptionWriter />
+      </ProtectedRoute>
+    ),
   },
-  //routes for patients pages
+
+  // routes for patients pages
   {
     path: "/patientDashboard",
     element: (
@@ -173,30 +197,53 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/bookAppointment",
-    Component: BookAppointment
+    path: "/bookAppointment/:doctorId",
+    element: (
+      <ProtectedRoute allowedRoles={["Patient"]}>
+        <BookAppointment />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/healthRecords",
-    Component: HealthRecords
+    element: (
+      <ProtectedRoute allowedRoles={["Patient"]}>
+        <HealthRecords />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/patientProfile",
-    Component: PatientProfile
+    element: (
+      <ProtectedRoute allowedRoles={["Patient"]}>
+        <PatientProfile />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/myAppointments",
-    Component: MyAppointments
+    element: (
+      <ProtectedRoute allowedRoles={["Patient"]}>
+        <MyAppointments />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/prescriptions",
-    Component: Prescriptions
+    element: (
+      <ProtectedRoute allowedRoles={["Patient"]}>
+        <Prescriptions />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/invoice",
-    Component: Invoice
+    element: (
+      <ProtectedRoute allowedRoles={["Patient"]}>
+        <Invoice />
+      </ProtectedRoute>
+    ),
   },
-
 ]);
 
 createRoot(document.getElementById('root')).render(

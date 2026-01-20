@@ -32,6 +32,11 @@ const Sidebar = ({ sidebarOpen }) => {
                         Messages
                     </Link>
                     </li>
+                    <li><Link to="/consultation">
+                        <i className="ri-chat-3-fill"></i>
+                        Follow Ups
+                    </Link>
+                    </li>
 
                     <li>
                         <Link to="/profileAvailibility">

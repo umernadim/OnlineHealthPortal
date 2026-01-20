@@ -342,7 +342,7 @@
   },
   {
     "ContainingType": "OnlineHealthPortal.Controllers.DoctorController",
-    "Method": "GetDoctorProfile",
+    "Method": "GetDoctor",
     "RelativePath": "api/Doctor/profile",
     "HttpMethod": "GET",
     "IsController": true,

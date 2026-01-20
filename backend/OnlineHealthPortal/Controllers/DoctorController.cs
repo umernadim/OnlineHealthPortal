@@ -35,13 +35,21 @@ namespace OnlineHealthPortal.Controllers
                     fullName = d.User.FullName,
                     email = d.User.Email,
                     phone = d.User.Phone,
-                    photo = d.User.ProfilePhoto ?? "default-avatar.jpg",
+                    photo = d.User.ProfilePhoto != null
+    ? $"{Request.Scheme}://{Request.Host}/{d.User.ProfilePhoto}"
+    : $"{Request.Scheme}://{Request.Host}/images/default-avatar.jpg",
+
                     speciality = d.Speciality,
                     experienceYears = d.ExperienceYears,
                     consultationFee = d.ConsultationFee,
                     rating = d.Rating ?? 0,
                     language = d.Language,
-                    availability = d.Availability
+                    availability = d.Availability,
+                    patientsTreated = _context.Appointments
+            .Where(a => a.DoctorId == d.Id && a.Status == "Completed")
+            .Select(a => a.PatientId)
+            .Distinct()
+            .Count()
                 })
                 .FirstOrDefaultAsync();
 
@@ -67,7 +75,10 @@ namespace OnlineHealthPortal.Controllers
                     experienceYears = d.ExperienceYears ?? 0,
                     rating = d.Rating ?? 0,
                     phone = d.User.Phone ?? "",
-                    photo = d.User.ProfilePhoto ?? "default-avatar.jpg",
+                    photo = d.User.ProfilePhoto != null
+    ? $"{Request.Scheme}://{Request.Host}/{d.User.ProfilePhoto}"
+    : $"{Request.Scheme}://{Request.Host}/images/default-avatar.jpg",
+
                     consultationFee = d.ConsultationFee
                 });
 
@@ -156,7 +167,7 @@ namespace OnlineHealthPortal.Controllers
                     ConsultationFee = dto.ConsultationFee,
                     Language = dto.Language,
                     Availability = dto.Availability,
-                    IsApproved = false,  
+                    IsApproved = false,
                     Rating = 0
                 };
 
@@ -238,7 +249,7 @@ namespace OnlineHealthPortal.Controllers
 
         [HttpGet("profile")]
         [Authorize(Roles = "Doctor")]
-        public async Task<ActionResult<object>> GetDoctorProfile()
+        public async Task<ActionResult<object>> GetDoctor()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var doctor = await _context.Doctors.Include(d => d.User).FirstOrDefaultAsync(d => d.UserId == userId);
@@ -271,7 +282,6 @@ namespace OnlineHealthPortal.Controllers
         }
 
 
-        // ✅ FIXED Photo Upload - Returns correct photoUrl
         [HttpPost("profile/photo")]
         [Authorize(Roles = "Doctor")]
         public async Task<ActionResult> UploadProfilePhoto(IFormFile photo)
@@ -304,17 +314,14 @@ namespace OnlineHealthPortal.Controllers
             user.ProfilePhoto = $"uploads/profiles/{fileName}";
             await _context.SaveChangesAsync();
 
-            // ✅ FULL URL RETURN
             var fullPhotoUrl = $"{Request.Scheme}://{Request.Host}/{user.ProfilePhoto}";
 
             return Ok(new
             {
                 message = "Profile photo updated!",
-                photoUrl = fullPhotoUrl  // ✅ COMPLETE URL
+                photoUrl = fullPhotoUrl
             });
         }
-
-        // ✅ AVAILABILITY UPDATE
         [HttpPut("profile/availability")]
         [Authorize(Roles = "Doctor")]
         public async Task<ActionResult> UpdateAvailability([FromBody] UpdateAvailabilityDTO dto)
@@ -348,7 +355,6 @@ namespace OnlineHealthPortal.Controllers
             var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/doctors");
             Directory.CreateDirectory(uploadsPath);
 
-            // ✅ DELETE OLD FILE (if exists)
             if (!string.IsNullOrEmpty(doctor.UploadDocument))
             {
                 var oldFilePath = Path.Combine(uploadsPath, doctor.UploadDocument.Replace("uploads/doctors/", ""));
@@ -356,17 +362,14 @@ namespace OnlineHealthPortal.Controllers
                     System.IO.File.Delete(oldFilePath);
             }
 
-            // ✅ NEW FILE NAME (Always same format)
             var fileName = $"document_{doctor.Id}_{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
             var filePath = Path.Combine(uploadsPath, fileName);
 
-            // SAVE NEW FILE
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            // ✅ SINGLE FILE PATH SAVE (Replace old)
             doctor.UploadDocument = $"uploads/doctors/{fileName}";
 
             await _context.SaveChangesAsync();
@@ -377,7 +380,6 @@ namespace OnlineHealthPortal.Controllers
                 path = $"https://localhost:7224/{doctor.UploadDocument}"
             });
         }
-
 
     }
 }

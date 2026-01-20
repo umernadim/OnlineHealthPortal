@@ -95,9 +95,6 @@ const Doctors = () => {
                                     <img
                                         src={doctor.photo || "https://i.pinimg.com/736x/f1/63/8a/f1638a3b734fa2c73a05cc1893f5796e.jpg"}
                                         alt={doctor.fullName || "Doctor"}
-                                        onError={(e) => {
-                                            e.target.src = "https://i.pinimg.com/736x/f1/63/8a/f1638a3b734fa2c73a05cc1893f5796e.jpg";
-                                        }}
                                     />
                                 </div>
 
@@ -115,10 +112,11 @@ const Doctors = () => {
                                 <div className="btn-container">
                                     <button
                                         className="btn btn-fill"
-                                        onClick={() => navigate(`/doctor/${doctor.id}`)}
+                                        onClick={() => navigate(`/doctorProfile/${doctor.id}`)}
                                     >
                                         View Profile
                                     </button>
+                        
                                     <button
                                         className="btn outline"
                                         onClick={() => navigate(`/bookAppointment/${doctor.id}`)}

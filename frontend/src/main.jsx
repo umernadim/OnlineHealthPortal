@@ -42,6 +42,7 @@ import Invoice from './pages/patients/Invoice.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Appointment from './Appointment.jsx'
+import DoctorProfile from './pages/DoctorProfile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "/about", Component: About },
       { path: "/doctors", Component: Doctors },
+      { path: "/doctorProfile/:id", Component: DoctorProfile },
       { path: "/contact", Component: Contact },
       { path: "/appointment", Component: Appointment },
     ],

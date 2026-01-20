@@ -325,6 +325,64 @@
     ]
   },
   {
+    "ContainingType": "OnlineHealthPortal.Controllers.DoctorController",
+    "Method": "UploadDoctorDocument",
+    "RelativePath": "api/Doctor/documents",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineHealthPortal.Controllers.DoctorController",
+    "Method": "GetDoctorProfile",
+    "RelativePath": "api/Doctor/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineHealthPortal.Controllers.DoctorController",
+    "Method": "UpdateAvailability",
+    "RelativePath": "api/Doctor/profile/availability",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "OnlineHealthPortal.DTOs.UpdateAvailabilityDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineHealthPortal.Controllers.DoctorController",
+    "Method": "UploadProfilePhoto",
+    "RelativePath": "api/Doctor/profile/photo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "photo",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineHealthPortal.Controllers.NotificationController",
     "Method": "GetbyUser",
     "RelativePath": "api/Notification/{userId}",

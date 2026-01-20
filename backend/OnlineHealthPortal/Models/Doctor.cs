@@ -23,6 +23,10 @@ public partial class Doctor
 
     public bool IsApproved { get; set; }
 
+    public string? UploadDocument { get; set; }
+
+    public string? Bio { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual User? User { get; set; }

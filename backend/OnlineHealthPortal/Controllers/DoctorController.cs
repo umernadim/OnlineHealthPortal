@@ -6,6 +6,7 @@ using OnlineHealthPortal.Data;
 using OnlineHealthPortal.DTOs;
 using OnlineHealthPortal.Helpers;
 using OnlineHealthPortal.Models;
+using System.IO;
 using System.Security.Claims;
 
 namespace OnlineHealthPortal.Controllers
@@ -88,9 +89,6 @@ namespace OnlineHealthPortal.Controllers
             return Ok(new { doctors = result, total, page, pageSize });
         }
 
-        /// <summary>
-        /// Get all doctors for admin (Admin only)
-        /// </summary>
         [HttpGet("admin")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<object>>> GetDoctorsAdmin(
@@ -237,6 +235,150 @@ namespace OnlineHealthPortal.Controllers
             await _context.SaveChangesAsync();
             return Ok(new { message = "Doctor updated successfully" });
         }
+
+        [HttpGet("profile")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<ActionResult<object>> GetDoctorProfile()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var doctor = await _context.Doctors.Include(d => d.User).FirstOrDefaultAsync(d => d.UserId == userId);
+
+            if (doctor == null) return NotFound();
+
+            var photoUrl = doctor.User.ProfilePhoto != null
+                ? $"https://localhost:7224/{doctor.User.ProfilePhoto}"
+                : "/images/default-avatar.jpg";
+
+            var documentUrl = doctor.UploadDocument != null
+                ? $"https://localhost:7224/{doctor.UploadDocument}"
+                : null;
+
+            return Ok(new
+            {
+                id = doctor.Id,
+                fullName = doctor.User.FullName,
+                email = doctor.User.Email,
+                phone = doctor.User.Phone,
+                photo = photoUrl,
+                speciality = doctor.Speciality,
+                experienceYears = doctor.ExperienceYears,
+                consultationFee = doctor.ConsultationFee,
+                language = doctor.Language,
+                availability = doctor.Availability,
+                document = documentUrl,  // ✅ Single document URL
+                isApproved = doctor.IsApproved
+            });
+        }
+
+
+        // ✅ FIXED Photo Upload - Returns correct photoUrl
+        [HttpPost("profile/photo")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<ActionResult> UploadProfilePhoto(IFormFile photo)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            if (photo == null || photo.Length == 0)
+                return BadRequest("No file uploaded");
+
+            if (!photo.ContentType.StartsWith("image/"))
+                return BadRequest("Only image files allowed");
+
+            if (photo.Length > 5 * 1024 * 1024)
+                return BadRequest("File too large (max 5MB)");
+
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/profiles");
+            Directory.CreateDirectory(uploadsPath);
+
+            var fileName = $"{userId}_{Guid.NewGuid()}_{Path.GetFileName(photo.FileName)}";
+            var filePath = Path.Combine(uploadsPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await photo.CopyToAsync(stream);
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return NotFound();
+
+            user.ProfilePhoto = $"uploads/profiles/{fileName}";
+            await _context.SaveChangesAsync();
+
+            // ✅ FULL URL RETURN
+            var fullPhotoUrl = $"{Request.Scheme}://{Request.Host}/{user.ProfilePhoto}";
+
+            return Ok(new
+            {
+                message = "Profile photo updated!",
+                photoUrl = fullPhotoUrl  // ✅ COMPLETE URL
+            });
+        }
+
+        // ✅ AVAILABILITY UPDATE
+        [HttpPut("profile/availability")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<ActionResult> UpdateAvailability([FromBody] UpdateAvailabilityDTO dto)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
+
+            if (doctor == null) return NotFound();
+
+            doctor.Availability = dto.availability;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Availability updated!" });
+        }
+
+        [HttpPost("documents")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<ActionResult> UploadDoctorDocument(IFormFile file)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
+
+            if (doctor == null) return NotFound("Doctor not found");
+            if (file == null || file.Length == 0) return BadRequest("No file");
+
+            // VALIDATE FILE
+            if (!new[] { "image/jpeg", "image/png", "application/pdf" }.Contains(file.ContentType))
+                return BadRequest("Only JPG, PNG, PDF allowed");
+            if (file.Length > 5 * 1024 * 1024) return BadRequest("Max 5MB");
+
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/doctors");
+            Directory.CreateDirectory(uploadsPath);
+
+            // ✅ DELETE OLD FILE (if exists)
+            if (!string.IsNullOrEmpty(doctor.UploadDocument))
+            {
+                var oldFilePath = Path.Combine(uploadsPath, doctor.UploadDocument.Replace("uploads/doctors/", ""));
+                if (System.IO.File.Exists(oldFilePath))
+                    System.IO.File.Delete(oldFilePath);
+            }
+
+            // ✅ NEW FILE NAME (Always same format)
+            var fileName = $"document_{doctor.Id}_{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+            var filePath = Path.Combine(uploadsPath, fileName);
+
+            // SAVE NEW FILE
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // ✅ SINGLE FILE PATH SAVE (Replace old)
+            doctor.UploadDocument = $"uploads/doctors/{fileName}";
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Document replaced successfully!",
+                path = $"https://localhost:7224/{doctor.UploadDocument}"
+            });
+        }
+
+
     }
 }
 

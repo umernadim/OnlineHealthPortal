@@ -1857,7 +1857,7 @@ body {
     margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 40px;
+    gap: 20px;
 }
 
 #doctors-page .doctor-card {

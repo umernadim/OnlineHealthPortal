@@ -1,43 +1,76 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineHealthPortal.Data;
-using OnlineHealthPortal.Models;
+using OnlineHealthPortal.DTOs;
+using System.Security.Claims;
 
 namespace OnlineHealthPortal.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Patient")]
     public class PatientController : ControllerBase
     {
-        public readonly HealthPortalContext _context;
+        private readonly HealthPortalContext _context;
+
         public PatientController(HealthPortalContext context)
         {
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult GetPatients()
+        // 🔹 GET LOGGED-IN PATIENT PROFILE
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetMyProfile()
         {
-            return Ok(_context.Patients.ToList());
-        }
+            var userId = int.Parse(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+            );
 
-        [HttpGet("id")]
-        public IActionResult GetPatientById(int id)
-        {
-            var patient = _context.Patients.Find(id);
-            if(patient == null)
+            var patient = await _context.Patients
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(p => p.UserId == userId);
+
+            if (patient == null)
+                return NotFound("Patient not found");
+
+            return Ok(new
             {
-                return NotFound("Patient Not Found");
-            }
-            return Ok("Patient fetched successfully.");
+                id = patient.Id,
+                email = patient.User.Email,
+                fullName = patient.User.FullName,
+                dateOfBirth = patient.DateOfBirth, 
+                phone = patient.User.Phone,
+                gender = patient.Gender
+            });
         }
 
-        [HttpPost]
-        public IActionResult AddPatient(Patient patient)
+        // 🔹 UPDATE PROFILE
+        [HttpPut("profile")]
+        public async Task<IActionResult> UpdateProfile(UpdatePatientDTO dto)
         {
-            _context.Patients.Add(patient);
-            _context.SaveChanges();
-            return Ok("Patient Added Successfully");
+            var userId = int.Parse(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+            );
+
+            var patient = await _context.Patients
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(p => p.UserId == userId);
+
+            if (patient == null)
+                return NotFound("Patient not found");
+
+            patient.User.FullName = dto.FullName ?? patient.User.FullName;
+            patient.User.Phone = dto.Phone ?? patient.User.Phone;
+
+            patient.Gender = dto.Gender ?? patient.Gender;
+            patient.DateOfBirth = dto.DateOfBirth ?? patient.DateOfBirth;
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Profile updated successfully");
         }
+
     }
 }
+

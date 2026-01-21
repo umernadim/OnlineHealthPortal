@@ -15,33 +15,40 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const user = await login(form);
-    
-    const role = localStorage.getItem("role")?.toLowerCase();
-    console.log("🔍 Role from localStorage:", role);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const returnUrl = urlParams.get('returnUrl');
+    try {
+      const user = await login(form);
 
-    if (returnUrl) {
-      window.location.href = decodeURIComponent(returnUrl);
-    } else if (role === "admin") {
-      navigate("/adminPanel");
-    } else if (role === "doctor") {
-      navigate("/doctorDashboard");
-    } else if (role === "patient") {
-      navigate("/patientDashboard");
-    } else {
-      console.log("❌ Unknown role:", role);
-      navigate("/");
+      const role = user.role?.toLowerCase();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const returnUrl = urlParams.get("returnUrl");
+
+      if (returnUrl) {
+        navigate(decodeURIComponent(returnUrl), { replace: true });
+        return;
+      }
+
+      if (role === "admin") {
+        navigate("/adminPanel");
+      }
+      else if (role === "doctor") {
+        navigate("/doctorDashboard");
+      }
+      else if (role === "patient") {
+        navigate("/patientDashboard");
+      }
+      else {
+        console.error("❌ Unknown role:", role);
+        navigate("/");
+      }
+
+    } catch (err) {
+      alert(err.response?.data || "Login failed");
     }
-  } catch (err) {
-    alert(err.response?.data || "Login failed");
-  }
-};
+  };
 
   return (
     <>

@@ -5,13 +5,13 @@ import { useAuth } from '../../../context/AuthContext';
 const Sidebar = ({ sidebarOpen }) => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
-  const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to logout?");
-    if (!confirmLogout) return;
+    const handleLogout = () => {
+        const confirmLogout = window.confirm("Are you sure you want to logout?");
+        if (!confirmLogout) return;
 
-    logout();
-    navigate("/login");
-  };
+        logout();
+        navigate("/login");
+    };
     return (
         <>
             {/* SIDEBAR */}
@@ -30,11 +30,6 @@ const Sidebar = ({ sidebarOpen }) => {
                     <li><Link to="/messages">
                         <i className="ri-chat-3-fill"></i>
                         Messages
-                    </Link>
-                    </li>
-                    <li><Link to="/consultation">
-                        <i className="ri-chat-3-fill"></i>
-                        Follow Ups
                     </Link>
                     </li>
 

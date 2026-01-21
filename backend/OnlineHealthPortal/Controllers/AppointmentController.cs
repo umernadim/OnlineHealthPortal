@@ -98,15 +98,18 @@ public class AppointmentController : ControllerBase
     [Authorize(Roles = "Patient")]
     public IActionResult GetPatientAppointments()
     {
-        var userId = int.Parse(
-            User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-        );
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(userIdClaim))
+            return Unauthorized("UserId missing in token");
+
+        int userId = int.Parse(userIdClaim);
 
         var patient = _context.Patients
             .FirstOrDefault(p => p.UserId == userId);
 
         if (patient == null)
-            return Unauthorized();
+            return NotFound("Patient profile not created");
 
         var list = _context.Appointments
             .Where(a => a.PatientId == patient.Id)
@@ -116,10 +119,11 @@ public class AppointmentController : ControllerBase
         return Ok(list);
     }
 
+
     // ===============================
     // GET DOCTOR APPOINTMENTS
     // ===============================
-[HttpGet("doctor")]
+    [HttpGet("doctor")]
 [Authorize(Roles = "Doctor")]
 public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments()
 {

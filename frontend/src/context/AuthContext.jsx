@@ -13,45 +13,52 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   };
 
-  const login = async (form) => {
-    const res = await axios.post(`${API_URL}/login`, form);
+const login = async (form) => {
+  const res = await axios.post(`${API_URL}/login`, form);
 
-    const token = res.data.Token || res.data.token;
-    const role = res.data.Role || res.data.role;  // ← Backend se direct role
+  const token = res.data.Token || res.data.token;
+  if (!token) throw new Error("Token not received");
 
-    if (!token) throw new Error("Token not received");
+  const decoded = jwtDecode(token);
 
-    localStorage.setItem("token", token);
-    localStorage.setItem("role", role);  // ← Direct save
+  const role =
+    decoded.role ||
+    decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    const decoded = jwtDecode(token);
-    setUser({ ...decoded, role });
+  const name =
+    decoded.name ||
+    decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
-    return {
-      token,
-      role,
-      userId: res.data.UserId
-    };
-  };
+  const id =
+    decoded.nameid ||
+    decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+
+  const userData = { id, name, role };
+
+  localStorage.setItem("token", token);
+  localStorage.setItem("user", JSON.stringify(userData));
+
+  setUser(userData);
+
+  return userData;
+};
 
 
+const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  setUser(null);
+};
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-  };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setUser(decoded);
-      } catch {
-        logout();
-      }
-    }
-  }, []);
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+
 
   const forgotPassword = async (email) => {
     const res = await axios.post(`${API_URL}/forgot-password`, { email });

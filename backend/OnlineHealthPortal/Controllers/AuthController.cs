@@ -34,9 +34,9 @@ namespace OnlineHealthPortal.Controllers
             {
                 FullName = dto.FullName,
                 Email = dto.Email,
-                Phone = dto.Phone,           // ✅ Save phone
+                Phone = dto.Phone,         
                 PasswordHash = PasswordHasher.HashCode(dto.PasswordHash),
-                Role = "Patient",            // ✅ Fixed
+                Role = "Patient",           
                 CreatedAt = DateTime.Now,
                 IsActive = true
             };
@@ -59,21 +59,41 @@ namespace OnlineHealthPortal.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginDTO dto)
         {
-            var isUser = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
-            if (isUser == null)
+            var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
+            if (user == null)
                 return Unauthorized("User Not Found");
 
-            if (isUser.PasswordHash != PasswordHasher.HashCode(dto.PasswordHash))
+            if (user.PasswordHash != PasswordHasher.HashCode(dto.PasswordHash))
                 return Unauthorized("Invalid Password");
 
-            var token = _tokenService.GenerateToken(isUser);
+            // ✅ IMPORTANT FIX (YAHI WO CODE HAI)
+            if (user.Role == "Patient")
+            {
+                var exists = _context.Patients.Any(p => p.UserId == user.Id);
+
+                if (!exists)
+                {
+                    _context.Patients.Add(new Patient
+                    {
+                        UserId = user.Id,
+                        Phone = user.Phone,
+                        Gender = "",
+                        DateOfBirth = null
+                    });
+
+                    _context.SaveChanges();
+                }
+            }
+
+            var token = _tokenService.GenerateToken(user);
 
             return Ok(new
             {
                 Token = token,
-                Role = isUser.Role,  
-                UserId = isUser.Id,
-                Email = isUser.Email
+                Role = user.Role,
+                UserId = user.Id,
+                Email = user.Email,
+                Name = user.FullName
             });
         }
 

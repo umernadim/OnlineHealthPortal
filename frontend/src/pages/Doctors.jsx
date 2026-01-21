@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../service/axios";
+import { useAuth } from "../context/AuthContext";
 
 const Doctors = () => {
     const [doctors, setDoctors] = useState([]);
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
+    const { user } = useAuth();
 
     useEffect(() => {
         loadDoctors();
@@ -46,6 +48,30 @@ const Doctors = () => {
     const clearSearch = () => {
         setSearchTerm("");
     };
+
+   const handleBookNow = (doctorId) => {
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+    
+    console.log("🔍 Token:", !!token);
+    console.log("🔍 StoredUser:", storedUser);
+
+    if (!token || !storedUser) {
+        navigate(`/login?returnUrl=/bookAppointment/${doctorId}`);
+        return;
+    }
+
+    const userData = JSON.parse(storedUser);
+    console.log("🔍 Role from user object:", userData.role);
+
+    if (userData.role?.toLowerCase() !== "patient") {
+        alert("❌ Only patients can book appointments!");
+        return;
+    }
+
+    navigate(`/bookAppointment/${doctorId}`);
+};
+
 
     return (
         <>
@@ -116,16 +142,17 @@ const Doctors = () => {
                                     >
                                         View Profile
                                     </button>
-                        
+
                                     <button
                                         className="btn outline"
-                                        onClick={() => navigate(`/bookAppointment/${doctor.id}`)}
+                                        onClick={() => handleBookNow(doctor.id)}
                                     >
                                         Book Now
                                         <span className="fee">
                                             PKR {doctor.consultationFee || 1000}
                                         </span>
                                     </button>
+
                                 </div>
                             </div>
                         ))

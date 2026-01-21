@@ -3,15 +3,12 @@
   "WorkspaceRootPath": "D:\\OnlineHealthPortal\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|d:\\onlinehealthportal\\backend\\onlinehealthportal\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|solutionrelative:onlinehealthportal\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|d:\\onlinehealthportal\\backend\\onlinehealthportal\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|solutionrelative:onlinehealthportal\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|d:\\onlinehealthportal\\backend\\onlinehealthportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|solutionrelative:onlinehealthportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/HealthPortal/True/SqlTable/dbo.Doctors.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|d:\\onlinehealthportal\\backend\\onlinehealthportal\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75E9093D-8B93-4E0A-A1B6-E33418D04038}|OnlineHealthPortal\\OnlineHealthPortal.csproj|solutionrelative:onlinehealthportal\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,38 +30,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "dbo.Doctors [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/HealthPortal/True/SqlTable/dbo.Doctors.sql",
-              "ToolTip": "dbo.Doctors [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T16:29:29.411Z",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "OnlineHealthPortal\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAE8AAACAMjMzMzMXwGEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T06:25:50.25Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Program.cs",
-              "RelativeDocumentMoniker": "OnlineHealthPortal\\Program.cs",
-              "ToolTip": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Program.cs",
-              "RelativeToolTip": "OnlineHealthPortal\\Program.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAABSvQ0AAABKAAAAAAAAAA==",
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "OnlineHealthPortal\\Controllers\\AppointmentController.cs",
+              "ToolTip": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "OnlineHealthPortal\\Controllers\\AppointmentController.cs",
+              "ViewState": "AgIAAGIAAABQmZmZmZkxwGsAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T07:45:14.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DoctorController.cs",
-              "DocumentMoniker": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\DoctorController.cs",
-              "RelativeDocumentMoniker": "OnlineHealthPortal\\Controllers\\DoctorController.cs",
-              "ToolTip": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\Controllers\\DoctorController.cs",
-              "RelativeToolTip": "OnlineHealthPortal\\Controllers\\DoctorController.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAYwDAAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-18T09:47:04.183Z",
+              "WhenOpened": "2026-01-21T01:04:32.098Z",
               "EditorCaption": ""
             }
           ]

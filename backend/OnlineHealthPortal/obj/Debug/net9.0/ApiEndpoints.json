@@ -400,8 +400,8 @@
   },
   {
     "ContainingType": "OnlineHealthPortal.Controllers.PatientController",
-    "Method": "GetPatients",
-    "RelativePath": "api/Patient",
+    "Method": "GetMyProfile",
+    "RelativePath": "api/Patient/profile",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -410,32 +410,16 @@
   },
   {
     "ContainingType": "OnlineHealthPortal.Controllers.PatientController",
-    "Method": "AddPatient",
-    "RelativePath": "api/Patient",
-    "HttpMethod": "POST",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/Patient/profile",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "patient",
-        "Type": "OnlineHealthPortal.Models.Patient",
+        "Name": "dto",
+        "Type": "OnlineHealthPortal.DTOs.UpdatePatientDTO",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "OnlineHealthPortal.Controllers.PatientController",
-    "Method": "GetPatientById",
-    "RelativePath": "api/Patient/id",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []

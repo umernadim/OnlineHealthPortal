@@ -62,7 +62,7 @@ export default function DoctorDashboard() {
 
         {/* HEADER */}
         <DoctorHeader
-          title={`Hey, Dr. ${user?.name || user?.FullName || "Doctor"}`}
+          title={`Hey, Dr. ${user?.name || "Doctor"}`}
           subtitle="Here’s your schedule overview for today"
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}

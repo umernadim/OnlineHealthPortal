@@ -12,16 +12,15 @@ export default function PatientDashboard() {
     loadAppointments();
   }, []);
 
-const loadAppointments = async () => {
-  try {
-    const res = await api.get("/Appointment/patient");
-    setAppointments(res.data || []);
-  } catch (err) {
-    console.error("Error loading appointments", err);
-    setAppointments([]);
-  }
-};
-
+  const loadAppointments = async () => {
+    try {
+      const res = await api.get("/Appointment/patient");
+      setAppointments(res.data || []);
+    } catch (err) {
+      console.error("Error loading appointments", err);
+      setAppointments([]);
+    }
+  };
 
   // Calculate stats
   const today = new Date();
@@ -48,7 +47,8 @@ const loadAppointments = async () => {
 
         {/* HEADER */}
         <div className="page-header">
-          <h1>Hey! {user?.name || "Patient"}</h1>
+         {/* <h1>Hey! {user?.name || "Patient"}</h1>*/}
+         <h1>Hey! Welcome Back.</h1>
           <p>Your health overview & upcoming care</p>
         </div>
 

@@ -90,19 +90,27 @@ public partial class HealthPortalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__HealthRe__3214EC07249878D5");
 
+            entity.Property(e => e.FileName)
+                .HasMaxLength(200)
+                .IsFixedLength();
             entity.Property(e => e.FilePath)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsUnicode(false);
+            entity.Property(e => e.RecordDate).HasColumnType("datetime");
             entity.Property(e => e.RecordType)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.Title)
+                .HasMaxLength(200)
+                .IsFixedLength();
             entity.Property(e => e.UploadedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
             entity.HasOne(d => d.Patient).WithMany(p => p.HealthRecords)
                 .HasForeignKey(d => d.PatientId)
-                .HasConstraintName("FK__HealthRec__Patie__4AB81AF0");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__HealthRec__Patie__14270015");
         });
 
         modelBuilder.Entity<Message>(entity =>

@@ -207,7 +207,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/healthRecords",
+    path: "/healthRecords/:patientId",
     element: (
       <ProtectedRoute allowedRoles={["Patient"]}>
         <HealthRecords />

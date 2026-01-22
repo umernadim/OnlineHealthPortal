@@ -381,6 +381,43 @@ namespace OnlineHealthPortal.Controllers
             });
         }
 
+        [HttpGet("patients")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<ActionResult<IEnumerable<object>>> GetMyPatients()
+        {
+            try
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+                var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
+
+                if (doctor == null) return NotFound("Doctor not found");
+
+                // Simple approach - just get distinct patients
+                var patients = await _context.Patients
+                    .Where(p => _context.Appointments.Any(a =>
+                        a.PatientId == p.Id && a.DoctorId == doctor.Id))
+                    .Select(p => new
+                    {
+                        id = p.Id,
+                        fullName = p.User.FullName ,
+                        lastVisit = DateTime.Now.AddDays(-7).ToString("dd MMM yyyy"), // Static for now
+                        nextAppointment = DateTime.Now.AddDays(5).ToString("dd MMM yyyy"),
+                        status = "active",
+                        recordCount = _context.HealthRecords.Count(h => h.PatientId == p.Id)
+                    })
+                    .OrderByDescending(p => p.recordCount)
+                    .Take(20)
+                    .ToListAsync();
+
+                return Ok(patients);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GetPatients error: {ex.Message}");
+                return StatusCode(500, "Server error");
+            }
+        }
+
     }
 }
 

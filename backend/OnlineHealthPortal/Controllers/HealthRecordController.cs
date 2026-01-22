@@ -141,4 +141,35 @@ public class HealthRecordController : ControllerBase
         }
     }
 
+    [HttpGet("patient/{patientId}")]
+    [Authorize(Roles = "Doctor")]  // Doctor role only
+    public async Task<ActionResult<IEnumerable<object>>> GetPatientRecordsById(int patientId)
+    {
+        try
+        {
+            var records = await _context.HealthRecords
+                .Where(r => r.PatientId == patientId)
+                .OrderByDescending(r => r.UploadedAt)
+                .Select(r => new
+                {
+                    id = r.Id,
+                    title = r.Title ?? "No Title",
+                    recordType = r.RecordType,
+                    fileName = r.FileName ?? "No File",
+                    uploadedAt = r.UploadedAt.ToString("dd/MM/yyyy HH:mm"),
+                    hasFile = !string.IsNullOrEmpty(r.FilePath),
+                    filePath = r.FilePath
+                })
+                .ToListAsync();
+
+            return Ok(records);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Doctor view error: {ex.Message}");
+            return StatusCode(500, "Server error");
+        }
+    }
+
+
 }

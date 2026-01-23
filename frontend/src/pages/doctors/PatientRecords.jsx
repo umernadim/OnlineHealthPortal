@@ -9,7 +9,7 @@ export default function PatientRecords() {
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchParams] = useSearchParams();
-    const patientId = searchParams.get("patientId"); // ?patientId=5
+    const patientId = searchParams.get("patientId"); 
 
     useEffect(() => {
         if (patientId) {

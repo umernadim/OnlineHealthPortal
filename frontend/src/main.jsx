@@ -181,7 +181,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/prescriptionWriter",
+    path: "/prescriptionWriter/:appointmentId",
     element: (
       <ProtectedRoute allowedRoles={["Doctor"]}>
         <PrescriptionWriter />
@@ -207,7 +207,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/healthRecords/:patientId",
+    path: "/healthRecords",
     element: (
       <ProtectedRoute allowedRoles={["Patient"]}>
         <HealthRecords />

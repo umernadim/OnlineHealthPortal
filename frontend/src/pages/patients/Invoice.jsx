@@ -1,20 +1,25 @@
+import { useState } from "react";
+import PatientHeader from "./components/PatientHeader";
 import SidebarPat from "./components/SidebarPat";
 
 export default function Invoice() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="patient-layout">
 
       {/* SIDEBAR */}
-            <SidebarPat></SidebarPat>
+            <SidebarPat  sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN */}
       <main className="patient-content">
 
         {/* HEADER */}
-        <div className="page-header">
-          <h1>Invoice</h1>
-          <p>Consultation billing summary</p>
-        </div>
+          <PatientHeader
+          title= "invoice"
+          subtitle="Consultation billing summary"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* INVOICE CARD */}
         <div className="record-card invoice-card">

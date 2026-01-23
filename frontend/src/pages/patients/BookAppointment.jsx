@@ -2,8 +2,12 @@ import SidebarPat from "./components/SidebarPat";
 import api from "../../service/axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import PatientHeader from "./components/PatientHeader";
 
 export default function BookAppointment() {
+
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
     const navigate = useNavigate();
     const { doctorId } = useParams();
 
@@ -69,10 +73,13 @@ export default function BookAppointment() {
             <SidebarPat />
 
             <main className="patient-content">
-                <div className="page-header">
-                    <h1>Book Appointment</h1>
-                    <p>with <strong>Dr. {doctor.fullName}</strong></p>
-                </div>
+
+                <PatientHeader
+                    title="Book Appointment"
+                    subtitle={`with <strong> Dr. ${doctor.fullName}</strong>`}
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
+                />
 
                 {/* DOCTOR PREVIEW */}
                 <div className="doctor-preview">

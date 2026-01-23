@@ -48,12 +48,12 @@ public class AppointmentController : ControllerBase
             if (doctor == null || !doctor.IsApproved)
                 return BadRequest("Doctor not available");
 
-            var appointmentDate = dto.AppointmentDate.Date;  
-            var appointmentHour = dto.AppointmentDate.Hour;   
+            var appointmentDate = dto.AppointmentDate.Date;
+            var appointmentHour = dto.AppointmentDate.Hour;
 
             var conflict = await _context.Appointments
                 .AnyAsync(a => a.DoctorId == dto.DoctorId &&
-                              a.AppointmentDate.HasValue &&          
+                              a.AppointmentDate.HasValue &&
                               a.AppointmentDate.Value.Date == appointmentDate &&
                               a.AppointmentDate.Value.Hour == appointmentHour &&
                               a.Status != "Cancelled");
@@ -61,12 +61,11 @@ public class AppointmentController : ControllerBase
             if (conflict)
                 return BadRequest("This time slot is already booked");
 
-            // ✅ CREATE APPOINTMENT
             var appointment = new Appointment
             {
                 PatientId = patient.Id,
                 DoctorId = dto.DoctorId,
-                AppointmentDate = dto.AppointmentDate,  // Direct assign
+                AppointmentDate = dto.AppointmentDate,
                 Type = dto.Type,
                 Status = "Pending",
                 CreatedAt = DateTime.UtcNow
@@ -90,13 +89,12 @@ public class AppointmentController : ControllerBase
         }
     }
 
-
     // ===============================
     // GET PATIENT APPOINTMENTS
     // ===============================
     [HttpGet("patient")]
     [Authorize(Roles = "Patient")]
-    public async Task<ActionResult<IEnumerable<object>>> GetPatientAppointments()  // ✅ async + proper return
+    public async Task<ActionResult<IEnumerable<object>>> GetPatientAppointments()
     {
         try
         {
@@ -107,10 +105,9 @@ public class AppointmentController : ControllerBase
             int userId = int.Parse(userIdClaim);
             Console.WriteLine($"🔍 Patient UserId: {userId}");
 
-            // ✅ ASYNC + Include navigation properties
             var patient = await _context.Patients
-                .Include(p => p.User)  // ✅ User include
-                .FirstOrDefaultAsync(p => p.UserId == userId);  // ✅ Async
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(p => p.UserId == userId);
 
             if (patient == null)
             {
@@ -118,28 +115,26 @@ public class AppointmentController : ControllerBase
                 return NotFound("Patient profile not created. Please complete your profile.");
             }
 
-            // ✅ Include Doctor details + proper projection
             var appointments = await _context.Appointments
-     .Where(a => a.PatientId == patient.Id)
-     .Include(a => a.Doctor)
-         .ThenInclude(d => d.User)
-     .OrderByDescending(a => a.AppointmentDate)
-     .Select(a => new
-     {
-         id = a.Id,
-         doctorName = a.Doctor != null && a.Doctor.User != null
-             ? a.Doctor.User.FullName
-             : "Doctor",
-         speciality = a.Doctor != null
-             ? a.Doctor.Speciality
-             : "—",
-         appointmentDate = a.AppointmentDate,
-         type = a.Type,
-         status = a.Status,
-         createdAt = a.CreatedAt
-     })
-     .ToListAsync();
-
+                .Where(a => a.PatientId == patient.Id)
+                .Include(a => a.Doctor)
+                .ThenInclude(d => d.User)
+                .OrderByDescending(a => a.AppointmentDate)
+                .Select(a => new
+                {
+                    id = a.Id,
+                    doctorName = a.Doctor != null && a.Doctor.User != null
+                        ? a.Doctor.User.FullName
+                        : "Doctor",
+                    speciality = a.Doctor != null
+                        ? a.Doctor.Speciality
+                        : "—",
+                    appointmentDate = a.AppointmentDate,
+                    type = a.Type,
+                    status = a.Status,
+                    createdAt = a.CreatedAt
+                })
+                .ToListAsync();
 
             Console.WriteLine($"✅ Found {appointments.Count} appointments for patient {patient.Id}");
             return Ok(appointments);
@@ -147,78 +142,95 @@ public class AppointmentController : ControllerBase
         catch (Exception ex)
         {
             Console.WriteLine($"❌ Error in GetPatientAppointments: {ex.Message}");
-            Console.WriteLine($"Stack: {ex.StackTrace}");
             return StatusCode(500, "Server error loading appointments");
         }
     }
 
-
     // ===============================
-    // GET DOCTOR APPOINTMENTS
+    // GET DOCTOR APPOINTMENTS - ✅ FIXED!
     // ===============================
     [HttpGet("doctor")]
-[Authorize(Roles = "Doctor")]
-public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments()
-{
-    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-    var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
-
-    if (doctor == null) return Unauthorized();
-
-    var appointments = await _context.Appointments
-        .Where(a => a.DoctorId == doctor.Id)
-        .Include(a => a.Patient)
-        .OrderBy(a => a.AppointmentDate)
-        .Select(a => new
+    [Authorize(Roles = "Doctor")]
+    public async Task<ActionResult<IEnumerable<object>>> GetDoctorAppointments()
+    {
+        try
         {
-            id = a.Id,
-            patientId = a.PatientId,
-            patientName = a.Patient.User.FullName,  // Patient name
-            appointmentDate = a.AppointmentDate,
-            type = a.Type,
-            status = a.Status
-        })
-        .ToListAsync();
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
 
-    return Ok(appointments);
-}
+            if (doctor == null)
+                return Unauthorized("Doctor not found");
+
+            var appointments = await _context.Appointments
+                .Where(a => a.DoctorId == doctor.Id)
+                .Include(a => a.Patient)
+                .ThenInclude(p => p.User)
+                .OrderBy(a => a.AppointmentDate)
+                .Select(a => new
+                {
+                    id = a.Id,
+                    patientId = a.PatientId,
+                    patientName = a.Patient != null && a.Patient.User != null ? a.Patient.User.FullName : "Unknown Patient",
+                    patientPhone = a.Patient != null && a.Patient.User != null ? a.Patient.User.Phone : null,
+                    appointmentDate = a.AppointmentDate,
+                    type = a.Type ?? "Consultation",
+                    status = a.Status ?? "Pending",
+                    duration = "30 min",
+                    hasPrescription = a.HasPrescription
+                })
+                .ToListAsync();
+
+            return Ok(appointments);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"GetDoctorAppointments error: {ex.Message}");
+            return StatusCode(500, "Server error");
+        }
+    }
 
     // ===============================
-    // UPDATE STATUS (DOCTOR ONLY)
+    // UPDATE STATUS - ✅ FIXED ASYNC + DTO!
     // ===============================
     [HttpPut("{id}/status")]
     [Authorize(Roles = "Doctor")]
-    public IActionResult UpdateStatus(int id, [FromBody] string status)
+    public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateStatusDto dto)
     {
-        var userId = int.Parse(
-            User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-        );
+        try
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
 
-        var doctor = _context.Doctors
-            .FirstOrDefault(d => d.UserId == userId);
+            if (doctor == null)
+                return Unauthorized("Doctor not found");
 
-        var appt = _context.Appointments
-            .FirstOrDefault(a => a.Id == id && a.DoctorId == doctor.Id);
+            var appointment = await _context.Appointments
+                .FirstOrDefaultAsync(a => a.Id == id && a.DoctorId == doctor.Id);
 
-        if (appt == null)
-            return Unauthorized("Not your appointment");
+            if (appointment == null)
+                return NotFound("Appointment not found");
 
-        appt.Status = status;
-        _context.SaveChanges();
+            appointment.Status = dto.Status;
+            await _context.SaveChangesAsync();
 
-        // 🔔 Notify patient
-        var patient = _context.Patients.Find(appt.PatientId);
-        if (patient?.UserId != null)
-            _notificationService.Create(
-                patient.UserId.Value,
-                $"Your appointment status changed to {status}"
-            );
+            // 🔔 Notify patient
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Id == appointment.PatientId);
+            if (patient?.UserId != null)
+            {
+                _notificationService.Create(patient.UserId.Value, $"Your appointment status changed to {dto.Status}");
+            }
 
-        return Ok("Status updated");
+            return Ok(new { message = "Status updated successfully" });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"UpdateStatus error: {ex.Message}");
+            return StatusCode(500, "Status update failed");
+        }
     }
 
     [HttpPut("{id}/cancel")]
-    [Authorize(Roles = "Patient")] 
+    [Authorize(Roles = "Patient")]
     public async Task<IActionResult> CancelAppointment(int id)
     {
         try
@@ -239,7 +251,6 @@ public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments(
             if (appointment == null)
                 return NotFound("Appointment not found");
 
-            // Only allow cancel if not already completed/cancelled
             if (appointment.Status == "Completed" || appointment.Status == "Cancelled")
                 return BadRequest("Cannot cancel this appointment");
 
@@ -257,7 +268,6 @@ public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments(
         }
     }
 
-    // ✅ RESCHEDULE ENDPOINT (Patient use karega)
     [HttpGet("{id}/available-slots")]
     [Authorize(Roles = "Patient")]
     public async Task<ActionResult<List<DateTime>>> GetAvailableRescheduleSlots(int id, DateTime preferredDate)
@@ -271,12 +281,11 @@ public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments(
         var doctorId = appointment.DoctorId;
         var date = preferredDate.Date;
 
-        // Next 7 days ke available slots
         var availableSlots = new List<DateTime>();
         for (int i = 0; i < 7; i++)
         {
             var checkDate = date.AddDays(i);
-            for (int hour = 9; hour <= 17; hour++) // 9AM - 5PM
+            for (int hour = 9; hour <= 17; hour++)
             {
                 var slot = new DateTime(checkDate.Year, checkDate.Month, checkDate.Day, hour, 0, 0);
 
@@ -290,10 +299,9 @@ public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments(
             }
         }
 
-        return Ok(availableSlots.Take(10).ToList()); // Top 10 slots
+        return Ok(availableSlots.Take(10).ToList());
     }
 
-    // ✅ RESCHEDULE UPDATE
     [HttpPut("{id}/reschedule")]
     [Authorize(Roles = "Patient")]
     public async Task<IActionResult> RescheduleAppointment(int id, [FromBody] DateTime newDateTime)
@@ -304,7 +312,6 @@ public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments(
         var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == id && a.PatientId == patient.Id);
         if (appointment == null) return NotFound();
 
-        // Check new slot available hai?
         var conflict = await _context.Appointments
             .AnyAsync(a => a.DoctorId == appointment.DoctorId &&
                           a.AppointmentDate.HasValue &&
@@ -321,5 +328,49 @@ public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments(
     }
 
 
+    [HttpGet("appointment/{id}")]
+    [Authorize(Roles = "Doctor")]
+    public async Task<ActionResult<object>> GetAppointmentById(int id)
+    {
+        try
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            Console.WriteLine($"🔍 Doctor {userId} requesting appointment {id}");
 
+            var appointment = await _context.Appointments
+                .Include(a => a.Patient)
+                .ThenInclude(p => p.User)
+                .Include(a => a.Doctor)
+                .ThenInclude(d => d.User)
+                .FirstOrDefaultAsync(a => a.Id == id && a.Doctor.UserId == userId);
+
+            if (appointment == null)
+            {
+                Console.WriteLine($"❌ Appointment {id} not found for doctor {userId}");
+                return NotFound("Appointment not found or unauthorized");
+            }
+
+            return Ok(new
+            {
+                id = appointment.Id,
+                patientName = appointment.Patient?.User?.FullName ?? $"Patient #{appointment.PatientId}",
+                appointmentDate = appointment.AppointmentDate?.ToString("yyyy-MM-dd"),
+                status = appointment.Status ?? "Unknown",
+                hasPrescription = appointment.HasPrescription,
+                doctorName = appointment.Doctor?.User?.FullName ?? "Doctor"
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"GetAppointmentById error: {ex}");
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+}
+
+// ✅ DTO - File ke end mein add karo
+public class UpdateStatusDto
+{
+    public string Status { get; set; }
 }

@@ -400,7 +400,7 @@ namespace OnlineHealthPortal.Controllers
                     {
                         id = p.Id,
                         fullName = p.User.FullName ,
-                        lastVisit = DateTime.Now.AddDays(-7).ToString("dd MMM yyyy"), // Static for now
+                        lastVisit = DateTime.Now.AddDays(-7).ToString("dd MMM yyyy"), 
                         nextAppointment = DateTime.Now.AddDays(5).ToString("dd MMM yyyy"),
                         status = "active",
                         recordCount = _context.HealthRecords.Count(h => h.PatientId == p.Id)

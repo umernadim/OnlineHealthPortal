@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import SidebarPat from "./components/SidebarPat";
 import api from "../../service/axios";
 import { useAuth } from "../../context/AuthContext";
+import PatientHeader from "./components/PatientHeader";
 
 export default function PatientDashboard() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user } = useAuth(); // Logged-in patient
   const [appointments, setAppointments] = useState([]);
 
@@ -40,17 +42,19 @@ export default function PatientDashboard() {
     <div className="patient-layout">
 
       {/* SIDEBAR */}
-      <SidebarPat />
+      <SidebarPat  sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN */}
       <main className="patient-content">
 
         {/* HEADER */}
-        <div className="page-header">
-         {/* <h1>Hey! {user?.name || "Patient"}</h1>*/}
-         <h1>Hey! Welcome Back.</h1>
-          <p>Your health overview & upcoming care</p>
-        </div>
+         {/* <h1>Hey! {user?.name || "Patient"}</h1>*/}     
+          <PatientHeader
+          title= "Hey! Welcome Back"
+          subtitle="Your health overview & upcoming care"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* STATS */}
         <div className="stats-grid">

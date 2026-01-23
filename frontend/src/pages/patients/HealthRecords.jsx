@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import SidebarPat from "./components/SidebarPat";
 import api from "../../service/axios";
 import { useAuth } from "../../context/AuthContext";
+import PatientHeader from "./components/PatientHeader";
 
 export default function HealthRecords() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
     const { user } = useAuth();
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -45,7 +48,6 @@ export default function HealthRecords() {
         data.append("Title", formData.title);           // ✅ PascalCase
         data.append("RecordType", formData.recordType); // ✅ PascalCase
         data.append("File", file);                      // ✅ PascalCase (dto.File)
-        // description, notes, recordDate optional - ignore for now
 
         try {
             setUploading(true);
@@ -93,12 +95,15 @@ export default function HealthRecords() {
 
     return (
         <div className="patient-layout">
-            <SidebarPat />
+            <SidebarPat sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             <main className="patient-content">
-                <div className="page-header">
-                    <h1>Health Records</h1>
-                    <p>Upload & review your medical information ({records.length} records)</p>
-                </div>
+           
+                <PatientHeader
+                    title="Health Records"
+                    subtitle={`Upload & review your medical information (${records.length} records)`}
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
+                />
 
                 {/* UPLOAD BUTTON */}
                 <div className="record-card">

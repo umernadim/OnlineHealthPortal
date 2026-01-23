@@ -23,6 +23,8 @@ public partial class Appointment
 
     public int? DurationMinutes { get; set; }
 
+    public bool HasPrescription { get; set; }
+
     public virtual Doctor? Doctor { get; set; }
 
     public virtual Patient? Patient { get; set; }

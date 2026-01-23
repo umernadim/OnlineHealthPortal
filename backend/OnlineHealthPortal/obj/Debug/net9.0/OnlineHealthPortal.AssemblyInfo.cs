@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OnlineHealthPortal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c64a55c90ec1bbb2eab84a17374a227292f35fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5bf71f78655b618e37ca1f58405a7920f96419a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("OnlineHealthPortal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OnlineHealthPortal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

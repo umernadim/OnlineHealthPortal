@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import SidebarPat from "./components/SidebarPat";
 import api from "../../service/axios";
+import PatientHeader from "./components/PatientHeader";
 
 export default function PatientProfile() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [profile, setProfile] = useState(null);
   const [form, setForm] = useState({});
@@ -58,15 +60,16 @@ export default function PatientProfile() {
     <div className="patient-layout">
 
       {/* SIDEBAR */}
-      <SidebarPat />
+      <SidebarPat sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN */}
       <main className="patient-content patient-profile">
-
-        <div className="page-header">
-          <h1>My Profile</h1>
-          <p>Manage your personal information</p>
-        </div>
+          <PatientHeader
+                        title="My Profile"
+                        subtitle="Manage your personal information"
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen}
+                    />
 
         <div className="record-card">
           <h3>Personal Details</h3>

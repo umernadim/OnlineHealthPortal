@@ -1,20 +1,25 @@
+import { useState } from "react";
+import PatientHeader from "./components/PatientHeader";
 import SidebarPat from "./components/SidebarPat";
 
 export default function Prescriptions() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="patient-layout">
 
       {/* SIDEBAR */}
-     <SidebarPat></SidebarPat>
+      <SidebarPat sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* MAIN */}
       <main className="patient-content">
 
         {/* HEADER */}
-        <div className="page-header">
-          <h1>Prescriptions</h1>
-          <p>Track your medicines & reminders</p>
-        </div>
+        <PatientHeader
+          title="Prescriptions"
+          subtitle="Track your medicines & reminders"
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         {/* ACTIVE */}
         <div className="record-card">

@@ -10,7 +10,7 @@ namespace OnlineHealthPortal.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Doctor")]
+    [Authorize] // ✅ Any logged-in user
     public class PrescriptionController : ControllerBase
     {
         private readonly HealthPortalContext _context;
@@ -24,15 +24,17 @@ namespace OnlineHealthPortal.Controllers
             _notificationService = notificationService;
         }
 
+        // =====================================================
+        // 🧑‍⚕️ DOCTOR → CREATE PRESCRIPTION
+        // =====================================================
         [HttpPost]
-        public async Task<IActionResult> CreatePrescription(Prescription prescription)
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> CreatePrescription([FromBody] Prescription prescription)
         {
-            // 🔐 Logged-in doctor id
             var doctorUserId = int.Parse(
                 User.FindFirst(ClaimTypes.NameIdentifier)!.Value
             );
 
-            // 🔎 Appointment fetch with validation
             var appointment = await _context.Appointments
                 .Include(a => a.Patient)
                 .Include(a => a.Doctor)
@@ -41,22 +43,21 @@ namespace OnlineHealthPortal.Controllers
             if (appointment == null)
                 return BadRequest("Invalid appointment");
 
-            // 🔐 Doctor ownership check
+            // 🔐 Doctor ownership
             if (appointment.Doctor.UserId != doctorUserId)
-                return Forbid("You are not allowed to write prescription for this appointment");
+                return Forbid("Not your appointment");
 
-            // 🔐 Status check
+            // 🔐 Appointment must be completed
             if (appointment.Status != "Completed")
-                return BadRequest("Prescription allowed only after appointment is completed");
+                return BadRequest("Appointment must be completed first");
 
             // 🔐 Prevent duplicate prescription
-            var alreadyExists = await _context.Prescriptions
+            bool alreadyExists = await _context.Prescriptions
                 .AnyAsync(p => p.AppointmentId == appointment.Id);
 
             if (alreadyExists)
-                return BadRequest("Prescription already exists for this appointment");
+                return BadRequest("Prescription already exists");
 
-            // ✅ Create prescription
             var newPrescription = new Prescription
             {
                 AppointmentId = appointment.Id,
@@ -68,7 +69,7 @@ namespace OnlineHealthPortal.Controllers
 
             _context.Prescriptions.Add(newPrescription);
 
-            // Optional: mark appointment as prescribed
+            // Mark appointment as prescribed
             appointment.HasPrescription = true;
 
             await _context.SaveChangesAsync();
@@ -87,6 +88,49 @@ namespace OnlineHealthPortal.Controllers
                 message = "Prescription created successfully",
                 prescriptionId = newPrescription.Id
             });
+        }
+
+        // =====================================================
+        // 🧑‍🦰 PATIENT → VIEW PRESCRIPTIONS
+        // =====================================================
+        [HttpGet("patient")]
+        [Authorize(Roles = "Patient")]
+        public async Task<ActionResult<IEnumerable<object>>> GetPatientPrescriptions()
+        {
+            var userId = int.Parse(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+            );
+
+            var patient = await _context.Patients
+                .FirstOrDefaultAsync(p => p.UserId == userId);
+
+            if (patient == null)
+                return NotFound("Patient profile not found");
+
+            var prescriptions = await _context.Prescriptions
+                .Where(p =>
+                    _context.Appointments.Any(a =>
+                        a.Id == p.AppointmentId &&
+                        a.PatientId == patient.Id
+                    )
+                )
+                .Include(p => p.Appointment)
+                    .ThenInclude(a => a.Doctor)
+                        .ThenInclude(d => d.User)
+                .OrderByDescending(p => p.CreatedAt)
+                .Select(p => new
+                {
+                    id = p.Id,
+                    doctorName = p.Appointment.Doctor.User.FullName,
+                    appointmentDate = p.Appointment.AppointmentDate,
+                    medicines = p.Medicines,
+                    dosageInstructions = p.DosageInstructions,
+                    notes = p.Notes,
+                    createdAt = p.CreatedAt
+                })
+                .ToListAsync();
+
+            return Ok(prescriptions);
         }
     }
 }

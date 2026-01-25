@@ -254,7 +254,7 @@ doctorName = a.Doctor != null && a.Doctor.User != null
     {
         try
         {
-            Console.WriteLine("🔍 GetAllDoctors called");
+            Console.WriteLine("GetAllDoctors called");
 
             // ✅ DEBUG: Check total doctors
             var totalDoctors = await _context.Doctors.CountAsync();
@@ -262,10 +262,9 @@ doctorName = a.Doctor != null && a.Doctor.User != null
 
             var doctors = await _context.Doctors
                 .Include(d => d.User)
-                .OrderBy(d => d.User.FullName) // Use a property that is always available for ordering
+                .OrderBy(d => d.User.FullName) 
                 .ToListAsync();
 
-            // Project to anonymous type in memory to avoid expression tree limitations
             var doctorDtos = doctors.Select(d =>
                 new
                 {

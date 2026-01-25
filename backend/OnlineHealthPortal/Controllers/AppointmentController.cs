@@ -74,12 +74,17 @@ public class AppointmentController : ControllerBase
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
 
-            Console.WriteLine($"✅ Appointment created: {appointment.Id}");
+            appointment.MeetingLink = $"health-{appointment.Id}-{DateTime.Now:yyyyMMddHHmmss}";
+            await _context.SaveChangesAsync();  // Save mediaLink
+
+            Console.WriteLine($"✅ Appointment {appointment.Id} created with video room: {appointment.MeetingLink}");
+
 
             return Ok(new
             {
                 message = "Appointment booked successfully",
-                appointmentId = appointment.Id
+                appointmentId = appointment.Id,
+                meetingLink = appointment.MeetingLink
             });
         }
         catch (Exception ex)
@@ -132,7 +137,8 @@ public class AppointmentController : ControllerBase
                     appointmentDate = a.AppointmentDate,
                     type = a.Type,
                     status = a.Status,
-                    createdAt = a.CreatedAt
+                    createdAt = a.CreatedAt,
+                    meetingLink = a.MeetingLink
                 })
                 .ToListAsync();
 
@@ -176,7 +182,8 @@ public class AppointmentController : ControllerBase
                     type = a.Type ?? "Consultation",
                     status = a.Status ?? "Pending",
                     duration = "30 min",
-                    hasPrescription = a.HasPrescription
+                    hasPrescription = a.HasPrescription,
+                    meetingLink = a.MeetingLink
                 })
                 .ToListAsync();
 

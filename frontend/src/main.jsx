@@ -43,6 +43,8 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Appointment from './Appointment.jsx'
 import DoctorProfile from './pages/DoctorProfile.jsx'
+import VideoCall from './pages/doctors/VideoCall.jsx'
+import PatientVideoCall from './pages/patients/PatientVideoCall.jsx'
 
 const router = createBrowserRouter([
   {
@@ -114,6 +116,8 @@ const router = createBrowserRouter([
   { path: "/forgotPassword", Component: ForgotPassword },
   { path: "/verifyCode", Component: VerifyCode },
   { path: "/newPassword", Component: NewPassword },
+  { path: "/patient/video/:roomId", Component: PatientVideoCall },
+  { path: "/doctor/video/:roomId", Component: VideoCall },
 
   // routes for doctor dashboard
   {
@@ -188,6 +192,14 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+  //{
+    //path: "/video/:meetingLink",
+    //element: (
+      //<ProtectedRoute allowedRoles={["Doctor"]}>
+        //<VideoCall />
+      //</ProtectedRoute>
+    //),
+  //},
 
   // routes for patients pages
   {
@@ -246,6 +258,14 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+  // {
+  //  path: "/video/:meetingLink",
+  // element: (
+  //  <ProtectedRoute allowedRoles={["Patient"]}>
+  //  < PatientVideoCall/>
+  // </ProtectedRoute>
+  //),
+  // }
 ]);
 
 createRoot(document.getElementById('root')).render(

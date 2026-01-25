@@ -51,6 +51,7 @@ const SideBar = ({ sidebarOpen }) => {
             <span>Appointments</span>
           </Link>
         </li>
+        {/*
         <li>
           <Link to="/notifications">
           <i className="ri-notification-2-fill"></i>
@@ -62,7 +63,8 @@ const SideBar = ({ sidebarOpen }) => {
           <i className="ri-settings-5-fill"></i>
           <span>Settings</span>
           </Link>
-        </li>
+        </li> */}
+
         <li>
           <button onClick={handleLogout} className='logout-btn'>
             <i className='ri-logout-box-r-fill'></i> <span>Logout</span>

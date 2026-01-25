@@ -6,7 +6,6 @@ import PatientHeader from "./components/PatientHeader";
 
 export default function MyAppointments() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    // ✅ ALL HOOKS TOP LEVEL PAR
     const { user } = useAuth();
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -58,14 +57,19 @@ export default function MyAppointments() {
         }
     };
 
-    const handleJoinVideo = (appointmentId) => {
-        alert(`Join video call for appointment ${appointmentId}`);
+    // ✅ FIXED VIDEO CALL HANDLER
+    const handleJoinVideo = (appointment) => {
+        if (appointment.meetingLink && appointment.status === "Confirmed") {
+            window.open(`/patient/video/${appointment.meetingLink}`, '_blank');
+        } else {
+            alert("Video call available only for confirmed appointments with Meeting link");
+        }
     };
 
     const handleRescheduleClick = async (appt) => {
         setSelectedAppointment(appt);
         setShowReschedule(true);
-        setAvailableSlots([]); // Reset slots
+        setAvailableSlots([]);
 
         try {
             const todayStr = new Date().toISOString().split('T')[0];
@@ -101,7 +105,6 @@ export default function MyAppointments() {
         return `badge ${badges[status] || "bg-gray-100 text-gray-800"}`;
     };
 
-    // ✅ LOADING CHECK BEFORE OTHER RENDER
     if (loading) {
         return (
             <div className="patient-layout">
@@ -125,14 +128,12 @@ export default function MyAppointments() {
         <div className="patient-layout">
             <SidebarPat sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             <main className="patient-content">
-              
-                  <PatientHeader
-                        title="My Appointments"
-                        subtitle={`Manage your upcoming & past consultations(${appointments.length} total)`}
-                        sidebarOpen={sidebarOpen}
-                        setSidebarOpen={setSidebarOpen}
-                    />
-
+                <PatientHeader
+                    title="My Appointments"
+                    subtitle={`Manage your upcoming & past consultations(${appointments.length} total)`}
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
+                />
 
                 {error && (
                     <div style={{ background: '#fee', color: '#c33', padding: '15px', marginBottom: '20px', borderRadius: '8px' }}>
@@ -148,86 +149,222 @@ export default function MyAppointments() {
                     <h3>Upcoming Appointments ({upcoming.length})</h3>
                     {upcoming.length > 0 ? (
                         upcoming.map((appt) => (
-                            <div key={appt.id} className="appointment-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', borderBottom: '1px solid #eee' }}>
-                                <div>
-                                    <strong>
+                            <div key={appt.id} className="appointment-row" style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '20px',
+                                borderBottom: '1px solid #eee',
+                                borderRadius: '8px',
+                                marginBottom: '12px',
+                                background: 'white'
+                            }}>
+                                <div style={{ flex: 1 }}>
+                                    <strong style={{ fontSize: '16px', color: '#333' }}>
                                         {new Date(appt.appointmentDate).toLocaleDateString('en-PK')} •
                                         {new Date(appt.appointmentDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                     </strong>
-                                    <p style={{ margin: '5px 0' }}>Dr. {appt.doctorName}</p>
-                                    <span style={{ padding: '4px 12px', background: '#e3f2fd', borderRadius: '20px', fontSize: '12px' }}>
+                                    <p style={{ margin: '8px 0 12px 0', fontSize: '16px', color: '#007bff', fontWeight: '500' }}>
+                                        Dr. {appt.doctorName}
+                                    </p>
+                                    <span style={{
+                                        padding: '6px 14px',
+                                        background: '#d4edda',
+                                        color: '#155724',
+                                        borderRadius: '20px',
+                                        fontSize: '13px',
+                                        fontWeight: '500'
+                                    }}>
                                         {appt.status}
                                     </span>
                                 </div>
 
-                                <div style={{ display: 'flex', gap: '8px' }}>
-                                    {appt.status === "Confirmed" && (
-                                        <button
-                                            onClick={() => handleJoinVideo(appt.id)}
-                                            style={{ padding: '6px 12px', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px', fontSize: '12px', cursor: 'pointer' }}
-                                        >
-                                            Join Video
-                                        </button>
+                                {/* ✅ VIDEO BUTTON + WHATSAPP SHARE + ACTIONS */}
+                                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    {appt.status === "Confirmed" && appt.meetingLink && (
+                                        <>
+                                            {/* Video Call Button */}
+                                            <button
+                                                onClick={() => handleJoinVideo(appt)}
+                                                style={{
+                                                    padding: '10px 18px',
+                                                    background: 'linear-gradient(135deg, #007bff, #0056b3)',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '8px',
+                                                    fontSize: '14px',
+                                                    fontWeight: '500',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '8px',
+                                                    boxShadow: '0 4px 12px rgba(0,123,255,0.3)',
+                                                    transition: 'all 0.2s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateY(-2px)';
+                                                    e.target.style.boxShadow = '0 6px 20px rgba(0,123,255,0.4)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateY(0)';
+                                                    e.target.style.boxShadow = '0 4px 12px rgba(0,123,255,0.3)';
+                                                }}
+                                            >
+                                                📹 Video Call
+                                            </button>
+
+                                            {/* ✅ WHATSAPP SHARE BUTTON - NEW! */}
+                                            <button
+                                                onClick={() => {
+                                                    const doctorName = appt.doctorName || 'Your Doctor';
+                                                    const dateTime = new Date(appt.appointmentDate).toLocaleString('en-PK');
+                                                    const msg = `*📅 Video Consultation Started!*\n\n👨‍⚕️ Doctor: ${doctorName}\n📅 Date & Time: ${dateTime}\n📱 Join now: ${window.location.origin}/patient/video/${appt.meetingLink}\n\n*Don't miss your appointment!*`;
+                                                    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+                                                }}
+                                                style={{
+                                                    padding: '10px 14px',
+                                                    background: '#25D366',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '8px',
+                                                    fontSize: '14px',
+                                                    fontWeight: '500',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '6px',
+                                                    boxShadow: '0 4px 12px rgba(37,211,102,0.4)',
+                                                    transition: 'all 0.2s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateY(-2px)';
+                                                    e.target.style.boxShadow = '0 6px 20px rgba(37,211,102,0.5)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateY(0)';
+                                                    e.target.style.boxShadow = '0 4px 12px rgba(37,211,102,0.4)';
+                                                }}
+                                                title="Share with Family/Group on WhatsApp"
+                                            >
+                                                📱 Share
+                                            </button>
+                                        </>
                                     )}
+
+                                    {/* Reschedule + Cancel */}
                                     {appt.status !== "Cancelled" && (
                                         <>
                                             <button
                                                 onClick={() => handleRescheduleClick(appt)}
-                                                style={{ padding: '6px 12px', border: '1px solid #ddd', background: 'white', borderRadius: '4px', fontSize: '12px', cursor: 'pointer' }}
+                                                style={{
+                                                    padding: '10px 16px',
+                                                    border: '1px solid #ddd',
+                                                    background: 'white',
+                                                    borderRadius: '8px',
+                                                    fontSize: '14px',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.2s ease'
+                                                }}
                                             >
                                                 Reschedule
                                             </button>
                                             <button
                                                 onClick={() => handleCancel(appt.id)}
-                                                style={{ padding: '6px 12px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', fontSize: '12px', cursor: 'pointer' }}
+                                                style={{
+                                                    padding: '10px 16px',
+                                                    background: '#dc3545',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '8px',
+                                                    fontSize: '14px',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.2s ease'
+                                                }}
                                             >
                                                 Cancel
                                             </button>
                                         </>
                                     )}
                                 </div>
+
+
                             </div>
                         ))
                     ) : (
-                        <div style={{ textAlign: 'center', padding: '40px 20px', color: '#666' }}>
-                            <i style={{ fontSize: '48px', display: 'block', marginBottom: '16px' }}>📅</i>
-                            <p>No upcoming appointments. <a href="/doctors" style={{ color: '#007bff', textDecoration: 'none' }}>Book now →</a></p>
+                        <div style={{ textAlign: 'center', padding: '60px 20px', color: '#666' }}>
+                            <i style={{ fontSize: '64px', display: 'block', marginBottom: '20px' }}></i>
+                            <h3 style={{ marginBottom: '12px', color: '#333' }}>No upcoming appointments</h3>
+                            <p>Book your first consultation with a doctor</p>
+                            <a href="/doctors" style={{
+                                color: '#007bff',
+                                textDecoration: 'none',
+                                padding: '12px 24px',
+                                border: '2px solid #007bff',
+                                borderRadius: '8px',
+                                fontWeight: '500',
+                                display: 'inline-block',
+                                marginTop: '16px'
+                            }}>
+                                Book Appointment →
+                            </a>
                         </div>
                     )}
                 </div>
 
-                {/* PAST */}
-                <div className="record-card">
+                {/* PAST APPOINTMENTS - SAME STRUCTURE */}
+                <div className="record-card" style={{ marginTop: '24px' }}>
                     <h3>Past Appointments ({past.length})</h3>
                     {past.length > 0 ? (
                         past.slice(0, 5).map((appt) => (
-                            <div key={appt.id} className="appointment-row past" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', borderBottom: '1px solid #eee' }}>
-                                <div>
-                                    <strong>
+                            <div key={appt.id} className="appointment-row past" style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '20px',
+                                borderBottom: '1px solid #eee',
+                                borderRadius: '8px'
+                            }}>
+                                <div style={{ flex: 1 }}>
+                                    <strong style={{ fontSize: '16px', color: '#666' }}>
                                         {new Date(appt.appointmentDate).toLocaleDateString('en-PK')} •
                                         {new Date(appt.appointmentDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                     </strong>
-                                    <p style={{ margin: '5px 0' }}>Dr. {appt.doctorName}</p>
-                                    <span style={{ padding: '4px 12px', background: '#e3f2fd', borderRadius: '20px', fontSize: '12px' }}>
+                                    <p style={{ margin: '8px 0 12px 0', fontSize: '16px', color: '#333' }}>
+                                        Dr. {appt.doctorName}
+                                    </p>
+                                    <span style={{
+                                        padding: '6px 14px',
+                                        background: '#e3f2fd',
+                                        color: '#1976d2',
+                                        borderRadius: '20px',
+                                        fontSize: '13px'
+                                    }}>
                                         {appt.status}
                                     </span>
                                 </div>
-                                <div style={{ display: 'flex', gap: '8px' }}>
-                                    <button style={{ padding: '6px 12px', border: '1px solid #ddd', background: 'white', borderRadius: '4px', fontSize: '12px', cursor: 'pointer' }}>
+                                <div style={{ display: 'flex', gap: '12px' }}>
+                                    <button style={{
+                                        padding: '10px 16px',
+                                        border: '1px solid #ddd',
+                                        background: 'white',
+                                        borderRadius: '8px',
+                                        fontSize: '14px',
+                                        cursor: 'pointer'
+                                    }}>
                                         View Prescription
                                     </button>
-                                    <button style={{ padding: '6px 12px', border: '1px solid #ddd', background: 'white', borderRadius: '4px', fontSize: '12px', cursor: 'pointer' }}>
-                                        Feedback
-                                    </button>
+
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <p style={{ textAlign: 'center', color: '#666', padding: '20px' }}>No past appointments found</p>
+                        <p style={{ textAlign: 'center', color: '#666', padding: '40px 20px' }}>
+                            No past appointments found
+                        </p>
                     )}
                 </div>
 
-                {/* ✅ RESCHEDULE MODAL - OUTSIDE ALL MAPS */}
+                {/* RESCHEDULE MODAL - SAME AS BEFORE */}
                 {showReschedule && selectedAppointment && (
                     <div style={{
                         position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,

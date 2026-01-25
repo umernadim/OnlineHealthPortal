@@ -41,22 +41,23 @@ const SidebarPat = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/messages">
-                            <i className="ri-chat-3-fill"></i>Message
-                        </Link>
-                    </li>
-                    <li>
                         <Link to="/prescriptions">
                             <i className="ri-medicine-bottle-fill"></i>Prescriptions
                         </Link>
                     </li>
 
+                    {/*
                     <li>
+                        <Link to="/messages">
+                            <i className="ri-chat-3-fill"></i>Message
+                        </Link>
+                    </li>
+                  <li>
                         <Link to="/invoice">
                             <i className="ri-bill-fill"></i>Invoice
                         </Link>
                     </li>
-
+                  */}
                     <li>
                         <Link to="/patientProfile">
                             <i className="ri-account-circle-fill"></i>Profile

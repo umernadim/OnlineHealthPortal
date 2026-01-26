@@ -56,7 +56,7 @@ export default function ManagePatients() {
                         setSidebarOpen={setSidebarOpen}
                     />
                     <div style={{ textAlign: 'center', padding: '100px', color: '#666' }}>
-                        <div style={{ fontSize: '48px', marginBottom: '20px' }}>👥</div>
+                        <div style={{ fontSize: '48px', marginBottom: '20px' }}></div>
                         <div style={{ fontSize: '24px' }}>Loading patients...</div>
                     </div>
                 </main>
@@ -133,7 +133,7 @@ export default function ManagePatients() {
                                 textAlign: 'center', padding: '60px', color: '#666',
                                 fontSize: '18px'
                             }}>
-                                <div style={{ fontSize: '64px', marginBottom: '20px' }}>👥</div>
+                                <div style={{ fontSize: '64px', marginBottom: '20px' }}></div>
                                 {searchTerm ? "No patients match your search." : "No patients found."}
                                 <br />
                                 <button className="primary-btn" onClick={loadPatients} style={{ marginTop: '20px' }}>
@@ -185,7 +185,7 @@ export default function ManagePatients() {
                                                     className="danger-btn"
                                                     style={{
                                                         padding: '6px 12px',
-                                                        background: '#dc3545',
+                                                        background: '#f98691',
                                                         color: 'white',
                                                         border: 'none',
                                                         borderRadius: '6px',

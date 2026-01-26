@@ -102,7 +102,7 @@ export default function Prescriptions() {
                         <h3>Active Prescriptions</h3>
                         {activePrescriptions.length === 0 ? (
                             <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-                                <div style={{ fontSize: '48px', marginBottom: '16px' }}>📋</div>
+                                <div style={{ fontSize: '48px', marginBottom: '16px' }}></div>
                                 <p>No active prescriptions. Complete your appointments to get prescriptions!</p>
                             </div>
                         ) : (
@@ -161,7 +161,7 @@ export default function Prescriptions() {
                                                 fontSize: '14px'
                                             }}
                                         >
-                                            📄 View Details
+                                            View Details
                                         </button>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@ export default function Prescriptions() {
 
                 {/* REMINDERS SECTION */}
                 <div className="record-card">
-                    <h3>⏰ Medicine Reminders</h3>
+                    <h3>Medicine Reminders</h3>
                     <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
                         <p>Reminder feature coming soon!</p>
                         <button 
@@ -182,7 +182,7 @@ export default function Prescriptions() {
                                 border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer', marginTop: '16px'
                             }}
                         >
-                            🔄 Refresh Prescriptions
+                             Refresh Prescriptions
                         </button>
                     </div>
                 </div>

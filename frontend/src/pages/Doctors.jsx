@@ -49,28 +49,28 @@ const Doctors = () => {
         setSearchTerm("");
     };
 
-   const handleBookNow = (doctorId) => {
-    const token = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
-    
-    console.log("🔍 Token:", !!token);
-    console.log("🔍 StoredUser:", storedUser);
+    const handleBookNow = (doctorId) => {
+        const token = localStorage.getItem("token");
+        const storedUser = localStorage.getItem("user");
 
-    if (!token || !storedUser) {
-        navigate(`/login?returnUrl=/bookAppointment/${doctorId}`);
-        return;
-    }
+        console.log("🔍 Token:", !!token);
+        console.log("🔍 StoredUser:", storedUser);
 
-    const userData = JSON.parse(storedUser);
-    console.log("🔍 Role from user object:", userData.role);
+        if (!token || !storedUser) {
+            navigate(`/login?returnUrl=/bookAppointment/${doctorId}`);
+            return;
+        }
 
-    if (userData.role?.toLowerCase() !== "patient") {
-        alert("❌ Only patients can book appointments!");
-        return;
-    }
+        const userData = JSON.parse(storedUser);
+        console.log("🔍 Role from user object:", userData.role);
 
-    navigate(`/bookAppointment/${doctorId}`);
-};
+        if (userData.role?.toLowerCase() !== "patient") {
+            alert("❌ Only patients can book appointments!");
+            return;
+        }
+
+        navigate(`/bookAppointment/${doctorId}`);
+    };
 
 
     return (
@@ -119,7 +119,7 @@ const Doctors = () => {
                             <div className="doctor-card" key={doctor.id}>
                                 <div className="doctor-image">
                                     <img
-                                        src={doctor.photo || "https://i.pinimg.com/736x/f1/63/8a/f1638a3b734fa2c73a05cc1893f5796e.jpg"}
+                                        src={doctor.photo || "https://i.pinimg.com/736x/18/3b/59/183b590ac65cf71f947f33c9de8f7bc8.jpg"}
                                         alt={doctor.fullName || "Doctor"}
                                     />
                                 </div>
@@ -131,8 +131,8 @@ const Doctors = () => {
                                     {doctor.experienceYears || 0} years exp
                                 </p>
 
-                                <div className="rating">
-                                    ★ {(doctor.rating || 0).toFixed(1)}
+                                <div className="">
+                                    {doctor.bio}
                                 </div>
 
                                 <div className="btn-container">

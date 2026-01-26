@@ -27,11 +27,7 @@ const Sidebar = ({ sidebarOpen }) => {
                     <li>
                         <Link to="/doctorsAppointments">
                             <i className="ri-calendar-schedule-fill"></i>Appointments</Link></li>
-                    <li><Link to="/messages">
-                        <i className="ri-chat-3-fill"></i>
-                        Messages
-                    </Link>
-                    </li>
+                
     
                     <li>
                         <Link to="/profileAvailibility">

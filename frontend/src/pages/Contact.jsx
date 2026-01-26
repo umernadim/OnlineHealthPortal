@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Contact = () => {
     return (
@@ -26,14 +27,14 @@ const Contact = () => {
                         </div>
 
                         <div className="social-icons">
-                            <a to="https://www.facebook.com/"
-                            ><i className="ri-facebook-fill"></i></a>
-                            <a to="https://www.instagram.com/"
-                            ><i className="ri-instagram-line"></i></a>
-                            <a to="https://www.twitter.com/"
-                            ><i className="ri-twitter-line"></i></a>
-                            <a to="https://www.youtube.com/"
-                            ><i className="ri-youtube-line"></i></a>
+                            <Link to="https://www.facebook.com/"
+                            ><i className="ri-facebook-fill"></i></Link>
+                            <Link to="https://www.instagram.com/"
+                            ><i className="ri-instagram-line"></i></Link>
+                            <Link to="https://www.twitter.com/"
+                            ><i className="ri-twitter-line"></i></Link>
+                            <Link to="https://www.youtube.com/"
+                            ><i className="ri-youtube-line"></i></Link>
                         </div>
                     </div>
 

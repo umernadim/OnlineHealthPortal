@@ -163,11 +163,22 @@ export default function ManageDoctors() {
                                             <tr key={doctor.id}>
                                                 <td className="info">
                                                     <img
-                                                        src={doctor.photo || "https://i.pinimg.com/1200x/77/9f/23/779f23ae620f11a2fca378dcf3fe580d.jpg"}
+                                                        src={doctor.photo || "https://i.pinimg.com/736x/18/3b/59/183b590ac65cf71f947f33c9de8f7bc8.jpg"}
                                                         alt={doctor.fullName}
+                                                        style={{
+                                                            width: '50px',
+                                                            height: '50px',
+                                                            borderRadius: '50%',
+                                                            objectFit: 'cover',
+                                                            marginRight: '12px'
+                                                        }}
+                                                        onError={(e) => {
+                                                            e.target.src = "https://i.pinimg.com/1200x/77/9f/23/779f23ae620f11a2fca378dcf3fe580d.jpg";
+                                                        }}
                                                     />
                                                     <span>Dr. {doctor.fullName || "Doctor"}</span>
                                                 </td>
+
                                                 <td>{doctor.speciality || "N/A"}</td>
                                                 <td>{doctor.experienceYears || 0} Years</td>
                                                 <td className={`status ${doctor.isApproved ? 'approved' : 'pending'}`}>
@@ -208,118 +219,120 @@ export default function ManageDoctors() {
 
                         {/* ✅ COMPLETE ADD DOCTOR FORM */}
                         {showAddForm && (
-                            <div className="form-card">
-                                <h2>Add New Doctor</h2>
-                                <form onSubmit={handleSubmit}>
-                                    <div className="form-grid">
-                                        {/* Row 1 */}
-                                        <div>
-                                            <label>Full Name *</label>
-                                            <input
-                                                type="text"
-                                                placeholder="Dr. Ahmed Khan"
-                                                value={formData.fullName}
-                                                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                                                required
-                                            />
-                                        </div>
-                                        <div>
-                                            <label>Email *</label>
-                                            <input
-                                                type="email"
-                                                placeholder="doctor@example.com"
-                                                value={formData.email}
-                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                required
-                                            />
+                            <div className="modal-overlay" onClick={() => setShowAddForm(false)}>
+                                <div className="form-card" onClick={(e) => e.stopPropagation()}>
+                                    <h2>Add New Doctor</h2>
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="form-grid">
+                                            {/* Row 1 */}
+                                            <div>
+                                                <label>Full Name *</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Dr. Ahmed Khan"
+                                                    value={formData.fullName}
+                                                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Email *</label>
+                                                <input
+                                                    type="email"
+                                                    placeholder="doctor@example.com"
+                                                    value={formData.email}
+                                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                    required
+                                                />
+                                            </div>
+
+                                            {/* Row 2 */}
+                                            <div>
+                                                <label>Phone *</label>
+                                                <input
+                                                    type="tel"
+                                                    placeholder="+923001234567"
+                                                    value={formData.phone}
+                                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Password *</label>
+                                                <input
+                                                    type="password"
+                                                    placeholder="Enter password"
+                                                    value={formData.password}
+                                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                                    required
+                                                />
+                                            </div>
+
+                                            {/* Row 3 */}
+                                            <div>
+                                                <label>Speciality *</label>
+                                                <select
+                                                    value={formData.speciality}
+                                                    onChange={(e) => setFormData({ ...formData, speciality: e.target.value })}
+                                                    required
+                                                >
+                                                    <option value="">Select Speciality</option>
+                                                    <option value="Cardiology">Cardiology</option>
+                                                    <option value="General Physician">General Physician</option>
+                                                    <option value="Orthopedic">Orthopedic</option>
+                                                    <option value="Physiotherapy">Physiotherapy</option>
+                                                    <option value="Dentistry">Dentistry</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label>Experience (Years) *</label>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    max="50"
+                                                    placeholder="5"
+                                                    value={formData.experienceYears}
+                                                    onChange={(e) => setFormData({ ...formData, experienceYears: e.target.value })}
+                                                    required
+                                                />
+                                            </div>
+
+                                            {/* Row 4 */}
+                                            <div>
+                                                <label>Consultation Fee (PKR) *</label>
+                                                <input
+                                                    type="number"
+                                                    min="500"
+                                                    max="10000"
+                                                    placeholder="1500"
+                                                    value={formData.consultationFee}
+                                                    onChange={(e) => setFormData({ ...formData, consultationFee: e.target.value })}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Languages</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="English, Urdu"
+                                                    value={formData.language}
+                                                    onChange={(e) => setFormData({ ...formData, language: e.target.value })}
+                                                />
+                                            </div>
+
+
                                         </div>
 
-                                        {/* Row 2 */}
-                                        <div>
-                                            <label>Phone *</label>
-                                            <input
-                                                type="tel"
-                                                placeholder="+923001234567"
-                                                value={formData.phone}
-                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                required
-                                            />
+                                        <div className="form-actions">
+                                            <button type="button" className="secondary-btn" onClick={() => setShowAddForm(false)}>
+                                                Cancel
+                                            </button>
+                                            <button type="submit" className="primary-btn">
+                                                Save Doctor
+                                            </button>
                                         </div>
-                                        <div>
-                                            <label>Password *</label>
-                                            <input
-                                                type="password"
-                                                placeholder="Enter password"
-                                                value={formData.password}
-                                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                                required
-                                            />
-                                        </div>
-
-                                        {/* Row 3 */}
-                                        <div>
-                                            <label>Speciality *</label>
-                                            <select
-                                                value={formData.speciality}
-                                                onChange={(e) => setFormData({ ...formData, speciality: e.target.value })}
-                                                required
-                                            >
-                                                <option value="">Select Speciality</option>
-                                                <option value="Cardiology">Cardiology</option>
-                                                <option value="General Physician">General Physician</option>
-                                                <option value="Orthopedic">Orthopedic</option>
-                                                <option value="Physiotherapy">Physiotherapy</option>
-                                                <option value="Dentistry">Dentistry</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label>Experience (Years) *</label>
-                                            <input
-                                                type="number"
-                                                min="0"
-                                                max="50"
-                                                placeholder="5"
-                                                value={formData.experienceYears}
-                                                onChange={(e) => setFormData({ ...formData, experienceYears: e.target.value })}
-                                                required
-                                            />
-                                        </div>
-
-                                        {/* Row 4 */}
-                                        <div>
-                                            <label>Consultation Fee (PKR) *</label>
-                                            <input
-                                                type="number"
-                                                min="500"
-                                                max="10000"
-                                                placeholder="1500"
-                                                value={formData.consultationFee}
-                                                onChange={(e) => setFormData({ ...formData, consultationFee: e.target.value })}
-                                                required
-                                            />
-                                        </div>
-                                        <div>
-                                            <label>Languages</label>
-                                            <input
-                                                type="text"
-                                                placeholder="English, Urdu"
-                                                value={formData.language}
-                                                onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-                                            />
-                                        </div>
-
-                                 
-                                    </div>
-
-                                    <div className="form-actions">
-                                        <button type="button" className="secondary-btn" onClick={() => setShowAddForm(false)}>
-                                            Cancel
-                                        </button>
-                                        <button type="submit" className="primary-btn">
-                                            Save Doctor
-                                        </button>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         )}
                     </div>

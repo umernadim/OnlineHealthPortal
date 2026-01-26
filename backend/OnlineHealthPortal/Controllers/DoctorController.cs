@@ -38,7 +38,7 @@ namespace OnlineHealthPortal.Controllers
                     photo = d.User.ProfilePhoto != null
     ? $"{Request.Scheme}://{Request.Host}/{d.User.ProfilePhoto}"
     : $"{Request.Scheme}://{Request.Host}/images/default-avatar.jpg",
-
+    bio = d.Bio,
                     speciality = d.Speciality,
                     experienceYears = d.ExperienceYears,
                     consultationFee = d.ConsultationFee,

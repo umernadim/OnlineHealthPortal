@@ -22,16 +22,16 @@ export default function Appointments() {
         try {
             setLoading(true);
             console.log("Loading dashboard data...");
-            
+
             const [appointmentsRes, doctorsRes] = await Promise.all([
                 api.get("/Admin/appointments"),
                 api.get("/Admin/doctors")
             ]);
-            
+
             console.log("✅ Appointments:", appointmentsRes.data?.length);
             console.log("✅ Doctors:", doctorsRes.data);
             console.table(doctorsRes.data);
-            
+
             setAppointments(appointmentsRes.data || []);
             setDoctors(doctorsRes.data || []);
         } catch (err) {
@@ -43,14 +43,14 @@ export default function Appointments() {
 
     // ✅ FIXED DATE FILTERING + DOCTOR MATCHING
     const filteredAppointments = appointments.filter(appointment => {
-        const matchesDate = !filters.date || 
+        const matchesDate = !filters.date ||
             appointment.appointmentDate.startsWith(filters.date.split('T')[0]);
-        
-        const matchesDoctor = !filters.doctor || 
+
+        const matchesDoctor = !filters.doctor ||
             appointment.doctorName === filters.doctor;
-        
+
         const matchesStatus = !filters.status || appointment.status === filters.status;
-        
+
         return matchesDate && matchesDoctor && matchesStatus;
     });
 
@@ -66,7 +66,7 @@ export default function Appointments() {
                         setSidebarOpen={setSidebarOpen}
                     />
                     <div style={{ textAlign: 'center', padding: '100px', color: '#666' }}>
-                        <div style={{ fontSize: '48px', marginBottom: '20px' }}>📅</div>
+                        <div style={{ fontSize: '48px', marginBottom: '20px' }}></div>
                         <div style={{ fontSize: '24px' }}>Loading appointments...</div>
                     </div>
                 </main>
@@ -87,19 +87,18 @@ export default function Appointments() {
                     />
 
                     {/* ✅ FIXED FILTERS */}
-                    <div className="appointment-filters" style={{ 
-                        display: 'flex', gap: '16px', marginBottom: '24px', 
-                        flexWrap: 'wrap', padding: '20px', background: '#f8f9fa', 
-                        borderRadius: '12px' 
+                    <div className="appointment-filters" style={{
+                        display: 'flex', gap: '16px', marginBottom: '24px',
+                        flexWrap: 'wrap', padding: '20px', background: 'white',
+                        borderRadius: '12px'
                     }}>
-                    
-                        
+
+
                         {/* ✅ DYNAMIC DOCTORS - FIXED */}
-                        <select 
+                        <select
                             value={filters.doctor}
-                            onChange={(e) => setFilters({...filters, doctor: e.target.value})}
-                            style={{ padding: '10px 14px', border: '1px solid #ddd', 
-                                borderRadius: '8px', minWidth: '250px' }}
+                            onChange={(e) => setFilters({ ...filters, doctor: e.target.value })}
+                         
                         >
                             <option value="">All Doctors ({doctors.length})</option>
                             {doctors.map((doctor) => (
@@ -108,12 +107,11 @@ export default function Appointments() {
                                 </option>
                             ))}
                         </select>
-                        
-                        <select 
+
+                        <select
                             value={filters.status}
-                            onChange={(e) => setFilters({...filters, status: e.target.value})}
-                            style={{ padding: '10px 14px', border: '1px solid #ddd', 
-                                borderRadius: '8px', minWidth: '160px' }}
+                            onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                            
                         >
                             <option value="">All Status</option>
                             <option>Pending</option>
@@ -121,12 +119,11 @@ export default function Appointments() {
                             <option>Completed</option>
                             <option>Cancelled</option>
                         </select>
-                        
-                        <button 
+
+                        <button
                             className="primary-btn"
                             onClick={loadDashboardData}
-                            style={{ padding: '10px 24px', background: '#007bff', color: 'white',
-                                border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                            
                         >
                             Refresh
                         </button>
@@ -135,19 +132,20 @@ export default function Appointments() {
                     {/* APPOINTMENTS LIST */}
                     <div className="appointments-list">
                         {filteredAppointments.length === 0 ? (
-                            <div style={{ textAlign: 'center', padding: '80px', color: '#666',
-                                background: '#f8f9fa', borderRadius: '12px', margin: '20px 0' }}>
-                                <div style={{ fontSize: '64px', marginBottom: '20px' }}>📅</div>
+                            <div style={{
+                                textAlign: 'center', padding: '80px', color: '#666',
+                                background: '#f8f9fa', borderRadius: '12px', margin: '20px 0'
+                            }}>
+                                <div style={{ fontSize: '64px', marginBottom: '20px' }}></div>
                                 <h3 style={{ margin: '0 0 10px 0' }}>No appointments found</h3>
                                 <p style={{ margin: '0 0 30px 0' }}>
-                                    {filters.date || filters.doctor || filters.status ? 
-                                        'Try adjusting your filters' : 
+                                    {filters.date || filters.doctor || filters.status ?
+                                        'Try adjusting your filters' :
                                         'No appointments in the system yet'
                                     }
                                 </p>
                                 <button className="primary-btn" onClick={loadDashboardData}
-                                    style={{ padding: '12px 24px', background: '#28a745', color: 'white',
-                                        border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '16px' }}>
+                                   >
                                     Reload Appointments
                                 </button>
                             </div>
@@ -155,14 +153,10 @@ export default function Appointments() {
                             filteredAppointments.map((appointment) => (
                                 <div key={appointment.id} className={`appointment-card ${appointment.status.toLowerCase()}`}
                                     style={{
-                                        display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
-                                        padding: '24px', marginBottom: '16px', background: 'white', 
-                                        borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                                        borderLeft: `5px solid ${
-                                            appointment.status === 'Confirmed' ? '#28a745' :
-                                            appointment.status === 'Completed' ? '#007bff' :
-                                            appointment.status === 'Cancelled' ? '#dc3545' : '#ffc107'
-                                        }`
+                                        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                        padding: '24px', marginBottom: '16px', background: 'white',
+                                        borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                                       
                                     }}
                                 >
                                     <div style={{ flex: 1 }}>
@@ -170,13 +164,13 @@ export default function Appointments() {
                                             {appointment.patientName}
                                         </h4>
                                         <div style={{ color: '#666', marginBottom: '8px', fontSize: '15px' }}>
-                                            👨‍⚕️ {appointment.doctorName}
+                                            {appointment.doctorName}
                                             <span style={{ fontSize: '14px', opacity: 0.7, fontStyle: 'italic' }}>
                                                 ({appointment.doctorSpeciality})
                                             </span>
                                         </div>
                                         <p style={{ margin: '0', color: '#666', fontSize: '15px' }}>
-                                            📅 {appointment.appointmentDate} • {appointment.appointmentTime}
+                                            {appointment.appointmentDate} • {appointment.appointmentTime}
                                             <br />
                                             <small style={{ color: '#999' }}>
                                                 {appointment.type} • Created: {appointment.createdAt}
@@ -185,14 +179,14 @@ export default function Appointments() {
                                     </div>
 
                                     <div style={{
-                                        padding: '12px 20px', borderRadius: '25px', fontWeight: 'bold', 
+                                        padding: '12px 20px', borderRadius: '25px', fontWeight: 'bold',
                                         fontSize: '14px', minWidth: '120px', textAlign: 'center',
                                         background: appointment.status === 'Confirmed' ? '#d4edda' :
-                                                   appointment.status === 'Completed' ? '#cce7ff' :
-                                                   appointment.status === 'Cancelled' ? '#f8d7da' : '#fff3cd',
+                                            appointment.status === 'Completed' ? '#cce7ff' :
+                                                appointment.status === 'Cancelled' ? '#f8d7da' : '#fff3cd',
                                         color: appointment.status === 'Confirmed' ? '#155724' :
-                                              appointment.status === 'Completed' ? '#004085' :
-                                              appointment.status === 'Cancelled' ? '#721c24' : '#856404'
+                                            appointment.status === 'Completed' ? '#004085' :
+                                                appointment.status === 'Cancelled' ? '#721c24' : '#856404'
                                     }}>
                                         {appointment.status}
                                     </div>

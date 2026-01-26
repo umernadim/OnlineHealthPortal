@@ -5,9 +5,11 @@ import {
 import SideBar from './components/SideBar';
 import AdminHeader from './components/AdminHeader';
 import api from "../../service/axios";  // ✅ Your axios instance
+import { useNavigate } from 'react-router-dom';
 
 const AdminPanel = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const navigate = useNavigate();
     const [stats, setStats] = useState({
         totalUsers: 0, totalDoctors: 0, totalPatients: 0,
         totalAppointments: 0, activeAppointments: 0,
@@ -51,7 +53,7 @@ const AdminPanel = () => {
                         setSidebarOpen={setSidebarOpen}
                     />
                     <div style={{ textAlign: 'center', padding: '100px', color: '#666' }}>
-                        <div style={{ fontSize: '48px', marginBottom: '20px' }}>📊</div>
+                        <div style={{ fontSize: '48px', marginBottom: '20px' }}></div>
                         <div style={{ fontSize: '24px' }}>Loading dashboard...</div>
                     </div>
                 </main>
@@ -67,7 +69,7 @@ const AdminPanel = () => {
                 <div className="dashboard">
                     {/* HEADER */}
                     <AdminHeader
-                        title="📊 Admin Dashboard"
+                        title=" Admin Dashboard"
                         subtitle={`Clinic overview - Last updated ${new Date().toLocaleTimeString()}`}
                         sidebarOpen={sidebarOpen}
                         setSidebarOpen={setSidebarOpen}
@@ -89,7 +91,7 @@ const AdminPanel = () => {
                         </div>
                         <div className="stat-card">
                             <h4>Active Appointments</h4>
-                            <h2 style={{ color: '#28a745' }}>{stats.activeAppointments.toLocaleString()}</h2>
+                            <h2>{stats.activeAppointments.toLocaleString()}</h2>
                         </div>
                     </div>
 
@@ -117,19 +119,19 @@ const AdminPanel = () => {
                             <h3>Quick Actions</h3>
                             <button 
                                 className="primary-btn"
-                                onClick={() => window.location.href = '/appointments'}
+                                onClick={() =>  navigate('/appointments')}
                             >
                                  Recent Appointments ({stats.totalAppointments})
                             </button>
                             <button 
                                 className="primary-btn"
-                                onClick={() => window.location.href = '/manageDoctors'}
+                                onClick={() => navigate ('/manageDoctors')}
                             >
                                 Pending Doctors ({stats.pendingDoctors})
                             </button>
                             <button 
                                 className="primary-btn"
-                                onClick={() => window.location.href = '/managePatients'}
+                                onClick={() => navigate ('/managePatients')}
                             >
                                 New Registrations ({stats.totalUsers})
                             </button>

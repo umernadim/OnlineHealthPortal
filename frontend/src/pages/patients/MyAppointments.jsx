@@ -3,6 +3,7 @@ import SidebarPat from "./components/SidebarPat";
 import api from "../../service/axios";
 import { useAuth } from "../../context/AuthContext";
 import PatientHeader from "./components/PatientHeader";
+import { Link } from "react-router";
 
 export default function MyAppointments() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -117,7 +118,7 @@ export default function MyAppointments() {
                         setSidebarOpen={setSidebarOpen}
                     />
                     <div style={{ textAlign: 'center', padding: '50px' }}>
-                        <div style={{ fontSize: '24px', color: '#007bff' }}>Loading...</div>
+                        <div style={{ fontSize: '24px', color: '#5c6a5c' }}>Loading...</div>
                     </div>
                 </main>
             </div>
@@ -188,7 +189,7 @@ export default function MyAppointments() {
                                                 onClick={() => handleJoinVideo(appt)}
                                                 style={{
                                                     padding: '10px 18px',
-                                                    background: 'linear-gradient(135deg, #007bff, #0056b3)',
+                                                    background: '#5c6f5c',
                                                     color: 'white',
                                                     border: 'none',
                                                     borderRadius: '8px',
@@ -197,20 +198,16 @@ export default function MyAppointments() {
                                                     cursor: 'pointer',
                                                     display: 'flex',
                                                     alignItems: 'center',
-                                                    gap: '8px',
-                                                    boxShadow: '0 4px 12px rgba(0,123,255,0.3)',
-                                                    transition: 'all 0.2s ease'
+                                                    gap: '8px',                                                    transition: 'all 0.2s ease'
                                                 }}
                                                 onMouseEnter={(e) => {
                                                     e.target.style.transform = 'translateY(-2px)';
-                                                    e.target.style.boxShadow = '0 6px 20px rgba(0,123,255,0.4)';
                                                 }}
                                                 onMouseLeave={(e) => {
                                                     e.target.style.transform = 'translateY(0)';
-                                                    e.target.style.boxShadow = '0 4px 12px rgba(0,123,255,0.3)';
                                                 }}
                                             >
-                                                📹 Video Call
+                                                Video Call
                                             </button>
 
                                             {/* ✅ WHATSAPP SHARE BUTTON - NEW! */}
@@ -218,12 +215,12 @@ export default function MyAppointments() {
                                                 onClick={() => {
                                                     const doctorName = appt.doctorName || 'Your Doctor';
                                                     const dateTime = new Date(appt.appointmentDate).toLocaleString('en-PK');
-                                                    const msg = `*📅 Video Consultation Started!*\n\n👨‍⚕️ Doctor: ${doctorName}\n📅 Date & Time: ${dateTime}\n📱 Join now: ${window.location.origin}/patient/video/${appt.meetingLink}\n\n*Don't miss your appointment!*`;
+                                                    const msg = `*Video Consultation Started!*\n\nDoctor: ${doctorName}\nDate & Time: ${dateTime}\nJoin now: ${window.location.origin}/patient/video/${appt.meetingLink}\n\n*Don't miss your appointment!*`;
                                                     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
                                                 }}
                                                 style={{
                                                     padding: '10px 14px',
-                                                    background: '#25D366',
+                                                    background: '#5c6f5c',
                                                     color: 'white',
                                                     border: 'none',
                                                     borderRadius: '8px',
@@ -233,7 +230,6 @@ export default function MyAppointments() {
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     gap: '6px',
-                                                    boxShadow: '0 4px 12px rgba(37,211,102,0.4)',
                                                     transition: 'all 0.2s ease'
                                                 }}
                                                 onMouseEnter={(e) => {
@@ -246,7 +242,7 @@ export default function MyAppointments() {
                                                 }}
                                                 title="Share with Family/Group on WhatsApp"
                                             >
-                                                📱 Share
+                                                Share
                                             </button>
                                         </>
                                     )}
@@ -272,7 +268,7 @@ export default function MyAppointments() {
                                                 onClick={() => handleCancel(appt.id)}
                                                 style={{
                                                     padding: '10px 16px',
-                                                    background: '#dc3545',
+                                                    background: '#b22836',
                                                     color: 'white',
                                                     border: 'none',
                                                     borderRadius: '8px',
@@ -295,18 +291,18 @@ export default function MyAppointments() {
                             <i style={{ fontSize: '64px', display: 'block', marginBottom: '20px' }}></i>
                             <h3 style={{ marginBottom: '12px', color: '#333' }}>No upcoming appointments</h3>
                             <p>Book your first consultation with a doctor</p>
-                            <a href="/doctors" style={{
-                                color: '#007bff',
+                            <Link to="/doctors" style={{
+                                color: '#5c6a5c',
                                 textDecoration: 'none',
                                 padding: '12px 24px',
-                                border: '2px solid #007bff',
+                                border: '2px solid #5c6a5c',
                                 borderRadius: '8px',
                                 fontWeight: '500',
                                 display: 'inline-block',
                                 marginTop: '16px'
                             }}>
                                 Book Appointment →
-                            </a>
+                            </Link>
                         </div>
                     )}
                 </div>
@@ -334,8 +330,8 @@ export default function MyAppointments() {
                                     </p>
                                     <span style={{
                                         padding: '6px 14px',
-                                        background: '#e3f2fd',
-                                        color: '#1976d2',
+                                        background: '#dee1de',
+                                        color: '#5c6a5c',
                                         borderRadius: '20px',
                                         fontSize: '13px'
                                     }}>
@@ -343,16 +339,18 @@ export default function MyAppointments() {
                                     </span>
                                 </div>
                                 <div style={{ display: 'flex', gap: '12px' }}>
-                                    <button style={{
+                                    <Link to="/prescriptions" style={{
                                         padding: '10px 16px',
                                         border: '1px solid #ddd',
                                         background: 'white',
                                         borderRadius: '8px',
                                         fontSize: '14px',
-                                        cursor: 'pointer'
+                                        cursor: 'pointer',
+                                        textDecoration: 'none',
+                                        color: '#5c6a5c'
                                     }}>
                                         View Prescription
-                                    </button>
+                                    </Link>
 
                                 </div>
                             </div>

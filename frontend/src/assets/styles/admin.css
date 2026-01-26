@@ -94,16 +94,18 @@ body {
   background: #465a487b;
 }
 
-.logout-btn{
+.logout-btn {
   background: none;
   outline: none;
   border: none;
   color: white;
 }
-.logout-btn span{
+
+.logout-btn span {
   font-size: 15px;
 }
-.logout-btn i{
+
+.logout-btn i {
   margin-right: 15px;
 }
 
@@ -292,6 +294,7 @@ body {
 **********************************/
 .manage-doctors {
   min-height: 100vh;
+  position: relative;
 }
 
 /* HEADER */
@@ -339,9 +342,6 @@ body {
   cursor: pointer;
 }
 
-/*************************
-  Code for Table Layont
-**************************/
 .table-card {
   background: white;
   border-radius: 25px;
@@ -392,13 +392,34 @@ body {
   font-weight: 600;
 }
 
-/* FORM */
+.manage-doctors .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
 .manage-doctors .form-card {
-  background: white;
+  padding: 30px 40px;
   border-radius: 25px;
-  padding: 35px;
-  border: 1px solid #5c6f5c37;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  background: white;
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideIn 0.3s ease-out;
 }
 
 .manage-doctors .form-card h2 {
@@ -414,9 +435,23 @@ body {
 
 .manage-doctors .form-grid input,
 .manage-doctors .form-grid select {
-  padding: 14px 20px;
+  padding: 10px 20px;
   border-radius: 30px;
   border: 1px solid #d8dfd8;
+  margin-left: 10px;
+}
+
+.form-card .form-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.form-card .form-actions button {
+  padding: 8px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -471,10 +506,10 @@ body {
     display: none;
   }
 
-  /* FORM */
   .manage-doctors .form-card {
     border-radius: 15px;
     padding: 20px;
+
   }
 
   .manage-doctors .form-card h2 {
@@ -519,6 +554,7 @@ body {
 .manage-patients .header-bottom {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .manage-patients .action-btn {
@@ -594,112 +630,141 @@ body {
 /*************************************
   Code For  Appointments Dashboard
 **************************************/
+.appointments-page {
+  min-height: 100vh;
+}
+
 .appointments-page .page-header h1 {
   color: var(--heading-color);
-  margin-bottom: 25px;
   font-size: 30px;
+  margin-bottom: 25px;
 }
 
 .appointments-page .appointment-filters {
   display: flex;
-  gap: 15px;
+  gap: 16px;
   margin-bottom: 25px;
+  flex-wrap: wrap;
+  padding: 20px;
+  background: #f9fbf9;
+  border-radius: 20px;
+  border: 1px solid #dfe6df;
 }
 
-.appointments-page .appointment-filters input,
-.appointments-page .appointment-filters select {
-  padding: 12px 18px;
+.appointments-page .appointment-filters select,
+.appointments-page .appointment-filters input {
+  padding: 12px 22px;
   border-radius: 30px;
-  border: 1px solid #d8dfd8;
+  border: 1px solid #cfd8cf;
+  background: #ffffff;
+  color: #2f3e2f;
+  min-width: 220px;
+}
+
+.appointments-page .primary-btn {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background: var(--btn-color);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.appointments-page .primary-btn:hover {
+  background: var(--btn-hover-color);
 }
 
 .appointments-page .appointments-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
 .appointments-page .appointment-card {
-  background: white;
-  padding: 25px;
-  border-radius: 25px;
+  background: #ffffff;
+  padding: 26px;
+  border-radius: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  border: 1px solid #e1e7e1;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .appointments-page .appointment-card h4 {
-  color: var(--heading-color);
+  color: #2f3e2f;
+  font-size: 18px;
+  margin-bottom: 6px;
 }
 
 .appointments-page .appointment-card span {
-  font-size: 13px;
-  color: #777;
+  font-size: 14px;
+  color: var(--text-color);
 }
 
 .appointments-page .appointment-card p {
-  font-size: 13px;
-  color: #777;
+  font-size: 14px;
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
-/* STATUS */
 .appointments-page .status {
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-size: 14px;
   font-weight: 600;
+  min-width: 120px;
+  text-align: center;
 }
 
-.appointments-page .status.upcoming {
-  color: #ff9800;
+.appointments-page .status.confirmed {
+  background: #e6f4ea;
+  color: #2e7d32;
 }
 
 .appointments-page .status.completed {
-  color: #4caf50;
+  background: #e8f1ec;
+  color: #3e5d42;
+}
+
+.appointments-page .status.pending {
+  background: #fff3cd;
+  color: #856404;
 }
 
 .appointments-page .status.cancelled {
-  color: #e57373;
+  background: #fdecea;
+  color: #b71c1c;
 }
 
-/* ACTIONS */
-.appointments-page .actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.appointments-page .action-btn {
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1px solid #556b57;
-  background: transparent;
-  color: #556b57;
-  cursor: pointer;
-}
-
-.appointments-page .danger-btn {
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: none;
-  background: #e57373;
-  color: white;
-  cursor: pointer;
+.appointments-page .empty-state {
+  text-align: center;
+  padding: 80px;
+  background: #f9fbf9;
+  border-radius: 24px;
+  border: 1px solid #dfe6df;
+  color: #6b7c6b;
 }
 
 @media screen and (max-width: 768px) {
   .appointments-page .appointment-filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 16px;
   }
 
   .appointments-page .appointment-card {
-    padding: 25px;
-    border-radius: 25px;
-    gap: 10px;
+    padding: 20px;
+    border-radius: 18px;
+    gap: 12px;
   }
 
-  .appointments-page .actions {
-    gap: 10px;
+  .appointments-page .status {
+    width: 100%;
+    margin-top: 10px;
   }
 }
 
@@ -866,23 +931,23 @@ body {
 
 
 @media screen and (max-width: 768px) {
-.setting-page .settings-card {
-  padding: 20px;
-  border-radius: 15px;
-}
+  .setting-page .settings-card {
+    padding: 20px;
+    border-radius: 15px;
+  }
 
-.setting-page .settings-card h3 {
-  margin-bottom: 20px;
-}
+  .setting-page .settings-card h3 {
+    margin-bottom: 20px;
+  }
 
-.setting-page .config-grid {
-  grid-template-columns: repeat(1, 1fr);
-}
+  .setting-page .config-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
-.setting-page .config-grid select {
-  padding: 12px 18px;
-}
- 
+  .setting-page .config-grid select {
+    padding: 12px 18px;
+  }
+
 }
 
 /*********************************

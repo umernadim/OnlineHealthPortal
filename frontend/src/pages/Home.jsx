@@ -5,6 +5,7 @@ import doctorImg4 from "../assets/images/img4.png";
 import doctorImg3 from "../assets/images/img3.png";
 import Testimonial from '../components/Testimonial';
 import CallToAction from '../components/CallToAction';
+import { Link } from 'react-router';
 
 
 const Home = () => {
@@ -18,13 +19,13 @@ const Home = () => {
             <h1>Destination<br />For Relief<br />& Wellness</h1>
             <div className="underline"></div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-              tellus, luctus nec ullamcorper.
+              Smart healthcare starts here.
+              Find the right doctor and book appointments instantly.
             </p>
-            <button className="hero-btn">
+            <Link className="hero-btn" to="/login">
               <i className="ri-phone-fill"></i>
               MAKE APPOINTMENT
-            </button>
+            </Link>
           </div>
 
           <div className="hero-image">
@@ -53,19 +54,19 @@ const Home = () => {
         <div className="about-container">
           <div className="about-content">
             <span className="section-tag">ABOUT US</span>
-            <h2>We Are The Best<br />Physiotheraphy in Town</h2>
+            <h2>We Provide Trusted<br />Healthcare Services</h2>
             <div className="line"></div>
 
             <div className="features">
               <ul>
-                <li>✔ Lorem ipsum dolor sit amet</li>
-                <li>✔ Lorem ipsum dolor sit amet</li>
-                <li>✔ Lorem ipsum dolor sit amet</li>
+                <li>✔ Easy online doctor appointment booking</li>
+                <li>✔ Secure and patient-friendly health portal</li>
+                <li>✔ Experienced doctors & certified physiotherapists</li>
               </ul>
               <ul>
-                <li>✔ Lorem ipsum dolor sit amet</li>
-                <li>✔ Lorem ipsum dolor sit amet</li>
-                <li>✔ Lorem ipsum dolor sit amet</li>
+                <li>✔ Personalized treatment plans for every patient</li>
+                <li>✔ Modern, responsive, and user-friendly interface</li>
+                <li>✔ 24/7 access to healthcare support</li>
               </ul>
             </div>
           </div>
@@ -150,9 +151,9 @@ const Home = () => {
             <div className="wc-line"></div>
 
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam.
+              Choosing the right healthcare partner matters.
+              Our Online Health Portal is designed to make your journey simple, secure, and stress-free.
+              With experienced doctors, easy appointment booking, and patient-first care, we ensure you get the support you deserve.
             </p>
 
             <div className="progress-item">
@@ -233,11 +234,11 @@ const Home = () => {
         </div>
       </section>
 
-        {/* Code for Testimonial Section  */}
-        <Testimonial></Testimonial>
-        {/* Code for CTA Section  */}
-        <CallToAction></CallToAction>
-         </>
+      {/* Code for Testimonial Section  */}
+      <Testimonial></Testimonial>
+      {/* Code for CTA Section  */}
+      <CallToAction></CallToAction>
+    </>
   )
 }
 

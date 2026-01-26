@@ -3,20 +3,20 @@ import CallToAction from "../components/CallToAction";
 
 const faqs = [
   {
-    question: "Q: How many sessions will I need?",
+    question: "Q: How do I book a video consultation?",
     answer:
-      "The number of sessions varies depending on your condition and treatment goals. During your initial consultation, our chiropractors will assess your needs and recommend a personalized treatment plan.",
+      "Simply choose your preferred doctor from our portal, select a suitable time slot, and confirm your booking. You will receive a secure link to join the video consultation.",
   },
   {
-    question: "Q: Is chiropractic care safe?",
+    question: "Q: Can I consult with any doctor?",
     answer:
-      "Yes, chiropractic care is widely considered safe when performed by licensed and trained professionals.",
+      "Yes, our healthcare portal allows you to book appointments with a wide range of qualified doctors across different specialties.",
   },
   {
-    question: "Q: Will my insurance cover chiropractic care?",
+    question: "Q: Is my video consultation secure?",
     answer:
-      "Coverage varies by provider. Please contact your insurance company to confirm chiropractic benefits.",
-    green: true, // optional styling flag
+      "Absolutely. All consultations are conducted through encrypted channels to ensure your privacy and data security.",
+    green: true,
   },
 ];
 const About = () => {
@@ -33,30 +33,31 @@ const About = () => {
         <div className="about-container">
           <div className="about-text">
             <span className="about-top">ABOUT US</span>
-            <h2>We Are The Best<br />Physiotheraphy in Town</h2>
+            <h2>We Provide<br /> Trusted Healthcare Services</h2>
             <div className="about-line"></div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam,
+              Our Online Health Portal is built to make healthcare simple, secure, and accessible.
+              From booking doctor appointments to receiving expert physiotherapy care,
+              we ensure every patient gets personalized attention and reliable support.
+              Your health, our priority.
             </p>
 
             <div className="about-features">
               <div className="feature">
                 <h4>Vision</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, anamka consectetur adipiscing elit
-                  ala. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar
-                  dapibus leo.
+                  To create a modern, patient-centered healthcare platform that connects people
+                  with trusted doctors and physiotherapists, ensuring convenience, transparency,
+                  and quality care for everyone.
                 </p>
               </div>
 
               <div className="feature">
                 <h4>Mission</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, anamka consectetur adipiscing elit
-                  ala. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar
-                  dapibus leo.
+                  To simplify healthcare through technology — offering easy appointment booking,
+                  secure access to medical services, and personalized treatment plans that
+                  empower patients to take control of their health journey.
                 </p>
               </div>
             </div>
@@ -97,9 +98,10 @@ const About = () => {
             <div className="faq-line"></div>
 
             <p className="faq-desc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam.
+              Have questions about how our Online Health Portal works?
+              We’ve got the answers. From booking appointments to connecting with trusted doctors,
+              our FAQ section is here to guide you every step of the way.
+
             </p>
 
             {/* FAQ Items */}

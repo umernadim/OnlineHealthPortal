@@ -29,7 +29,7 @@ const DoctorProfile = () => {
     // ✅ image handling (important)
     const imageUrl = doctor.photo?.startsWith("http")
         ? doctor.photo
-        : `https://localhost:7058/${doctor.photo}`;
+        : `https://localhost:7224/${doctor.photo}`;
 
     return (
         <section id="doctor-profile">
@@ -64,10 +64,7 @@ const DoctorProfile = () => {
                             <h3>{doctor.experienceYears || 0}+</h3>
                             <span>Years Experience</span>
                         </div>
-                        <div>
-                            <h3>{doctor.patientsTreated}+</h3>
-                            <span>Patients Treated</span>
-                        </div>
+                      
 
                         <div>
                             <h3>{doctor.rating || "4"}</h3>

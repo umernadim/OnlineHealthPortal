@@ -28,8 +28,7 @@ const MyNavbar = () => {
             </div>
 
             <div className="nav-actions">
-              <Link to="login" className="nav-btn outline">Login</Link>
-              <Link to="#" className="nav-btn filled">Appointment</Link>
+              <Link to="login" className="nav-btn outline">Get Started</Link>
             </div>
           </nav>
         </div>

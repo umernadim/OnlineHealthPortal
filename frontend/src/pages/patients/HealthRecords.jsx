@@ -118,20 +118,22 @@ export default function HealthRecords() {
                     </div>
 
                     {showUploadForm && (
-                        <form onSubmit={handleUpload} style={{ marginTop: '20px', padding: '20px', background: '#f8f9fa', borderRadius: '8px' }}>
+                        <form onSubmit={handleUpload} style={{ marginTop: '20px', padding: '20px', background: 'white', borderRadius: '8px' }}>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
                                 <input
                                     type="text"
                                     placeholder="Record Title (e.g. Chest X-Ray)"
                                     value={formData.title}
                                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                    style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+                                    style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '6px',
+                                        background: '#F3F5F1'
+                                     }}
                                     required
                                 />
                                 <select
                                     value={formData.recordType}
                                     onChange={(e) => setFormData({ ...formData, recordType: e.target.value })}
-                                    style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+                                    style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '6px',background: '#F3F5F1' }}
                                 >
                                     <option value="Xray">X-Ray/Imaging</option>
                                     <option value="LabReport">Lab Report</option>
@@ -146,12 +148,12 @@ export default function HealthRecords() {
                                     type="date"
                                     value={formData.recordDate}
                                     onChange={(e) => setFormData({ ...formData, recordDate: e.target.value })}
-                                    style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+                                    style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '6px',background: '#F3F5F1' }}
                                 />
                                 <input
                                     type="file"
                                     onChange={(e) => setFile(e.target.files[0])}
-                                    style={{ padding: '10px' }}
+                                    style={{ padding: '10px',background: '#F3F5F1' }}
                                     required
                                 />
                             </div>
@@ -160,14 +162,15 @@ export default function HealthRecords() {
                                 value={formData.notes}
                                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                                 rows={3}
-                                style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px', marginBottom: '15px' }}
+                                style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px', marginBottom: '15px',background: '#F3F5F1' }}
                             />
                             <button
                                 type="submit"
                                 disabled={uploading || !file}
                                 style={{
-                                    width: '100%', padding: '12px', background: uploading || !file ? '#ccc' : '#5C6A5C',
-                                    color: 'white', border: 'none', borderRadius: '6px', fontSize: '16px'
+                                    width: '100%', padding: '12px', background: uploading || !file ? '#5c6f5c' : '#5C6A5C',
+                                    color: 'white', border: 'none', borderRadius: '6px', fontSize: '16px',
+                                    cursor: 'pointer'
                                 }}
                             >
                                 {uploading ? "Uploading..." : "Upload Record"}
@@ -183,7 +186,7 @@ export default function HealthRecords() {
                         <div style={{ overflowX: 'auto' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                 <thead>
-                                    <tr style={{ background: '#f8f9fa' }}>
+                                    <tr>
                                         <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #dee2e6' }}>Type</th>
                                         <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #dee2e6' }}>Title</th>
                                         <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #dee2e6' }}>Date</th>
@@ -207,7 +210,7 @@ export default function HealthRecords() {
                                                         rel="noopener noreferrer"
                                                         style={{ color: '#5C6A5C', textDecoration: 'none' }}
                                                     >
-                                                        📎 {record.fileName}
+                                                        {record.fileName}
                                                     </a>
                                                 ) : "No file"}
                                             </td>
@@ -220,7 +223,7 @@ export default function HealthRecords() {
 
                         : (
                             <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-                                <i style={{ fontSize: '48px', display: 'block', marginBottom: '16px' }}>📋</i>
+                                <i style={{ fontSize: '48px', display: 'block', marginBottom: '16px' }}></i>
                                 <p>No health records found. Upload your first record above!</p>
                             </div>
                         )}

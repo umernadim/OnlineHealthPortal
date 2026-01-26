@@ -12,11 +12,8 @@ const Footer = () => {
                             <h3>HealthCare</h3>
                         </div>
 
-                        <div className="divider"></div>
-
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-                            tellus, luctus nec ullamcorper mattis, pulvinar dapibu
+                           Connecting patients and doctors with ease. Healthcare made simple, anytime, anywhere."
                         </p>
 
                         <div className="socials">

@@ -149,7 +149,6 @@ export default function PatientRecords() {
                         </div>
                     ) : (
                         <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-                            <i style={{ fontSize: '48px', display: 'block', marginBottom: '16px' }}>📋</i>
                             <p>No health records found for this patient.</p>
                         </div>
                     )}

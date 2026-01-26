@@ -151,7 +151,7 @@ export default function ProfileAvailability() {
                       height: '80px',
                       borderRadius: '50%',
                       objectFit: 'cover',
-                      border: '3px solid #007bff'
+                      border: '3px solid #F3F5F1'
                     }}
                     onError={(e) => {
                       e.target.style.display = 'none';
@@ -263,7 +263,7 @@ export default function ProfileAvailability() {
                 {availabilityEdit || profile?.availability || '9AM–1PM, 5PM–9PM'} ✓
               </span>
             </div>
-            <div style={{ marginTop: '10px', padding: '10px', border: '1px solid #ddd' }}>
+            <div style={{ marginTop: '10px', padding: '10px'}}>
               <textarea
                 value={availabilityEdit}
                 onChange={(e) => setAvailabilityEdit(e.target.value)}

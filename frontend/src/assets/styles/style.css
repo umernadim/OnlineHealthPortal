@@ -250,7 +250,9 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
-    width: 250px;
+    font-size: 13px;
+    padding: 10px 20px;
+    text-decoration: none;
 }
 
 #hero-banner .hero-btn i {
@@ -1592,7 +1594,7 @@ body {
     color: var(--text-color);
     line-height: 1.5;
     margin-bottom: 30px;
-    max-width: 500px;
+    max-width: 650px;
 }
 
 .faq-item {

@@ -8,6 +8,7 @@ export default function DoctorDashboard() {
 
   const { user } = useAuth();
   const [appointments, setAppointments] = useState([]);
+    const [statusFilter, setStatusFilter] = useState("all");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // ===============================
@@ -40,15 +41,16 @@ export default function DoctorDashboard() {
     }
   };
 
-  // ===============================
-  // DERIVED DATA
-  // ===============================
   const todayAppointments = appointments.filter(
     a => new Date(a.appointmentDate).toDateString() === new Date().toDateString()
   );
 
   const pendingAppointments = appointments.filter(
     a => a.status === "Pending"
+  );
+
+   const filteredAppointments = appointments.filter(
+    (a) => statusFilter === "all" || a.status.toLowerCase() === statusFilter,
   );
 
   return (
@@ -87,7 +89,10 @@ export default function DoctorDashboard() {
 
           <div className="stat-card">
             <h3>Earnings</h3>
-            <span>$0</span>
+            <span> {" "}
+              {filteredAppointments.filter((a) => a.status === "Completed")
+                .length * 1000}
+            </span>
           </div>
         </div>
 

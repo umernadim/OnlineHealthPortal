@@ -74,31 +74,26 @@ export default function PatientList() {
                 <div className="filter-bar" style={{ 
                     display: 'flex', gap: '15px', marginBottom: '20px', 
                     flexWrap: 'wrap', alignItems: 'center',
-                    padding: '15px', background: '#f8f9fa', borderRadius: '8px'
+                    padding: '15px', background: 'white', borderRadius: '8px'
                 }}>
                     <input 
                         type="text" 
                         placeholder="Search patient name..." 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{ padding: '8px 12px', border: '1px solid #ddd', borderRadius: '6px', flex: 1, minWidth: '200px' }}
+                        style={{ padding: '8px 12px', border: '1px solid #ddd', borderRadius: '6px', flex: 1, minWidth: '200px', background: '#F3F5F1', outline: 'none' }}
                     />
                     <select 
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value)}
-                        style={{ padding: '8px 12px', border: '1px solid #ddd', borderRadius: '6px' }}
+                        style={{ padding: '8px 12px', border: '1px solid #ddd', borderRadius: '6px', background: '#F3F5F1' }}
                     >
                         <option value="all">All Status</option>
                         <option value="active">Active</option>
                         <option value="completed">Completed</option>
                     </select>
-                    <input 
-                        type="date" 
-                        style={{ padding: '8px 12px', border: '1px solid #ddd', borderRadius: '6px' }}
-                    />
-                    <button className="primary-btn" style={{ padding: '8px 16px' }}>
-                        Export CSV
-                    </button>
+                 
+                  
                 </div>
 
                 {/* PATIENT TABLE */}
@@ -114,7 +109,7 @@ export default function PatientList() {
                         <div style={{ overflowX: 'auto' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                 <thead>
-                                    <tr style={{ background: '#f8f9fa' }}>
+                                    <tr>
                                         <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #dee2e6' }}>
                                             Patient Name
                                         </th>
@@ -167,7 +162,7 @@ export default function PatientList() {
                                                         fontSize: '14px'
                                                     }}
                                                 >
-                                                    📋 View Records
+                                                    View Records
                                                 </button>
                                             </td>
                                         </tr>
@@ -177,7 +172,7 @@ export default function PatientList() {
                         </div>
                     ) : (
                         <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-                            <i style={{ fontSize: '48px', display: 'block', marginBottom: '16px' }}>👥</i>
+                      
                             <h3>No Patients Found</h3>
                             <p>No patients match your current filters.</p>
                         </div>

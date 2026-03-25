@@ -13,51 +13,68 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   };
 
-const login = async (form) => {
-  const res = await axios.post(`${API_URL}/login`, form);
+  const login = async (form) => {
+    const res = await axios.post(`${API_URL}/login`, form);
 
-  const token = res.data.Token || res.data.token;
-  if (!token) throw new Error("Token not received");
+    const token = res.data.Token || res.data.token;
+    if (!token) throw new Error("Token not received");
 
-  const decoded = jwtDecode(token);
+    const decoded = jwtDecode(token);
 
-  const role =
-    decoded.role ||
-    decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    const role =
+      decoded.role ||
+      decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-  const name =
-    decoded.name ||
-    decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+    const name =
+      decoded.name ||
+      decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
-  const id =
-    decoded.nameid ||
-    decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+    const id =
+      decoded.nameid ||
+      decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
 
-  const userData = { id, name, role };
+    const userData = { id, name, role };
 
-  localStorage.setItem("token", token);
-  localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(userData));
 
-  setUser(userData);
+    setUser(userData);
 
-  return userData;
-};
-
-
-const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-  setUser(null);
-};
+    return userData;
+  };
 
 
-useEffect(() => {
-  const storedUser = localStorage.getItem("user");
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+  };
 
-  if (storedUser) {
-    setUser(JSON.parse(storedUser));
-  }
-}, []);
+
+  useEffect(() => {
+    const initAuth = () => {
+      const token = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+
+      if (token && storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+          console.log("✅ User restored from localStorage");
+        } catch (error) {
+          console.error("❌ Invalid user data");
+          localStorage.clear();
+        }
+      }
+    };
+
+    initAuth();
+
+    // Multi-tab sync
+    window.addEventListener('storage', initAuth);
+    return () => window.removeEventListener('storage', initAuth);
+  }, []);
+
+
 
 
   const forgotPassword = async (email) => {

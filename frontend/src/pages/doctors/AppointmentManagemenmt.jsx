@@ -52,6 +52,21 @@ export default function AppointmentManagement() {
     }
   };
 
+// ✅ SHARE FUNCTION ADD
+const shareOnWhatsApp = (appointment) => {
+  const message = `🩺 Appointment Confirmed!\n\n` +
+    
+    `Date: ${new Date(appointment.appointmentDate).toLocaleDateString('en-GB')}\n` +
+    `Time: ${new Date(appointment.appointmentDate).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}\n\n` +
+    `Join Video Call: ${window.location.origin}/doctor/video/${appointment.meetingLink}\n\n` +
+    `See you soon! 👋`;
+
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+};
+
+
+
   const handleBatchStatus = async (status) => {
     await Promise.all(
       selected.map((id) => api.put(`/Appointment/${id}/status`, { status }))
@@ -197,14 +212,19 @@ export default function AppointmentManagement() {
                           style={btn(theme.primary)}
                           onClick={() => handleJoinVideo(a)}
                         >
-                           Call
+                          Call
                         </button>
-                        <button style={btn(theme.success)}>Share</button>
+                        <button
+                          style={btn(theme.success)}
+                          onClick={() => shareOnWhatsApp(a)}
+                        >
+                          Share
+                        </button>
                         <button
                           style={btn(theme.warning)}
                           onClick={() => updateStatus(a.id, "Completed")}
                         >
-                           Complete
+                          Complete
                         </button>
                       </>
                     )}
@@ -221,7 +241,7 @@ export default function AppointmentManagement() {
                           style={btn(theme.danger)}
                           onClick={() => updateStatus(a.id, "Rejected")}
                         >
-                           Reject
+                          Reject
                         </button>
                       </>
                     )}
@@ -231,7 +251,7 @@ export default function AppointmentManagement() {
                         style={btn(theme.primaryDark)}
                         onClick={() => navigate(`/prescriptionWriter/${a.id}`)}
                       >
-                         Prescription
+                        Prescription
                       </button>
                     )}
                   </td>

@@ -392,16 +392,45 @@ namespace OnlineHealthPortal.Controllers
 
                 if (doctor == null) return NotFound("Doctor not found");
 
-                // Simple approach - just get distinct patients
+                // ✅ FIXED: REAL APPOINTMENT DATES!
                 var patients = await _context.Patients
                     .Where(p => _context.Appointments.Any(a =>
                         a.PatientId == p.Id && a.DoctorId == doctor.Id))
                     .Select(p => new
                     {
                         id = p.Id,
-                        fullName = p.User.FullName ,
-                        lastVisit = DateTime.Now.AddDays(-7).ToString("dd MMM yyyy"), 
-                        nextAppointment = DateTime.Now.AddDays(5).ToString("dd MMM yyyy"),
+                        fullName = p.User.FullName,
+
+                        // ✅ LAST VISIT: Actual last appointment date
+                        lastVisit = _context.Appointments
+                            .Where(a => a.PatientId == p.Id && a.DoctorId == doctor.Id)
+                            .OrderByDescending(a => a.AppointmentDate)
+                            .Select(a => a.AppointmentDate)
+                            .FirstOrDefault() != null
+        ? _context.Appointments
+            .Where(a => a.PatientId == p.Id && a.DoctorId == doctor.Id)
+            .OrderByDescending(a => a.AppointmentDate)
+            .Select(a => a.AppointmentDate)
+            .FirstOrDefault()!.Value.ToString("dd MMM yyyy")
+        : "No visit",
+
+                        // ✅ NEXT APPOINTMENT: Future appointments
+                        nextAppointment = _context.Appointments
+                            .Where(a => a.PatientId == p.Id && a.DoctorId == doctor.Id
+                                       && a.AppointmentDate > DateTime.Now
+                                       && (a.Status == "Scheduled" || a.Status == "Confirmed"))
+                            .OrderBy(a => a.AppointmentDate)
+                            .Select(a => a.AppointmentDate)
+                            .FirstOrDefault() != null
+        ? _context.Appointments
+            .Where(a => a.PatientId == p.Id && a.DoctorId == doctor.Id
+                        && a.AppointmentDate > DateTime.Now
+                        && (a.Status == "Scheduled" || a.Status == "Confirmed"))
+            .OrderBy(a => a.AppointmentDate)
+            .Select(a => a.AppointmentDate)
+            .FirstOrDefault()!.Value.ToString("dd MMM yyyy")
+        : "None scheduled",
+
                         status = "active",
                         recordCount = _context.HealthRecords.Count(h => h.PatientId == p.Id)
                     })
@@ -417,6 +446,7 @@ namespace OnlineHealthPortal.Controllers
                 return StatusCode(500, "Server error");
             }
         }
+
 
     }
 }

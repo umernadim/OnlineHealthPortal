@@ -234,11 +234,9 @@ export default function MyAppointments() {
                                                 }}
                                                 onMouseEnter={(e) => {
                                                     e.target.style.transform = 'translateY(-2px)';
-                                                    e.target.style.boxShadow = '0 6px 20px rgba(37,211,102,0.5)';
                                                 }}
                                                 onMouseLeave={(e) => {
                                                     e.target.style.transform = 'translateY(0)';
-                                                    e.target.style.boxShadow = '0 4px 12px rgba(37,211,102,0.4)';
                                                 }}
                                                 title="Share with Family/Group on WhatsApp"
                                             >

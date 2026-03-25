@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj": {}
+    "D:\\Umer\\Projects\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj": {}
   },
   "projects": {
-    "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj": {
+    "D:\\Umer\\Projects\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj",
+        "projectUniqueName": "D:\\Umer\\Projects\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj",
         "projectName": "OnlineHealthPortal",
-        "projectPath": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj",
+        "projectPath": "D:\\Umer\\Projects\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\OnlineHealthPortal.csproj",
         "packagesPath": "C:\\Users\\Muhammad Umer\\.nuget\\packages\\",
-        "outputPath": "D:\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\obj\\",
+        "outputPath": "D:\\Umer\\Projects\\OnlineHealthPortal\\backend\\OnlineHealthPortal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -26,11 +26,11 @@ export default function Prescriptions() {
     };
 
     // Filter prescriptions by tab
-    const activePrescriptions = prescriptions.filter(p => 
-        !p.isCompleted && new Date(p.createdAt) > new Date(Date.now() - 30*24*60*60*1000) // Last 30 days
+    const activePrescriptions = prescriptions.filter(p =>
+        !p.isCompleted && new Date(p.createdAt) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Last 30 days
     );
-    const pastPrescriptions = prescriptions.filter(p => 
-        p.isCompleted || new Date(p.createdAt) < new Date(Date.now() - 30*24*60*60*1000)
+    const pastPrescriptions = prescriptions.filter(p =>
+        p.isCompleted || new Date(p.createdAt) < new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
     );
 
     if (loading) {
@@ -65,12 +65,12 @@ export default function Prescriptions() {
                 />
 
                 {/* TABS */}
-                <div style={{ 
-                    display: 'flex', gap: '8px', marginBottom: '24px', 
+                <div style={{
+                    display: 'flex', gap: '8px', marginBottom: '24px',
                     background: '#f8f9fa', padding: '8px', borderRadius: '12px',
                     maxWidth: '400px'
                 }}>
-                    <button 
+                    <button
                         className={`tab-btn ${activeTab === 'active' ? 'active' : ''}`}
                         onClick={() => setActiveTab('active')}
                         style={{
@@ -82,7 +82,7 @@ export default function Prescriptions() {
                     >
                         Active ({activePrescriptions.length})
                     </button>
-                    <button 
+                    <button
                         className={`tab-btn ${activeTab === 'past' ? 'active' : ''}`}
                         onClick={() => setActiveTab('past')}
                         style={{
@@ -118,7 +118,7 @@ export default function Prescriptions() {
                                         </p>
                                     </div>
                                     <div className="actions" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                
+
                                         <span className="badge active" style={{
                                             padding: '6px 12px', background: '#d4edda', color: '#155724',
                                             borderRadius: '20px', fontSize: '12px', fontWeight: 'bold'
@@ -153,7 +153,7 @@ export default function Prescriptions() {
                                         </p>
                                     </div>
                                     <div className="actions" style={{ display: 'flex', gap: '8px' }}>
-                                        <button 
+                                        <button
                                             className="btn-outline"
                                             style={{
                                                 padding: '8px 16px', background: 'transparent', color: '#5C6A5C',
@@ -170,22 +170,6 @@ export default function Prescriptions() {
                     </div>
                 )}
 
-                {/* REMINDERS SECTION */}
-                <div className="record-card">
-                    <h3>Medicine Reminders</h3>
-                    <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-                        <p>Reminder feature coming soon!</p>
-                        <button 
-                            onClick={loadPrescriptions}
-                            style={{
-                                padding: '12px 24px', background: '#5C6A5C', color: 'white',
-                                border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer', marginTop: '16px'
-                            }}
-                        >
-                             Refresh Prescriptions
-                        </button>
-                    </div>
-                </div>
             </main>
         </div>
     );

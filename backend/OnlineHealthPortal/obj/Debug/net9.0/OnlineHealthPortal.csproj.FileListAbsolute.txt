@@ -166,3 +166,5 @@ D:\OnlineHealthPortal\backend\OnlineHealthPortal\obj\Debug\net9.0\OnlineHealthPo
 D:\OnlineHealthPortal\backend\OnlineHealthPortal\obj\Debug\net9.0\ref\OnlineHealthPortal.dll
 D:\OnlineHealthPortal\backend\OnlineHealthPortal\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\OnlineHealthPortal\backend\OnlineHealthPortal\bin\Debug\net9.0\OnlineHealthPortal.staticwebassets.runtime.json
+D:\OnlineHealthPortal\backend\OnlineHealthPortal\obj\Debug\net9.0\compressed\7ov3rv8al1-pl3r8o8472.gz
+D:\OnlineHealthPortal\backend\OnlineHealthPortal\obj\Debug\net9.0\compressed\bjr32v52at-pl3r8o8472.gz
